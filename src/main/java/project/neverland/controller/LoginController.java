@@ -1,4 +1,4 @@
-package project.neverland;
+package project.neverland.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import project.neverland.models.AccountList;
+import project.neverland.services.DataBase;
 
 import java.io.IOException;
 
@@ -19,25 +21,25 @@ public class LoginController {
     PasswordField passwordField;
     @FXML
     Button loginBtn;
-    private PersonList personList;
+    private AccountList accountList;
     private DataBase dataBase;
 
     @FXML public void initialize(){
         dataBase = new DataBase();
-        personList = dataBase.getPersonData();
+        accountList = dataBase.getPersonData();
     }
 
     @FXML public void loginBtnAction(ActionEvent event) throws IOException {
 //        System.out.println("can run method");
-        if(personList.login(textField.getText(),passwordField.getText())){
+        if(accountList.login(textField.getText(),passwordField.getText())){
             Button b = (Button) event.getSource();
             Stage stage = (Stage) b.getScene().getWindow();
-            if(personList.getCurrentPerson().isRole("admin")){
+            if(accountList.getCurrentPerson().isRole("admin")){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/adminStage.fxml"));
                 stage.setScene(new Scene(loader.load(),960, 600));
                 AdminStageController adminStageController = loader.getController();
-                adminStageController.setAdmin(personList.getCurrentPerson());
-                adminStageController.setPeople(personList);
+                adminStageController.setAdmin(accountList.getCurrentPerson());
+                adminStageController.setAccountList(accountList);
             }
         }else{
             Alert alert = new Alert(Alert.AlertType.WARNING);

@@ -1,4 +1,4 @@
-package project.neverland;
+package project.neverland.services;
 
 import java.util.HashMap;
 import java.util.Map;
