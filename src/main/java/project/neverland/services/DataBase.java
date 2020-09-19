@@ -46,10 +46,6 @@ public class DataBase {
         a.setPassword("1234");
         people.addAccount(a);
 
-        a = new Account("Admin","Narongrit","Thammapalo","resident");
-        a.setPassword("1234");
-        people.addAccount(a);
-
         return people;
     }
 }

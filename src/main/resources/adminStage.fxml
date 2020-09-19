@@ -54,9 +54,14 @@
             <Font size="25.0" />
          </font>
       </Button>
-      <Button fx:id="repassword" layoutX="679.0" layoutY="497.0" mnemonicParsing="false" onAction="#reSetPassword" prefHeight="54.0" prefWidth="174.0" text="Repassword">
+      <Button fx:id="rePassword" layoutX="679.0" layoutY="497.0" mnemonicParsing="false" onAction="#reSetPassword" prefHeight="54.0" prefWidth="174.0" text="Repassword">
          <font>
             <Font size="25.0" />
+         </font>
+      </Button>
+      <Button fx:id="home" layoutX="865.0" layoutY="14.0" mnemonicParsing="false" onAction="#homeBtnAction" text="HOME">
+         <font>
+            <Font size="19.0" />
          </font>
       </Button>
    </children>

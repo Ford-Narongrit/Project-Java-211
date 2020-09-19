@@ -14,7 +14,7 @@ import project.neverland.models.AccountList;
 
 import java.io.IOException;
 
-public class RegisterController {
+public class RegisterWorkerStageController {
     private Account admin;
     private AccountList accountList;
     @FXML
@@ -39,7 +39,8 @@ public class RegisterController {
     @FXML
     private void signUpBtnAction(ActionEvent event) throws IOException{
         if (!accountList.isUsernameDuplicate(username.getText()) && checkConfirmPassword()) {
-            Account account = new Account(username.getText(), password.getText(), firstName.getText(), lastName.getText(), "worker");
+            Account account = new Account(username.getText(), firstName.getText(), lastName.getText(), "worker");
+            account.setPassword(password.getText());
             accountList.addAccount(account);
             Button b = (Button) event.getSource();
             Stage stage = (Stage) b.getScene().getWindow();
@@ -48,6 +49,12 @@ public class RegisterController {
             AdminStageController adminStageController = loader.getController();
             adminStageController.setAccountList(accountList);
             adminStageController.setAdmin(admin);
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("failed to sign up");
+            alert.setHeaderText("This username has already used");
+            alert.showAndWait();
         }
     }
 

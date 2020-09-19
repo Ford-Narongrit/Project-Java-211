@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverland.controller.RegisterController">
+<AnchorPane prefHeight="600.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverland.controller.RegisterWorkerStageController">
    <children>
       <TextField fx:id="firstName" layoutX="115.0" layoutY="142.0" prefHeight="43.0" prefWidth="305.0" promptText="firstname">
          <font>

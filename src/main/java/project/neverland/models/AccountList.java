@@ -30,7 +30,7 @@ public class AccountList {
         return false;
     }
 
-    public Account getCurrentPerson() {
+    public Account getCurrentAccount() {
         return currentAccount;
     }
 

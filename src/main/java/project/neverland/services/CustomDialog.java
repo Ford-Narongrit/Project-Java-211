@@ -72,7 +72,7 @@ public class CustomDialog {
     }
 
     public boolean isCheckNotnull() {
-        return checkNotnull;
+        return checkNotnull && (getOutput() != null);
     }
 
     public void getResult() {

@@ -1,19 +1,14 @@
 package project.neverland.controller;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import project.neverland.models.Account;
 import project.neverland.models.AccountList;
 import project.neverland.services.CustomDialog;
@@ -21,22 +16,21 @@ import project.neverland.services.StringConfiguration;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class AdminStageController {
     private Account admin;
 
     private AccountList accountList;
     private Account selectedAccount;
-    private ObservableList peopleObservableList;
+    private ObservableList accountObservableList;
     @FXML
     private Label nameWorker;
     @FXML
     private Label usernameWorker;
     @FXML
-    private Button banBtn,unBanBtn,repassword;
+    private Button banBtn, unBanBtn, rePassword;
     @FXML
-    private Button registerBtn;
+    private Button registerBtn, home;
     @FXML
     private TableView<Account> accountTable;
 
@@ -52,14 +46,15 @@ public class AdminStageController {
     }
 
     private void showData() {
-        peopleObservableList = FXCollections.observableArrayList(accountList.toList());
-        accountTable.setItems(peopleObservableList);
+        accountObservableList = FXCollections.observableArrayList(accountList.toList());
+        accountTable.setItems(accountObservableList);
 
         ArrayList<StringConfiguration> configs = new ArrayList<>();
         configs.add(new StringConfiguration("title:Username", "field:username", "width:0.2"));
         configs.add(new StringConfiguration("title:Firstname", "field:firstName", "width:0.3"));
         configs.add(new StringConfiguration("title:Lastname", "field:lastName", "width:0.3"));
         configs.add(new StringConfiguration("title:Banstage", "field:ban", "width:0.2"));
+        configs.add(new StringConfiguration("title:Password", "field:password", "width:0.7"));
 
         for (StringConfiguration conf : configs) {
             TableColumn col = new TableColumn(conf.get("title"));
@@ -70,15 +65,14 @@ public class AdminStageController {
         }
     }
 
-    public void showSelectedAccount(Account account){
+    public void showSelectedAccount(Account account) {
         selectedAccount = account;
         nameWorker.setText(selectedAccount.getFirstName());
         usernameWorker.setText(selectedAccount.getUsername());
         if (!selectedAccount.isBan()) {
             banBtn.setDisable(false);
             unBanBtn.setDisable(true);
-        }
-        else {
+        } else {
             banBtn.setDisable(true);
             unBanBtn.setDisable(false);
         }
@@ -93,7 +87,7 @@ public class AdminStageController {
         showData();
     }
 
-    public void unBanBtnAction(){
+    public void unBanBtnAction() {
         selectedAccount.setBan(false);
         clearSelectedAccount();
         accountTable.refresh();
@@ -110,11 +104,11 @@ public class AdminStageController {
     public void registerBtnAction(ActionEvent event) throws IOException {
         Button b = (Button) event.getSource();
         Stage stage = (Stage) b.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/registerStage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/registerWorkerStage.fxml"));
         stage.setScene(new Scene(loader.load(), 960, 600));
-        RegisterController registerController = loader.getController();
-        registerController.setAccountList(accountList);
-        registerController.setAdmin(admin);
+        RegisterWorkerStageController registerWorkerStageController = loader.getController();
+        registerWorkerStageController.setAccountList(accountList);
+        registerWorkerStageController.setAdmin(admin);
     }
 
     private void clearSelectedAccount() {
@@ -124,15 +118,25 @@ public class AdminStageController {
     }
 
     @FXML
-    private void reSetPassword() {
+    private void reSetPassword() throws IOException {
         CustomDialog customDialog = new CustomDialog();
-        customDialog.setTitleAndHeaderDialog("Login","Tessssttttt");
+        customDialog.setTitleAndHeaderDialog("Repassword", "Please enter new password.");
         customDialog.addButton("Confirm");
         customDialog.createFields();
         customDialog.getResult();
-        if(customDialog.isCheckNotnull()){
+        if (customDialog.isCheckNotnull()) {
             admin.setPassword(customDialog.getOutput());
-//            System.out.println(admin.toString());
+            System.out.println(admin.toString());
         }
+    }
+
+    @FXML
+    private void homeBtnAction(ActionEvent event) throws IOException {
+        Button b = (Button) event.getSource();
+        Stage stage = (Stage) b.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginStage.fxml"));
+        stage.setScene(new Scene(loader.load(), 960, 600));
+        LoginStageController loginStageController = loader.getController();
+        loginStageController.setAccountList(accountList);
     }
 }

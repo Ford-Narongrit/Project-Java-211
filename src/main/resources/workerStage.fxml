@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.WorkerStage"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="600.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverland.controller.WorkerStageController">
+   <children>
+      <Label fx:id="header" layoutX="14.0" layoutY="14.0" prefHeight="49.0" prefWidth="107.0" text="Worker">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <TableView fx:id="inboxTable" layoutX="14.0" layoutY="63.0" prefHeight="475.0" prefWidth="529.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="80.0" />
+      <Button fx:id="rePassword" layoutX="583.0" layoutY="506.0" mnemonicParsing="false" onAction="#reSetPassword" prefHeight="49.0" prefWidth="107.0" text="Repassword" />
+      <Button fx:id="register" layoutX="714.0" layoutY="506.0" mnemonicParsing="false" onAction="#registerResidentAction" prefHeight="49.0" prefWidth="107.0" text="Register Res" />
+      <Button fx:id="addInbox" layoutX="583.0" layoutY="429.0" mnemonicParsing="false" onAction="#addInboxAction" prefHeight="49.0" prefWidth="107.0" text="Add Inbox" />
+      <Label fx:id="to" layoutX="609.0" layoutY="80.0" prefHeight="41.0" prefWidth="248.0" text="Label" />
+      <Label fx:id="from" layoutX="609.0" layoutY="121.0" prefHeight="41.0" prefWidth="248.0" text="Label" />
+      <Label fx:id="size" layoutX="609.0" layoutY="162.0" prefHeight="41.0" prefWidth="248.0" text="Label" />
+      <Button fx:id="home" layoutX="857.0" layoutY="14.0" mnemonicParsing="false" onAction="#homeBtnAction" prefHeight="49.0" prefWidth="82.0" text="home" />
+   </children>
 </AnchorPane>
