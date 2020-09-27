@@ -29,8 +29,7 @@ public class LoginStageController {
         accountList = dataBase.getPersonData();
     }
 
-    @FXML public void loginBtnAction(ActionEvent event) throws IOException {
-//        System.out.println("can run method");
+    public void loginBtnAction(ActionEvent event) throws IOException {
         if(accountList.login(textField.getText(),passwordField.getText())){
             Button b = (Button) event.getSource();
             Stage stage = (Stage) b.getScene().getWindow();
@@ -39,6 +38,7 @@ public class LoginStageController {
                 alert.setTitle("Your account is Ban.");
                 alert.setHeaderText("Please try again.");
                 alert.showAndWait();
+                accountList.getCurrentAccount().banCountAddOne();
                 passwordField.clear();
             }
             else if(accountList.getCurrentAccount().isRole("admin")){
@@ -59,7 +59,6 @@ public class LoginStageController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/residentStage.fxml"));
                 stage.setScene(new Scene(loader.load(),960, 600));
                 RegisterWorkerStageController registerWorkerStageController = loader.getController();
-
             }
         }
         else{
@@ -71,6 +70,12 @@ public class LoginStageController {
         }
     }
 
+    public void registerResidentBtnAction(){
+        //load
+    }
+    public void helpBtnAction(){
+        //load
+    }
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;
     }

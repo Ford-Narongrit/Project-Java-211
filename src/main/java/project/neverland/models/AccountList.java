@@ -36,5 +36,15 @@ public class AccountList {
 
     public ArrayList<Account> toList() {return accounts;}
 
+    public ArrayList<Account> toRoleList(String role){
+        ArrayList<Account> roleList = new ArrayList<>();
+        for(Account account: accounts){
+            if(account.isRole(role)){
+                roleList.add(account);
+            }
+        }
+        return roleList;
+    }
+
 }
 

@@ -5,15 +5,8 @@ import javafx.scene.image.Image;
 public class Document extends Mail{
     private String Degree;
 
-    public Document(Person personTo, Person personFrom, double size, String degree) {
-        super(personTo, personFrom, size);
+    public Document(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, String degree) {
+        super(sender, senderLocation, receiver, receiverLocation, size);
         Degree = degree;
-    }
-
-    @Override
-    public String toString() {
-        return "Document{" +
-                "Degree='" + Degree + '\'' +
-                '}';
     }
 }

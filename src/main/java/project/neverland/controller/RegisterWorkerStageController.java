@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import project.neverland.models.Account;
 import project.neverland.models.AccountList;
+import project.neverland.models.Person;
 
 import java.io.IOException;
 
@@ -18,17 +19,11 @@ public class RegisterWorkerStageController {
     private Account admin;
     private AccountList accountList;
     @FXML
-    TextField firstName;
+    TextField firstName, lastName, username;
     @FXML
-    TextField lastName;
+    PasswordField password, confirmPassword;
     @FXML
-    TextField username;
-    @FXML
-    PasswordField password;
-    @FXML
-    PasswordField confirmPassword;
-    @FXML
-    Button signUp;
+    Button signUp, cancel;
 
 
     @FXML
@@ -36,19 +31,32 @@ public class RegisterWorkerStageController {
 
     }
 
-    @FXML
-    private void signUpBtnAction(ActionEvent event) throws IOException{
-        if (!accountList.isUsernameDuplicate(username.getText()) && checkConfirmPassword()) {
-            Account account = new Account(username.getText(), firstName.getText(), lastName.getText(), "worker");
-            account.setPassword(password.getText());
-            accountList.addAccount(account);
-            Button b = (Button) event.getSource();
-            Stage stage = (Stage) b.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/adminStage.fxml"));
-            stage.setScene(new Scene(loader.load(),960, 600));
-            AdminStageController adminStageController = loader.getController();
-            adminStageController.setAccountList(accountList);
-            adminStageController.setAdmin(admin);
+    public void signUpBtnAction(ActionEvent event) throws IOException{
+        if (!accountList.isUsernameDuplicate(username.getText())) {
+            if(checkBoxNull()){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("failed to sign up");
+                alert.setHeaderText("any box id empty");
+                alert.showAndWait();
+            }
+            else if(!checkConfirmPassword()){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("failed to sign up");
+                alert.setHeaderText("ConfirmPassword not correct");
+                alert.showAndWait();
+            }
+            else {
+                Account account = new Account(username.getText(), new Person(firstName.getText(), lastName.getText()), "worker");
+                account.setPassword(password.getText());
+                accountList.addAccount(account);
+                Button b = (Button) event.getSource();
+                Stage stage = (Stage) b.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/adminStage.fxml"));
+                stage.setScene(new Scene(loader.load(), 960, 600));
+                AdminStageController adminStageController = loader.getController();
+                adminStageController.setAccountList(accountList);
+                adminStageController.setAdmin(admin);
+            }
         }
         else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -57,9 +65,21 @@ public class RegisterWorkerStageController {
             alert.showAndWait();
         }
     }
+    public void cancelBtnAction(ActionEvent event) throws IOException{
+        Button b = (Button) event.getSource();
+        Stage stage = (Stage) b.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/adminStage.fxml"));
+        stage.setScene(new Scene(loader.load(), 960, 600));
+        AdminStageController adminStageController = loader.getController();
+        adminStageController.setAccountList(accountList);
+        adminStageController.setAdmin(admin);
+    }
 
     private boolean checkConfirmPassword() {
         return password.getText().equals(confirmPassword.getText());
+    }
+    private boolean checkBoxNull(){
+        return (firstName.getText().equals("") || lastName.getText().equals("") || username.getText().equals("") || password.getText().equals(""));
     }
 
     public void setAccountList(AccountList accountList) {

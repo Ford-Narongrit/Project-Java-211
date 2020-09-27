@@ -51,7 +51,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <Button fx:id="signUp" layoutX="387.0" layoutY="458.0" mnemonicParsing="false" onAction="#signUpBtnAction" prefHeight="54.0" prefWidth="120.0" text="Sign up">
+      <Button fx:id="signUp" layoutX="324.0" layoutY="458.0" mnemonicParsing="false" onAction="#signUpBtnAction" prefHeight="54.0" prefWidth="120.0" text="Sign up">
          <font>
             <Font size="25.0" />
          </font>
@@ -66,5 +66,10 @@
             <Font size="18.0" />
          </font>
       </PasswordField>
+      <Button fx:id="cancel" layoutX="480.0" layoutY="458.0" mnemonicParsing="false" onAction="#cancelBtnAction" prefHeight="54.0" prefWidth="120.0" text="cancel">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

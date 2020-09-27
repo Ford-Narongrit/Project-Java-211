@@ -1,42 +1,43 @@
 package project.neverland.models;
 
-import javafx.scene.image.Image;
-
 public class Mail {
-    Person personTo;
-    Person personFrom;
-    double size;
-//    Image image;
+    private Person sender;
+    private String senderLocation;
+    private Person receiver;
+    private String receiverLocation;
+    private String size;
+    private boolean received;
+    private String imagePath;
 
-    public Mail(Person personTo, Person personFrom, double size) {
-        this.personTo = personTo;
-        this.personFrom = personFrom;
+    public Mail(Person sender, String senderLocation, Person receiver, String receiverLocation, String size) {
+        this.sender = sender;
+        this.senderLocation = senderLocation;
+        this.receiver = receiver;
+        this.receiverLocation = receiverLocation;
         this.size = size;
-//        this.image = image;
+        this.received = false;
+    }
+    public Person getSender() {
+        return sender;
     }
 
-    public Person getPersonTo() {
-        return personTo;
+    public Person getReceiver() {
+        return receiver;
     }
 
-    public Person getPersonFrom() {
-        return personFrom;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public double getSize() {
+    public String getSize() {
         return size;
     }
 
-//    public Image getImage() {
-//        return image;
-//    }
+    public boolean isReceived() {
+        return received;
+    }
 
-    @Override
-    public String toString() {
-        return "Mail{" +
-                "personTo=" + personTo +
-                ", personFrom=" + personFrom +
-                ", size=" + size +
-                '}';
+    public void setReceived(boolean received) {
+        this.received = received;
     }
 }
