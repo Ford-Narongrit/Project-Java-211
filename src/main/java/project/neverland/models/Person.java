@@ -1,5 +1,7 @@
 package project.neverland.models;
 
+import com.sun.org.apache.xpath.internal.objects.XString;
+
 public class Person {
     private String firstName;
     private String lastName;
@@ -17,6 +19,9 @@ public class Person {
         return lastName;
     }
 
+    public boolean isThisPerson(Person person){
+        return this.firstName.equals(person.getFirstName()) && this.lastName.equals(person.getLastName());
+    }
     @Override
     public String toString() {
         return "Person{" +
@@ -24,4 +29,5 @@ public class Person {
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
+
 }

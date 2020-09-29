@@ -28,7 +28,6 @@ public class WorkerStageController {
     private Mail selectedMail;
     private ObservableList mailObservableList;
 
-
     @FXML private Label header;
     @FXML private TableView<Mail> inboxTable;
     @FXML private Button rePassword,addInbox,removeBtn,register,home;

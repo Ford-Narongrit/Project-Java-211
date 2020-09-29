@@ -15,12 +15,9 @@ import project.neverland.services.DataBase;
 import java.io.IOException;
 
 public class LoginStageController {
-    @FXML
-    TextField textField;
-    @FXML
-    PasswordField passwordField;
-    @FXML
-    Button loginBtn;
+    @FXML TextField username;
+    @FXML PasswordField password;
+    @FXML Button loginBtn, registerRtn, help;
     private AccountList accountList;
     private DataBase dataBase;
 
@@ -30,7 +27,7 @@ public class LoginStageController {
     }
 
     public void loginBtnAction(ActionEvent event) throws IOException {
-        if(accountList.login(textField.getText(),passwordField.getText())){
+        if(accountList.login(username.getText(), password.getText())){
             Button b = (Button) event.getSource();
             Stage stage = (Stage) b.getScene().getWindow();
             if(accountList.getCurrentAccount().isBan()){
@@ -39,7 +36,7 @@ public class LoginStageController {
                 alert.setHeaderText("Please try again.");
                 alert.showAndWait();
                 accountList.getCurrentAccount().banCountAddOne();
-                passwordField.clear();
+                password.clear();
             }
             else if(accountList.getCurrentAccount().isRole("admin")){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/adminStage.fxml"));
@@ -66,12 +63,18 @@ public class LoginStageController {
             alert.setTitle("Can not found account");
             alert.setHeaderText("Incorrect Username or Password.");
             alert.showAndWait();
-            passwordField.clear();
+            password.clear();
         }
     }
 
-    public void registerResidentBtnAction(){
-        //load
+    public void registerResidentBtnAction(ActionEvent event) throws IOException {
+        Button b = (Button) event.getSource();
+        Stage stage = (Stage) b.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/registerAccountResidentStage.fxml"));
+        stage.setScene(new Scene(loader.load(),960, 600));
+        RegisterAccountResidentController accountResidentController = loader.getController();
+        accountResidentController.setAccountList(accountList);
+
     }
     public void helpBtnAction(){
         //load

@@ -28,7 +28,6 @@ public class RegisterWorkerStageController {
 
     @FXML
     public void initialize() {
-
     }
 
     public void signUpBtnAction(ActionEvent event) throws IOException{

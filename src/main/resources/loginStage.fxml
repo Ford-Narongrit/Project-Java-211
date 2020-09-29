@@ -7,19 +7,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverland.controller.LoginStageController" style="-fx-background-color: #fff;">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="960.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverland.controller.LoginStageController">
    <children>
       <Label alignment="CENTER" layoutX="66.0" layoutY="14.0" prefHeight="90.0" prefWidth="829.0" text="Project Name" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
          <font>
             <Font size="50.0" />
          </font>
       </Label>
-      <TextField fx:id="textField" layoutX="280.0" layoutY="205.0" prefHeight="40.0" prefWidth="400.0" promptText="Username" AnchorPane.topAnchor="205.0">
+      <TextField fx:id="username" layoutX="280.0" layoutY="205.0" prefHeight="40.0" prefWidth="400.0" promptText="Username" AnchorPane.topAnchor="205.0">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="passwordField" layoutX="280.0" layoutY="285.0" prefHeight="40.0" prefWidth="400.0" promptText="Password" AnchorPane.topAnchor="285.0">
+      <PasswordField fx:id="password" layoutX="280.0" layoutY="285.0" prefHeight="40.0" prefWidth="400.0" promptText="Password" AnchorPane.topAnchor="285.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -39,5 +39,15 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Button fx:id="registerRtn" layoutX="280.0" layoutY="453.0" mnemonicParsing="false" onAction="#registerResidentBtnAction" prefHeight="53.0" prefWidth="400.0" text="Register">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <Button fx:id="help" layoutX="14.0" layoutY="536.0" mnemonicParsing="false" onAction="#helpBtnAction" prefHeight="40.0" prefWidth="87.0" text="help">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
