@@ -8,9 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import project.neverland.models.Account;
 import project.neverland.models.AccountList;
+import project.neverland.models.Person;
 import project.neverland.services.CustomDialog;
 import project.neverland.services.StringConfiguration;
 
@@ -19,26 +21,28 @@ import java.util.ArrayList;
 
 public class AdminStageController {
     private Account admin;
-
     private AccountList accountList;
     private Account selectedAccount;
+
     private ObservableList accountObservableList;
-    @FXML private Label nameWorker;
-    @FXML private Label usernameWorker;
-    @FXML private Button banBtn, unBanBtn, rePassword;
-    @FXML private Button registerBtn, home;
+    @FXML private Pane registerPane, infoPane, adminPane;
+    @FXML private PasswordField password, confirmPassword;
+    @FXML private TextField firstName, lastName, username;
+    @FXML private Button banBtn, unBanBtn, rePassword, signUp, cancel;
+    @FXML private Button registerBtn, homeBtn, manageBtn, adminBtn;
     @FXML private TableView<Account> accountTable;
 
     @FXML
     public void initialize() {
-        banBtn.setDisable(true);
-        unBanBtn.setDisable(true);
+        banBtn.setVisible(false);
+        unBanBtn.setVisible(false);
         accountTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showSelectedAccount(newValue);
             }
         });
     }
+
     public void unBanBtnAction() {
         selectedAccount.setBan(false);
         clearSelectedAccount();
@@ -51,14 +55,51 @@ public class AdminStageController {
         accountTable.refresh();
     }
 
-    public void registerBtnAction(ActionEvent event) throws IOException {
-        Button b = (Button) event.getSource();
-        Stage stage = (Stage) b.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/registerWorkerStage.fxml"));
-        stage.setScene(new Scene(loader.load(), 960, 600));
-        RegisterWorkerStageController registerWorkerStageController = loader.getController();
-        registerWorkerStageController.setAccountList(accountList);
-        registerWorkerStageController.setAdmin(admin);
+    public void registerBtnAction(){
+        registerPane.toFront();
+    }
+
+    public void manageBtnAction(){
+        infoPane.toFront();
+    }
+
+    public void adminBtnAction(){
+        adminPane.toFront();
+    }
+
+    public void signUpBtnAction() {
+        if (!accountList.isUsernameDuplicate(username.getText())) {
+            if(checkBoxNull()){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("failed to sign up");
+                alert.setHeaderText("any box id empty");
+                alert.showAndWait();
+            }
+            else if(!checkConfirmPassword()){
+                password.clear();
+                confirmPassword.clear();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("failed to sign up");
+                alert.setHeaderText("ConfirmPassword not correct");
+                alert.showAndWait();
+            }
+            else {
+                Account account = new Account(username.getText(), new Person(firstName.getText(), lastName.getText()), "worker");
+                account.setPassword(password.getText());
+                accountList.addAccount(account);
+                clearAllBox();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("failed to sign up");
+                alert.setHeaderText("ConfirmPassword not correct");
+                alert.showAndWait();
+            }
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("failed to sign up");
+            alert.setHeaderText("This username has already used");
+            alert.showAndWait();
+        }
     }
 
     public void reSetPasswordBtnAction() throws IOException {
@@ -69,10 +110,12 @@ public class AdminStageController {
         customDialog.getResult();
         if (customDialog.isCheckNotnull()) {
             admin.setPassword(customDialog.getOutput());
-            System.out.println(admin.toString());
         }
     }
 
+    public void cancelBtnAction(){
+        clearAllBox();
+    }
 
     public void homeBtnAction(ActionEvent event) throws IOException {
         Button b = (Button) event.getSource();
@@ -103,27 +146,42 @@ public class AdminStageController {
 
     private void showSelectedAccount(Account account) {
         selectedAccount = account;
-        nameWorker.setText(selectedAccount.getPersonData().getFirstName());
-        usernameWorker.setText(selectedAccount.getUsername());
         if (!selectedAccount.isBan()) {
-            banBtn.setDisable(false);
-            unBanBtn.setDisable(true);
+            banBtn.setVisible(true);
+            unBanBtn.setVisible(false);
         } else {
-            banBtn.setDisable(true);
-            unBanBtn.setDisable(false);
+            unBanBtn.setVisible(true);
+            banBtn.setVisible(false);
         }
     }
+
     private void clearSelectedAccount() {
         selectedAccount = null;
         accountTable.getSelectionModel().clearSelection();
-        banBtn.setDisable(true);
-        unBanBtn.setDisable(true);
+        banBtn.setVisible(false);
+        unBanBtn.setVisible(false);
     }
+
+    private boolean checkBoxNull(){
+        return (firstName.getText().equals("") || lastName.getText().equals("") || username.getText().equals("") || password.getText().equals(""));
+    }
+
+    private boolean checkConfirmPassword() {
+        return password.getText().equals(confirmPassword.getText());
+    }
+
+    private void clearAllBox(){
+        firstName.clear();
+        lastName.clear();
+        username.clear();
+        password.clear();
+        confirmPassword.clear();
+    }
+
 
     public void setAdmin(Account admin) {
         this.admin = admin;
     }
-
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;
         showData();

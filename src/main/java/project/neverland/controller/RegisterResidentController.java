@@ -28,11 +28,6 @@ public class RegisterResidentController {
         Address address = new Address(building.getText(),Integer.parseInt(floor.getText()),roomNumber.getText(),roomType.getText());
         address.addPersonInRoom(new Person(firstName.getText(),lastName.getText()));
         addressList.addAddress(address);
-
-        Button b = (Button) event.getSource();
-        Stage stage = (Stage) b.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/workerStage.fxml"));
-        stage.setScene(new Scene(loader.load(), 960, 600));
     }
 
     public void cancelBtnAction(ActionEvent event) throws IOException {
