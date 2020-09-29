@@ -1,0 +1,33 @@
+.buttonLogin{
+    -fx-background-radius: 10;
+    -fx-background-color:  #7289da;
+}
+.buttonLogin:hover {
+    -fx-background-color:  #5e77d4;
+}
+.buttonLogin:pressed {
+    -fx-background-color:  #4a67cf;
+}
+
+
+.boxField{
+    -fx-background-color:  #303338;
+    -fx-text-fill:  #e4e5e5;
+    -fx-background-radius: 10;
+}
+.boxField:focused {
+    -fx-border-color: #7289da;
+}
+
+
+.labelRegister{
+    -fx-text-fill:  #7289da;
+}
+.labelRegister:hover{
+    -fx-text-fill:  #5e77d4;
+    -fx-underline: true;
+}
+.labelRegister:pressed{
+    -fx-text-fill:  #4a67cf;
+    -fx-underline: true;
+}

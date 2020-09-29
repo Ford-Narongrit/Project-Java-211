@@ -4,10 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import project.neverland.models.AccountList;
 import project.neverland.services.DataBase;
@@ -15,9 +13,10 @@ import project.neverland.services.DataBase;
 import java.io.IOException;
 
 public class LoginStageController {
+    @FXML Label register;
     @FXML TextField username;
     @FXML PasswordField password;
-    @FXML Button loginBtn, registerRtn, help;
+    @FXML Button loginBtn, help;
     private AccountList accountList;
     private DataBase dataBase;
 
@@ -67,8 +66,8 @@ public class LoginStageController {
         }
     }
 
-    public void registerResidentBtnAction(ActionEvent event) throws IOException {
-        Button b = (Button) event.getSource();
+    public void registerResidentAction(MouseEvent event) throws IOException {
+        Label b = (Label) event.getSource();
         Stage stage = (Stage) b.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/registerAccountResidentStage.fxml"));
         stage.setScene(new Scene(loader.load(),960, 600));
