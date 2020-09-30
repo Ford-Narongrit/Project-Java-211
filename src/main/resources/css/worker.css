@@ -1,0 +1,57 @@
+.buttonMenu{
+    -fx-background-color:  #303036;
+    -fx-background-radius: 0;
+}
+.buttonMenu:hover{
+    -fx-background-color:  #60606c;
+}
+.buttonMenu:pressed{
+    -fx-background-color:  #787887;
+}
+
+.buttonDefault{
+    -fx-text-fill:  #e4e5e5;
+    -fx-background-radius: 10;
+    -fx-background-color:  #7289da;
+}
+.buttonDefault:hover{
+    -fx-background-color:  #5e77d4;
+}
+.buttonDefault:pressed {
+     -fx-background-color:  #4a67cf;
+}
+
+ .buttonRemoveInbox{
+     -fx-text-fill:  #e4e5e5;
+     -fx-background-radius: 10;
+     -fx-background-color:  #7289da;
+}
+ .buttonRemoveInbox:hover{
+     -fx-background-color:  #ff0000;
+}
+ .buttonRemoveInbox:pressed {
+     -fx-background-color:  #b30000;
+}
+
+ .buttonCancel{
+     -fx-text-fill:  #e4e5e5;
+     -fx-background-radius: 10;
+     -fx-background-color:  #7289da;
+}
+ .buttonCancel:hover{
+     -fx-background-color:  #ff8000;
+}
+ .buttonCancel:pressed {
+     -fx-background-color:   #cc6600;
+}
+
+.boxField{
+    -fx-background-color:  #303338;
+    -fx-text-fill:  #e4e5e5;
+    -fx-background-radius: 10;
+}
+.boxField:focused {
+    -fx-border-color: #7289da;
+}
+
+

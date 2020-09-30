@@ -54,7 +54,7 @@ public class LoginStageController {
             else if(accountList.getCurrentAccount().isRole("resident")){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/residentStage.fxml"));
                 stage.setScene(new Scene(loader.load(),960, 600));
-                RegisterWorkerStageController registerWorkerStageController = loader.getController();
+                ResidentStageController residentStageController = loader.getController();
             }
         }
         else{
