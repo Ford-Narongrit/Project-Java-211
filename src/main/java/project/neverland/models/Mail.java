@@ -12,48 +12,50 @@ public class Mail {
     private boolean received;
     private String imagePath;
 
-    public Mail(Person sender, String senderLocation, Person receiver, String receiverLocation, String size) {
+    public Mail(Person sender, String senderLocation, Person receiver, String receiverLocation) {
         this.sender = sender;
         this.senderLocation = senderLocation;
         this.receiver = receiver;
         this.receiverLocation = receiverLocation;
-        this.size = size;
         this.received = false;
     }
     public Person getSender() {
         return sender;
     }
-
     public Person getReceiver() {
         return receiver;
     }
-
     public String getImagePath() {
         return imagePath;
     }
-
     public String getSize() {
         return size;
     }
 
+
     public double getWidth() {
         return width;
     }
-
     public double getLength() {
         return length;
     }
 
-    public boolean isReceived() {
-        return received;
-    }
 
     public void setReceived(boolean received) {
         this.received = received;
     }
+    public boolean isReceived() {
+        return received;
+    }
+
 
     public void setSize(String size) {
         this.size = size;
+    }
+
+    public void setWidthLength(double width,double length) {
+        this.width = width;
+        this.length = length;
     }
 
     public String calSize(){

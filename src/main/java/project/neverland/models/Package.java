@@ -7,10 +7,14 @@ public class Package extends Mail{
     private String trackingNum;
     private double height;
 
-    public Package(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, String station, String trackingNum) {
-        super(sender, senderLocation, receiver, receiverLocation, size);
+    public Package(Person sender, String senderLocation, Person receiver, String receiverLocation, String station, String trackingNum) {
+        super(sender, senderLocation, receiver, receiverLocation);
         this.station = station;
         this.trackingNum = trackingNum;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
     }
 
     @Override

@@ -4,12 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import project.neverland.models.*;
+import project.neverland.services.AlertDefined;
 
 
 import java.io.IOException;
@@ -23,16 +23,11 @@ public class RegisterStageController {
     @FXML Button create, cancel;
 
     public void initialize() {
-        accountList = new AccountList();
-        addressList = new AddressList();
-        Address address = new Address("bodin",2,"111/751","singie");
-        address.addPersonInRoom(new Person("narongrit","thammapalo"));
-        addressList.addAddress(address);
     }
 
     public void createBtnAction(ActionEvent event) throws IOException {
         if(!isAnyBoxNull()) {
-            if (addressList.isPersonInAddress(new Person(firstname.getText(), lastname.getText()))) {
+            if (addressList.linkToAddress(new Person(firstname.getText(), lastname.getText()))) {
                 if (!accountList.isUsernameDuplicate(username.getText())) {
                     if(isConfirmEqualsPassword()){
                         Account account = new Account(username.getText(),new Person(firstname.getText(),lastname.getText()),"resident");
@@ -47,29 +42,17 @@ public class RegisterStageController {
                         loginStageController.setAccountList(accountList);
 
                     }else{
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setTitle("ConfirmPassword not match");
-                        alert.setHeaderText("Please try again.");
-                        alert.showAndWait();
+                        AlertDefined.alertWarning("ConfirmPassword not match","Please try again.");
                     }
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("account has already use.");
-                    alert.setHeaderText("Please try again.");
-                    alert.showAndWait();
+                    AlertDefined.alertWarning("account has already use.", "Please try again.");
                 }
             }
             else{
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Your are not Resident.");
-                alert.setHeaderText("Please register.");
-                alert.showAndWait();
+                AlertDefined.alertWarning("Your are not Resident.","Please register.");
             }
         }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Any box has null");
-            alert.setHeaderText("Please fill all box.");
-            alert.showAndWait();
+            AlertDefined.alertWarning("Any box has null","Please fill all box.");
         }
     }
 

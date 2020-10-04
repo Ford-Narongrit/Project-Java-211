@@ -19,7 +19,6 @@ public class  InboxList {
     public ArrayList<Mail> toList() {
         return inboxList;
     }
-
     public ArrayList<Mail> toNotReceivedList(){
         ArrayList<Mail> notReceivedList = new ArrayList<>();
         for(Mail mail: inboxList){
@@ -29,5 +28,15 @@ public class  InboxList {
         }
         return notReceivedList;
     }
+    public ArrayList<Mail> toPersonList(Person person){
+        ArrayList<Mail> personList = new ArrayList<>();
+        for(Mail mail: inboxList){
+            if(mail.getReceiver().isThisPerson(person)){
+                personList.add(mail);
+            }
+        }
+        return personList;
+    }
+
 
 }

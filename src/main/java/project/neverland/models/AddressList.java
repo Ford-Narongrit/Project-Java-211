@@ -14,13 +14,18 @@ public class AddressList {
         addressList.add(address);
     }
 
-    public boolean isPersonInAddress(Person person){
+    public boolean linkToAddress(Person person){
         for(Address address : addressList){
-            if(address.isPersonInRoom(person)) {
+            if(address.isPersonInRoom(person)){
+                currentAddress = address;
                 return true;
             }
         }
         return false;
+    }
+
+    public Address getCurrentAddress() {
+        return currentAddress;
     }
 
 }

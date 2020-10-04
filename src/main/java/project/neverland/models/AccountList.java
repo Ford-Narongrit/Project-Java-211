@@ -9,6 +9,17 @@ public class AccountList {
     public AccountList() {
         accounts = new ArrayList<>();
     }
+
+    public Account getCurrentAccount() {
+        return currentAccount;
+    }
+    public boolean isUsernameDuplicate(String username){
+        for(Account account : accounts){
+            if(account.validate(username))
+                return true;
+        }
+        return false;
+    }
     public void addAccount(Account acc) {
         accounts.add(acc);}
 
@@ -22,20 +33,8 @@ public class AccountList {
         return false;
     }
 
-    public boolean isUsernameDuplicate(String username){
-        for(Account account : accounts){
-            if(account.validate(username))
-                return true;
-        }
-        return false;
-    }
-
-    public Account getCurrentAccount() {
-        return currentAccount;
-    }
 
     public ArrayList<Account> toList() {return accounts;}
-
     public ArrayList<Account> toRoleList(String role){
         ArrayList<Account> roleList = new ArrayList<>();
         for(Account account: accounts){
@@ -45,6 +44,5 @@ public class AccountList {
         }
         return roleList;
     }
-
 }
 

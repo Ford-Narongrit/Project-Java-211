@@ -4,10 +4,14 @@ import project.neverland.models.Account;
 import project.neverland.models.AccountList;
 import project.neverland.models.Person;
 
-public class DataBase {
+public class AccountDataBase {
     public AccountList getPersonData(){
         AccountList people = new AccountList();
         Account a = new Account("Admin",new Person("Narongrit","Thammapalo"),"admin");
+        a.setPassword("1234");
+        people.addAccount(a);
+
+        a = new Account("worker3",new Person("C", "Cat"),"worker");
         a.setPassword("1234");
         people.addAccount(a);
 
@@ -16,10 +20,6 @@ public class DataBase {
         people.addAccount(a);
 
         a = new Account("worker2",new Person("B", "Bot") ,"worker");
-        a.setPassword("1234");
-        people.addAccount(a);
-
-        a = new Account("worker3",new Person("C", "Cat"),"worker");
         a.setPassword("1234");
         people.addAccount(a);
 
@@ -44,6 +44,14 @@ public class DataBase {
         people.addAccount(a);
 
         a = new Account("resident4",new Person("Moka","Aoba"),"resident");
+        a.setPassword("1234");
+        people.addAccount(a);
+
+        a = new Account("resident5",new Person("Hunter","Monter"),"resident");
+        a.setPassword("1234");
+        people.addAccount(a);
+
+        a = new Account("resident6",new Person("Lee","sin"), "resident");
         a.setPassword("1234");
         people.addAccount(a);
 

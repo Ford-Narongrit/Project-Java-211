@@ -46,12 +46,12 @@
                         <Image url="@image/profileDefault.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="225.0" layoutY="271.0" prefHeight="39.0" prefWidth="72.0" text="Name" textFill="#e4e5e5">
+                  <Label fx:id="name" layoutX="225.0" layoutY="271.0" prefHeight="39.0" prefWidth="355.0" text="Name" textFill="#e4e5e5">
                      <font>
                         <Font size="27.0" />
                      </font>
                   </Label>
-                  <Label layoutX="225.0" layoutY="326.0" prefHeight="39.0" prefWidth="127.0" text="Username" textFill="#e4e5e5">
+                  <Label fx:id="adminUsername" layoutX="225.0" layoutY="326.0" prefHeight="39.0" prefWidth="355.0" text="Username" textFill="#e4e5e5">
                      <font>
                         <Font size="27.0" />
                      </font>

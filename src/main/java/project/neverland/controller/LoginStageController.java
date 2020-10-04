@@ -8,21 +8,43 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import project.neverland.models.AccountList;
-import project.neverland.services.DataBase;
+import project.neverland.models.AddressList;
+import project.neverland.models.InboxList;
+import project.neverland.models.Mail;
+import project.neverland.services.AddressDataBase;
+import project.neverland.services.AlertDefined;
+import project.neverland.services.AccountDataBase;
+import project.neverland.services.InboxDataBase;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LoginStageController {
     @FXML Label register;
     @FXML TextField username;
     @FXML PasswordField password;
     @FXML Button loginBtn, help;
-    private AccountList accountList;
-    private DataBase dataBase;
 
+    private AccountDataBase accountDataBase;
+    private AccountList accountList;
+
+    private AddressDataBase addressDataBase;
+    private AddressList addressList;
+
+    private InboxDataBase inboxDataBase;
+    private InboxList inboxList;
     @FXML public void initialize(){
-        dataBase = new DataBase();
-        accountList = dataBase.getPersonData();
+        accountDataBase = new AccountDataBase();
+        accountList = accountDataBase.getPersonData();
+
+        addressDataBase = new AddressDataBase();
+        addressList = addressDataBase.getAddressList();
+
+        inboxDataBase = new InboxDataBase();
+        inboxList = inboxDataBase.getInboxData();
+
+        System.out.println(inboxList.toList());
     }
 
     public void loginBtnAction(ActionEvent event) throws IOException {
@@ -30,16 +52,14 @@ public class LoginStageController {
             Button b = (Button) event.getSource();
             Stage stage = (Stage) b.getScene().getWindow();
             if(accountList.getCurrentAccount().isBan()){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Your account is Ban.");
-                alert.setHeaderText("Please try again.");
-                alert.showAndWait();
+                AlertDefined.alertWarning("Your account is Ban.", "Please try again.");
                 accountList.getCurrentAccount().banCountAddOne();
                 password.clear();
             }
             else if(accountList.getCurrentAccount().isRole("admin")){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/adminStage.fxml"));
                 stage.setScene(new Scene(loader.load(),960, 600));
+
                 AdminStageController adminStageController = loader.getController();
                 adminStageController.setAdmin(accountList.getCurrentAccount());
                 adminStageController.setAccountList(accountList);
@@ -47,21 +67,27 @@ public class LoginStageController {
             else if(accountList.getCurrentAccount().isRole("worker")){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/workerStage.fxml"));
                 stage.setScene(new Scene(loader.load(),960, 600));
+
                 WorkerStageController workerStageController = loader.getController();
                 workerStageController.setWorker(accountList.getCurrentAccount());
+                workerStageController.setAddressList(addressList);
+                workerStageController.setInboxList(inboxList);
 
             }
             else if(accountList.getCurrentAccount().isRole("resident")){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/residentStage.fxml"));
                 stage.setScene(new Scene(loader.load(),960, 600));
+
                 ResidentStageController residentStageController = loader.getController();
+                addressList.linkToAddress(accountList.getCurrentAccount().getPersonData());
+                residentStageController.setAddress(addressList.getCurrentAddress());
+                residentStageController.setAccount(accountList.getCurrentAccount());
+                residentStageController.setInboxList(inboxList);
+
             }
         }
         else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Can not found account");
-            alert.setHeaderText("Incorrect Username or Password.");
-            alert.showAndWait();
+            AlertDefined.alertWarning("Can not found account.", "Incorrect Username or Password.");
             password.clear();
         }
     }
@@ -73,7 +99,6 @@ public class LoginStageController {
         stage.setScene(new Scene(loader.load(),960, 600));
         RegisterStageController accountResidentController = loader.getController();
         accountResidentController.setAccountList(accountList);
-
     }
     public void helpBtnAction(){
         //load

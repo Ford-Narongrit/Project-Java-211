@@ -12,17 +12,16 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import project.neverland.models.*;
 import project.neverland.models.Package;
+import project.neverland.services.AlertDefined;
 import project.neverland.services.CustomDialog;
-import project.neverland.services.InboxDataBase;
 import project.neverland.services.StringConfiguration;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class WorkerStageController {
-    private AddressList addressList;
     private InboxList inboxList;
-    private InboxDataBase inboxDataBase;
+    private AddressList addressList;
     private Account worker;
 
     private Mail selectedMail;
@@ -30,7 +29,7 @@ public class WorkerStageController {
 
     @FXML private Pane managePane;
     @FXML private Button manageBtn, registerBtn, profileBtn, homeBtn;
-    @FXML private Button addInbox,removeBtn;
+    @FXML private Button addInbox, receivedBtn;
     @FXML private TableView<Mail> inboxTable;
     @FXML private Label receiver, sender, size;
     @FXML private TextField search;
@@ -51,8 +50,6 @@ public class WorkerStageController {
 
 
     @FXML public void initialize(){
-        inboxDataBase = new InboxDataBase();
-        setInboxList(inboxDataBase.getInboxData());
         inboxTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showSelectedMail(newValue);
@@ -88,16 +85,15 @@ public class WorkerStageController {
             System.out.println(worker.toString());
         }
     }
-
-    public void createBtnAction(){
-        Address address = new Address(building.getText(),Integer.parseInt(floor.getText()),room.getText(),roomType.getText());
-        address.addPersonInRoom(new Person(firstname.getText(),lastname.getText()));
-        addressList.addAddress(address);
-        clearAllField();
-    }
     public void cancelBtnAction(){
         clearAllField();
         managePane.toFront();
+    }
+    public void createBtnAction(){
+        Address address = new Address(building.getText(),floor.getText(),room.getText(),roomType.getText());
+        address.addPersonToRoom(new Person(firstname.getText(),lastname.getText()));
+        addressList.addAddress(address);
+        clearAllField();
     }
 
 
@@ -109,28 +105,27 @@ public class WorkerStageController {
                         senderAddress.getText(),
                         new Person(receiverFirstname.getText(), receiverLastname.getText()),
                         receiverAddress.getText(),
-                        size.getText(), station.getText(),
-                        trackingNum.getText());
+                        station.getText(), trackingNum.getText());
             } else if (isDocument()) {
                 mail = new Document(new Person(senderFirstname.getText(), senderLastname.getText()),
                         senderAddress.getText(),
                         new Person(receiverFirstname.getText(), receiverLastname.getText()),
                         receiverAddress.getText(),
-                        size.getText(), degree.getText());
+                        degree.getText());
             } else {
                 mail = new Mail(new Person(senderFirstname.getText(), senderLastname.getText()),
                         senderAddress.getText(),
                         new Person(receiverFirstname.getText(), receiverLastname.getText()),
-                        receiverAddress.getText(),
-                        size.getText());
+                        receiverAddress.getText());
             }
             inboxList.addInbox(mail);
+            inboxTable.getColumns().clear();
+            showData();
+            managePane.toFront();
+
         }
         else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("failed to addInbox");
-            alert.setHeaderText("please input all box");
-            alert.showAndWait();
+            AlertDefined.alertWarning("failed to addInbox","please input all box");
         }
     }
 
@@ -143,7 +138,6 @@ public class WorkerStageController {
                 receiverAddress.getText().equals("") ||
                 size.getText().equals("");
     }
-
     private boolean isPackage(){
         return !station.getText().equals("") && !trackingNum.getText().equals("");
     }
@@ -151,7 +145,7 @@ public class WorkerStageController {
         return !degree.getText().equals("");
     }
 
-    public void removeInboxBtnAction(){
+    public void receivedInboxBtnAction(){
         selectedMail.setReceived(true);
         clearSelectedMail();
         inboxTable.getColumns().clear();
@@ -187,7 +181,6 @@ public class WorkerStageController {
         selectedMail = null;
         inboxTable.getSelectionModel().clearSelection();
     }
-
     private void clearAllField(){
         firstname.clear();
         lastname.clear();
@@ -209,10 +202,15 @@ public class WorkerStageController {
 
     public void setWorker(Account worker) {
         this.worker = worker;
+        name.setText(worker.getPersonData().getFirstName());
+        username.setText(worker.getUsername());
     }
-
     public void setInboxList(InboxList inboxList) {
         this.inboxList = inboxList;
         showData();
+    }
+    public void setAddressList(AddressList addressList) {
+        this.addressList = addressList;
+
     }
 }

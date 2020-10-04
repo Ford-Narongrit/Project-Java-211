@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import project.neverland.models.Account;
 import project.neverland.models.AccountList;
 import project.neverland.models.Person;
+import project.neverland.services.AlertDefined;
 import project.neverland.services.CustomDialog;
 import project.neverland.services.StringConfiguration;
 
@@ -25,6 +26,7 @@ public class AdminStageController {
     private Account selectedAccount;
 
     private ObservableList accountObservableList;
+    @FXML private Label name, adminUsername;
     @FXML private Pane registerPane, infoPane, adminPane;
     @FXML private PasswordField password, confirmPassword;
     @FXML private TextField firstName, lastName, username;
@@ -36,6 +38,7 @@ public class AdminStageController {
     public void initialize() {
         banBtn.setVisible(false);
         unBanBtn.setVisible(false);
+
         accountTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showSelectedAccount(newValue);
@@ -70,35 +73,22 @@ public class AdminStageController {
     public void signUpBtnAction() {
         if (!accountList.isUsernameDuplicate(username.getText())) {
             if(checkBoxNull()){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("failed to sign up");
-                alert.setHeaderText("any box id empty");
-                alert.showAndWait();
+                AlertDefined.alertWarning("failed to sign up","any box id empty");
             }
             else if(!checkConfirmPassword()){
+                AlertDefined.alertWarning("failed to sign up","ConfirmPassword not correct");
                 password.clear();
                 confirmPassword.clear();
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("failed to sign up");
-                alert.setHeaderText("ConfirmPassword not correct");
-                alert.showAndWait();
             }
             else {
                 Account account = new Account(username.getText(), new Person(firstName.getText(), lastName.getText()), "worker");
                 account.setPassword(password.getText());
                 accountList.addAccount(account);
                 clearAllBox();
-//                Alert alert = new Alert(Alert.AlertType.WARNING);
-//                alert.setTitle("failed to sign up");
-//                alert.setHeaderText("ConfirmPassword not correct");
-//                alert.showAndWait();
             }
         }
         else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("failed to sign up");
-            alert.setHeaderText("This username has already used");
-            alert.showAndWait();
+            AlertDefined.alertWarning("failed to sign up","This username has already used");
         }
     }
 
@@ -142,7 +132,9 @@ public class AdminStageController {
             col.setResizable(false);
             accountTable.getColumns().add(col);
         }
+
     }
+
 
     private void showSelectedAccount(Account account) {
         selectedAccount = account;
@@ -181,6 +173,8 @@ public class AdminStageController {
 
     public void setAdmin(Account admin) {
         this.admin = admin;
+        name.setText(admin.getPersonData().getFirstName());
+        adminUsername.setText(admin.getUsername());
     }
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;
