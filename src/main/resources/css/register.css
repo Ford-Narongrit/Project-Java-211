@@ -1,0 +1,31 @@
+.buttonCreate{
+    -fx-background-radius: 10;
+    -fx-background-color:  #7289da;
+}
+.buttonCreate:hover {
+    -fx-background-color:  #5e77d4;
+}
+.buttonCreate:pressed {
+    -fx-background-color:  #4a67cf;
+}
+
+ .buttonCancel{
+     -fx-text-fill:  #e4e5e5;
+     -fx-background-radius: 10;
+     -fx-background-color:  #7289da;
+}
+ .buttonCancel:hover{
+     -fx-background-color:  #ff8000;
+}
+ .buttonCancel:pressed {
+     -fx-background-color:   #cc6600;
+}
+
+.boxField{
+    -fx-background-color:  #303338;
+    -fx-text-fill:  #e4e5e5;
+    -fx-background-radius: 10;
+}
+.boxField:focused {
+    -fx-border-color: #7289da;
+}

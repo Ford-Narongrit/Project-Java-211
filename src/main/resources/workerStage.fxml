@@ -258,7 +258,7 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="addNewInbox" layoutX="680.0" layoutY="455.0" mnemonicParsing="false" onAction="#addInboxBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonDefault" text="Add new inbox">
+                  <Button fx:id="addNewInbox" layoutX="680.0" layoutY="455.0" mnemonicParsing="false" onAction="#addNewInboxBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonDefault" text="Add new inbox">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
@@ -283,7 +283,7 @@
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="addInbox" layoutX="646.0" layoutY="530.0" mnemonicParsing="false" onAction="#addInbox" prefHeight="46.0" prefWidth="140.0" styleClass="buttonDefault" text="Add new inbox">
+                  <Button fx:id="addInbox" layoutX="646.0" layoutY="530.0" mnemonicParsing="false" onAction="#addInboxBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonDefault" text="Add new inbox">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>

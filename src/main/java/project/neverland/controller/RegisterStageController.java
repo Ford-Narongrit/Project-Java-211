@@ -14,16 +14,13 @@ import project.neverland.models.*;
 
 import java.io.IOException;
 
-public class RegisterAccountResidentController {
+public class RegisterStageController {
     AccountList accountList;
     AddressList addressList;
 
-    @FXML
-    TextField username, firstname, lastname;
-    @FXML
-    PasswordField password, confirmPassword;
-    @FXML
-    Button create, cancel;
+    @FXML TextField username, firstname, lastname;
+    @FXML PasswordField password, confirmPassword;
+    @FXML Button create, cancel;
 
     public void initialize() {
         accountList = new AccountList();
@@ -31,7 +28,6 @@ public class RegisterAccountResidentController {
         Address address = new Address("bodin",2,"111/751","singie");
         address.addPersonInRoom(new Person("narongrit","thammapalo"));
         addressList.addAddress(address);
-
     }
 
     public void createBtnAction(ActionEvent event) throws IOException {

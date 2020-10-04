@@ -68,7 +68,7 @@ public class WorkerStageController {
     public void profileBtnAction(){
         profilePane.toFront();
     }
-    public void addInbox(){
+    public void addInboxBtnAction(){
         addNewInboxPane.toFront();
     }
     public void homeBtnAction(ActionEvent event) throws IOException {
@@ -101,7 +101,7 @@ public class WorkerStageController {
     }
 
 
-    public void addInboxBtnAction(){
+    public void addNewInboxBtnAction(){
         if(!checkAllBoxNull()) {
             Mail mail;
             if (isPackage()) {

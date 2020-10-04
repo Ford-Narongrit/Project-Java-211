@@ -88,10 +88,10 @@ public class AdminStageController {
                 account.setPassword(password.getText());
                 accountList.addAccount(account);
                 clearAllBox();
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("failed to sign up");
-                alert.setHeaderText("ConfirmPassword not correct");
-                alert.showAndWait();
+//                Alert alert = new Alert(Alert.AlertType.WARNING);
+//                alert.setTitle("failed to sign up");
+//                alert.setHeaderText("ConfirmPassword not correct");
+//                alert.showAndWait();
             }
         }
         else {
@@ -104,7 +104,7 @@ public class AdminStageController {
 
     public void reSetPasswordBtnAction() throws IOException {
         CustomDialog customDialog = new CustomDialog();
-        customDialog.setTitleAndHeaderDialog("Repassword", "Please enter new password.");
+        customDialog.setTitleAndHeaderDialog("RePassword", "Please enter new password.");
         customDialog.addButton("Confirm");
         customDialog.createFields();
         customDialog.getResult();

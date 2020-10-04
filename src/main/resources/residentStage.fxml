@@ -1,40 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverland.controller.ResidentStageController">
+<AnchorPane prefHeight="600.0" prefWidth="960.0" style="-fx-background-color: #2f3136;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverland.controller.ResidentStageController">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="52.0" prefWidth="127.0" text="Resident">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="66.0" text="name">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="107.0" text="RoomData">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="821.0" layoutY="33.0" prefHeight="96.0" prefWidth="108.0" text="รูป">
-         <font>
-            <Font size="66.0" />
-         </font>
-      </Label>
-      <Line endX="747.0" layoutX="141.0" layoutY="168.0" startX="-100.0" />
-      <TableView layoutX="39.0" layoutY="196.0" prefHeight="365.0" prefWidth="418.0" />
-      <Label layoutX="508.0" layoutY="196.0" prefHeight="38.0" prefWidth="345.0" text="Notifications">
-         <font>
-            <Font size="26.0" />
-         </font>
-      </Label>
+      <AnchorPane prefHeight="600.0" prefWidth="100.0" style="-fx-background-color: #a0a2ac;" stylesheets="@css/admin.css">
+         <children>
+            <Button fx:id="inbox" mnemonicParsing="false" onAction="#inboxBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="INBOX" textFill="#e4e5e5">
+               <font>
+                  <Font name="Candara" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="profile" layoutY="46.0" mnemonicParsing="false" onAction="#profileBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="Profile" textFill="#e4e5e5">
+               <font>
+                  <Font name="Candara" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="home" layoutY="554.0" mnemonicParsing="false" onAction="#homeBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="HOME" textFill="#e4e5e5">
+               <font>
+                  <Font name="Candara" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="100.0" prefHeight="600.0" prefWidth="860.0">
+         <children>
+            <Pane fx:id="profilePane" layoutX="5.0" layoutY="5.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <ImageView fitHeight="170.0" fitWidth="172.0" layoutX="335.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/profileDefault.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="281.0" layoutY="249.0" prefHeight="39.0" prefWidth="72.0" text="Name" textFill="#e4e5e5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="281.0" layoutY="304.0" prefHeight="39.0" prefWidth="127.0" text="Username" textFill="#e4e5e5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="changePassword" layoutX="337.0" layoutY="430.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="167.0" styleClass="buttonSignUp" text="Change Password" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane fx:id="inboxPane" layoutX="15.0" layoutY="15.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <TableView fx:id="inboxTable" layoutX="22.0" layoutY="52.0" prefHeight="476.0" prefWidth="505.0" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="606.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/emptyInbox.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="557.0" layoutY="217.0" prefHeight="39.0" prefWidth="72.0" text="from" textFill="#e4e5e5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

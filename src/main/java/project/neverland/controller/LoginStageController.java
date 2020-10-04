@@ -69,9 +69,9 @@ public class LoginStageController {
     public void registerResidentAction(MouseEvent event) throws IOException {
         Label b = (Label) event.getSource();
         Stage stage = (Stage) b.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/registerAccountResidentStage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/registerStage.fxml"));
         stage.setScene(new Scene(loader.load(),960, 600));
-        RegisterAccountResidentController accountResidentController = loader.getController();
+        RegisterStageController accountResidentController = loader.getController();
         accountResidentController.setAccountList(accountList);
 
     }
