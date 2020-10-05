@@ -1,4 +1,4 @@
-package project.neverland.controller;
+package project.neverLand.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,44 +7,46 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import project.neverland.models.AccountList;
-import project.neverland.models.AddressList;
-import project.neverland.models.InboxList;
-import project.neverland.models.Mail;
-import project.neverland.services.AddressDataBase;
-import project.neverland.services.AlertDefined;
-import project.neverland.services.AccountDataBase;
-import project.neverland.services.InboxDataBase;
+import project.neverLand.models.AccountList;
+import project.neverLand.models.AddressList;
+import project.neverLand.models.InboxList;
+import project.neverLand.services.fileDataSource.AccountFileDataSource;
+import project.neverLand.services.fileDataSource.AddressListFileDataSource;
+import project.neverLand.services.fileDataSource.InboxFileDataSource;
+import project.neverLand.services.hardCodeSource.AddressDataBase;
+import project.neverLand.helper.AlertDefined;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class LoginStageController {
-    @FXML Label register;
-    @FXML TextField username;
-    @FXML PasswordField password;
-    @FXML Button loginBtn, help;
+    @FXML private Label register;
+    @FXML private TextField username;
+    @FXML private PasswordField password;
+    @FXML private Button loginBtn, help;
 
-    private AccountDataBase accountDataBase;
     private AccountList accountList;
-
-    private AddressDataBase addressDataBase;
     private AddressList addressList;
-
-    private InboxDataBase inboxDataBase;
     private InboxList inboxList;
+
     @FXML public void initialize(){
-        accountDataBase = new AccountDataBase();
-        accountList = accountDataBase.getPersonData();
-
-        addressDataBase = new AddressDataBase();
-        addressList = addressDataBase.getAddressList();
-
-        inboxDataBase = new InboxDataBase();
-        inboxList = inboxDataBase.getInboxData();
-
-        System.out.println(inboxList.toList());
+        try {
+            AccountFileDataSource accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
+            accountList = accountFileDataSource.getAccountList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            AddressListFileDataSource addressListFileDataSource = new AddressListFileDataSource("data","addressList.csv");
+            addressList = addressListFileDataSource.getAddressList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            InboxFileDataSource inboxFileDataSource = new InboxFileDataSource("data","inboxList.csv");
+            inboxList = inboxFileDataSource.getInboxList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void loginBtnAction(ActionEvent event) throws IOException {
@@ -72,7 +74,6 @@ public class LoginStageController {
                 workerStageController.setWorker(accountList.getCurrentAccount());
                 workerStageController.setAddressList(addressList);
                 workerStageController.setInboxList(inboxList);
-
             }
             else if(accountList.getCurrentAccount().isRole("resident")){
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/residentStage.fxml"));
@@ -83,7 +84,6 @@ public class LoginStageController {
                 residentStageController.setAddress(addressList.getCurrentAddress());
                 residentStageController.setAccount(accountList.getCurrentAccount());
                 residentStageController.setInboxList(inboxList);
-
             }
         }
         else{
@@ -91,7 +91,6 @@ public class LoginStageController {
             password.clear();
         }
     }
-
     public void registerResidentAction(MouseEvent event) throws IOException {
         Label b = (Label) event.getSource();
         Stage stage = (Stage) b.getScene().getWindow();
@@ -99,12 +98,21 @@ public class LoginStageController {
         stage.setScene(new Scene(loader.load(),960, 600));
         RegisterStageController accountResidentController = loader.getController();
         accountResidentController.setAccountList(accountList);
+        accountResidentController.setAddressList(addressList);
     }
     public void helpBtnAction(){
         //load
     }
-    public void setAccountList(AccountList accountList) {
+
+    public void setAccountList(AccountList accountList){
         this.accountList = accountList;
     }
+    public void setAddressList(AddressList addressList) {
+        this.addressList = addressList;
+    }
+    public void setInboxList(InboxList inboxList){
+        this.inboxList = inboxList;
+    }
+
 }
 

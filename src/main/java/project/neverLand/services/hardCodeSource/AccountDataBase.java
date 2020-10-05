@@ -1,8 +1,8 @@
-package project.neverland.services;
+package project.neverLand.services.hardCodeSource;
 
-import project.neverland.models.Account;
-import project.neverland.models.AccountList;
-import project.neverland.models.Person;
+import project.neverLand.models.Account;
+import project.neverLand.models.AccountList;
+import project.neverLand.models.Person;
 
 public class AccountDataBase {
     public AccountList getPersonData(){

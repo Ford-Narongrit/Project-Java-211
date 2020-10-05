@@ -1,7 +1,6 @@
-package project.neverland.models;
+package project.neverLand.models;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-import org.omg.CORBA.MARSHAL;
+import sun.awt.geom.AreaOp;
 
 import java.util.ArrayList;
 
@@ -13,15 +12,37 @@ public class Address {
     //have 2 type 1 bedroom , 2 bedroom
 
     private ArrayList<Person> roomers;
-    private ArrayList<Mail> inboxList;
 
-    public Address(String building, String floor, String numberRoom, String typeRoom) {
+    public Address(String building, String floor, String roomNumber, String roomType) {
         this.building = building;
         this.floor = floor;
-        this.roomNumber = numberRoom;
-        this.roomType = typeRoom;
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
         roomers = new ArrayList<>();
-        inboxList = new ArrayList<>();
+    }
+
+    public String getBuilding() {
+        return building;
+    }
+    public String getFloor() {
+        return floor;
+    }
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+    public String getRoomType() {
+        return roomType;
+    }
+    public ArrayList<Person> getRoomers() {
+        return roomers;
+    }
+
+    public String getRoomerToString() {
+        String roomerString = "";
+        for(Person person: roomers){
+            roomerString = roomerString + "," + person.getFirstName() + "," + person.getLastName();
+        }
+        return roomerString;
     }
 
     public boolean isRoomerMax(){
@@ -33,6 +54,7 @@ public class Address {
         }
         return false;
     }
+
     public boolean addPersonToRoom(Person person) {
         if(!isRoomerMax()){
             roomers.add(person);
@@ -40,6 +62,7 @@ public class Address {
         }
         return false;
     }
+
     public boolean isPersonInRoom(Person person){
         for(Person roomer: roomers){
             if(roomer.isThisPerson(person)){
@@ -47,13 +70,5 @@ public class Address {
             }
         }
         return false;
-    }
-
-    public void addInbox(Mail mail){
-        inboxList.add(mail);
-    }
-
-    public ArrayList<Mail> getInboxList() {
-        return inboxList;
     }
 }

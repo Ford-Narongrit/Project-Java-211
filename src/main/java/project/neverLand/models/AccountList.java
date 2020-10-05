@@ -1,4 +1,4 @@
-package project.neverland.models;
+package project.neverLand.models;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,6 @@ public class AccountList {
         }
         return false;
     }
-
 
     public ArrayList<Account> toList() {return accounts;}
     public ArrayList<Account> toRoleList(String role){

@@ -1,4 +1,4 @@
-package project.neverland.models;
+package project.neverLand.models;
 
 import java.util.ArrayList;
 
@@ -23,9 +23,12 @@ public class AddressList {
         }
         return false;
     }
-
     public Address getCurrentAddress() {
         return currentAddress;
+    }
+
+    public ArrayList<Address> toList(){
+        return addressList;
     }
 
 }

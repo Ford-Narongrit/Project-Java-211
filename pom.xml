@@ -19,7 +19,7 @@
     <properties>
         <out.folder>6210402402</out.folder>
         <out.filename>6210402402-jar</out.filename>
-        <project.mainClass>projectName.StartProgram</project.mainClass>
+        <project.mainClass>project.neverLand.StartProgram</project.mainClass>
     </properties>
 
     <build>

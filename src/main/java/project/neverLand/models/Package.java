@@ -1,6 +1,4 @@
-package project.neverland.models;
-
-import javafx.scene.image.Image;
+package project.neverLand.models;
 
 public class Package extends Mail{
     private String station;
@@ -9,6 +7,12 @@ public class Package extends Mail{
 
     public Package(Person sender, String senderLocation, Person receiver, String receiverLocation, String station, String trackingNum) {
         super(sender, senderLocation, receiver, receiverLocation);
+        this.station = station;
+        this.trackingNum = trackingNum;
+    }
+
+    public Package(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, boolean received, String station, String trackingNum) {
+        super(sender, senderLocation, receiver, receiverLocation, size, received);
         this.station = station;
         this.trackingNum = trackingNum;
     }
@@ -39,5 +43,19 @@ public class Package extends Mail{
             setSize("2C");
         }
         return getSize();
+    }
+
+    @Override
+    public String getStructure() {
+        return  getSender().getFirstName() + "," +
+                getSender().getLastName() + "," +
+                getSenderLocation() + "," +
+                getReceiver().getFirstName() + "," +
+                getReceiver().getLastName() + "," +
+                getReceiverLocation() + "," +
+                getSize() + "," +
+                getReceiver() + "," +
+                station + "," +
+                trackingNum + ",";
     }
 }

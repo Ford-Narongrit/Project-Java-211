@@ -1,6 +1,4 @@
-package project.neverland.models;
-
-import com.sun.org.apache.xpath.internal.objects.XString;
+package project.neverLand.models;
 
 public class Person {
     private String firstName;

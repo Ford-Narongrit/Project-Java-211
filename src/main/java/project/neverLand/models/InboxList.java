@@ -1,4 +1,4 @@
-package project.neverland.models;
+package project.neverLand.models;
 
 import java.util.ArrayList;
 

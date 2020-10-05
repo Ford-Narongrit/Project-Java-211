@@ -1,8 +1,8 @@
-package project.neverland.services;
+package project.neverLand.services.hardCodeSource;
 
-import project.neverland.models.Address;
-import project.neverland.models.AddressList;
-import project.neverland.models.Person;
+import project.neverLand.models.Address;
+import project.neverLand.models.AddressList;
+import project.neverLand.models.Person;
 
 public class AddressDataBase {
     public AddressList getAddressList(){

@@ -1,4 +1,4 @@
-package project.neverland.services;
+package project.neverLand.services;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;

@@ -1,4 +1,4 @@
-package project.neverland.models;
+package project.neverLand.models;
 
 public class Mail {
     private Person sender;
@@ -19,6 +19,16 @@ public class Mail {
         this.receiverLocation = receiverLocation;
         this.received = false;
     }
+
+    public Mail(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, boolean received) {
+        this.sender = sender;
+        this.senderLocation = senderLocation;
+        this.receiver = receiver;
+        this.receiverLocation = receiverLocation;
+        this.size = size;
+        this.received = received;
+    }
+
     public Person getSender() {
         return sender;
     }
@@ -31,7 +41,12 @@ public class Mail {
     public String getSize() {
         return size;
     }
-
+    public String getSenderLocation() {
+        return senderLocation;
+    }
+    public String getReceiverLocation() {
+        return receiverLocation;
+    }
 
     public double getWidth() {
         return width;
@@ -75,6 +90,29 @@ public class Mail {
         return this.size;
     }
 
+    public String getStructure() {
+        return  sender.getFirstName()+ "," +
+                sender.getLastName()+ "," +
+                senderLocation + "," +
+                receiver.getFirstName() + "," +
+                receiver.getLastName() + "," +
+                receiverLocation + "," +
+                size + "," +
+                received + ",";
+    }
 
-
+    @Override
+    public String toString() {
+        return "Mail{" +
+                "sender=" + sender +
+                ", senderLocation='" + senderLocation + '\'' +
+                ", receiver=" + receiver +
+                ", receiverLocation='" + receiverLocation + '\'' +
+                ", size='" + size + '\'' +
+                ", width=" + width +
+                ", length=" + length +
+                ", received=" + received +
+                ", imagePath='" + imagePath + '\'' +
+                '}';
+    }
 }

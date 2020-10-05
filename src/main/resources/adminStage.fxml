@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="960.0" style="-fx-background-color: #2f3136;" stylesheets="@css/admin.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverland.controller.AdminStageController">
+<AnchorPane prefHeight="600.0" prefWidth="960.0" style="-fx-background-color: #2f3136;" stylesheets="@css/admin.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverLand.controller.AdminStageController">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="100.0" style="-fx-background-color: #a0a2ac;" stylesheets="@css/admin.css">
          <children>
@@ -39,30 +39,6 @@
       </AnchorPane>
       <AnchorPane layoutX="99.0" prefHeight="600.0" prefWidth="861.0">
          <children>
-            <Pane fx:id="adminPane" layoutX="6.0" layoutY="6.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-               <children>
-                  <ImageView fitHeight="217.0" fitWidth="217.0" layoutX="312.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/profileDefault.jpg" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="name" layoutX="225.0" layoutY="271.0" prefHeight="39.0" prefWidth="355.0" text="Name" textFill="#e4e5e5">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="adminUsername" layoutX="225.0" layoutY="326.0" prefHeight="39.0" prefWidth="355.0" text="Username" textFill="#e4e5e5">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="rePassword" layoutX="337.0" layoutY="426.0" mnemonicParsing="false" onAction="#reSetPasswordBtnAction" prefHeight="46.0" prefWidth="167.0" styleClass="buttonSignUp" text="Change Password" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Button>
-               </children>
-            </Pane>
             <Pane fx:id="registerPane" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                <children>
                   <Label layoutX="14.0" layoutY="14.0" prefHeight="66.0" prefWidth="167.0" text="Register" textFill="#e4e5e5">
@@ -126,6 +102,30 @@
                      </font>
                   </Button>
                   <Button fx:id="cancel" layoutX="440.0" layoutY="446.0" mnemonicParsing="false" onAction="#cancelBtnAction" prefHeight="35.0" prefWidth="106.0" styleClass="buttonSignUp" text="cancel" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane fx:id="adminPane" layoutX="6.0" layoutY="6.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <ImageView fitHeight="217.0" fitWidth="217.0" layoutX="312.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/profileDefault.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="name" layoutX="225.0" layoutY="271.0" prefHeight="39.0" prefWidth="355.0" text="Name" textFill="#e4e5e5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="adminUsername" layoutX="225.0" layoutY="326.0" prefHeight="39.0" prefWidth="355.0" text="Username" textFill="#e4e5e5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="rePassword" layoutX="337.0" layoutY="426.0" mnemonicParsing="false" onAction="#reSetPasswordBtnAction" prefHeight="46.0" prefWidth="167.0" styleClass="buttonSignUp" text="Change Password" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>

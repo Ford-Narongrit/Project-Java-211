@@ -1,13 +1,13 @@
-package project.neverland.services;
+package project.neverLand.services.hardCodeSource;
 
-import project.neverland.models.*;
-import project.neverland.models.Package;
+import project.neverLand.models.*;
+import project.neverLand.models.Package;
 
 public class InboxDataBase {
     public InboxList getInboxData(){
         InboxList inboxList = new InboxList();
 
-        Mail a = new Mail(new Person("sender1","A"),"177 ถนน งามวงศ์วาน (ปากซอยงามวงศ์วาน 58), ลาดยาว, จตุจักร, 10900",new Person("Sasuke","Ushiwa"),"แขวง คลองสิบสอง เขต หนองจอก กรุงเทพมหานคร 10530");
+        Mail a = new Mail(new Person("sender1","A"),"177 ถนน งามวงศ์วาน (ปากซอยงามวงศ์วาน 58) ลาดยาว จตุจักร 10900",new Person("Sasuke","Ushiwa"),"แขวง คลองสิบสอง เขต หนองจอก กรุงเทพมหานคร 10530");
         inboxList.addInbox(a);
 
         a = new Mail(new Person("sender2","B"),"ตำบลบ้านใหม่ อำเภอปากเกร็ด นนทบุรี 11120",new Person("naruto","Uzumaki"),"ตำบล โป่งน้ำร้อน อำเภอคลองลาน กำแพงเพชร 62180");

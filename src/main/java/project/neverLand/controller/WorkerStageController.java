@@ -1,4 +1,4 @@
-package project.neverland.controller;
+package project.neverLand.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,11 +10,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import project.neverland.models.*;
-import project.neverland.models.Package;
-import project.neverland.services.AlertDefined;
-import project.neverland.services.CustomDialog;
-import project.neverland.services.StringConfiguration;
+import project.neverLand.models.*;
+import project.neverLand.models.Package;
+import project.neverLand.helper.AlertDefined;
+import project.neverLand.services.CustomDialog;
+import project.neverLand.services.StringConfiguration;
+import project.neverLand.services.fileDataSource.InboxFileDataSource;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,6 +74,9 @@ public class WorkerStageController {
         Stage stage = (Stage) b.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginStage.fxml"));
         stage.setScene(new Scene(loader.load(), 960, 600));
+        LoginStageController loginStageController = loader.getController();
+        loginStageController.setInboxList(inboxList);
+        loginStageController.setAddressList(addressList);
     }
     public void reSetPasswordBtnAction() throws IOException {
         CustomDialog customDialog = new CustomDialog();
@@ -84,6 +88,7 @@ public class WorkerStageController {
             worker.setPassword(customDialog.getOutput());
             System.out.println(worker.toString());
         }
+        /// TODO: 10/5/2020 write file accountList change workerPassword ////////////////
     }
     public void cancelBtnAction(){
         clearAllField();
@@ -93,9 +98,9 @@ public class WorkerStageController {
         Address address = new Address(building.getText(),floor.getText(),room.getText(),roomType.getText());
         address.addPersonToRoom(new Person(firstname.getText(),lastname.getText()));
         addressList.addAddress(address);
+        // TODO: 10/5/2020 write file addressList //
         clearAllField();
     }
-
 
     public void addNewInboxBtnAction(){
         if(!checkAllBoxNull()) {
@@ -119,6 +124,14 @@ public class WorkerStageController {
                         receiverAddress.getText());
             }
             inboxList.addInbox(mail);
+            InboxFileDataSource inboxFileDataSource  = null;
+            try {
+                inboxFileDataSource = new InboxFileDataSource("data","inboxList.csv");
+                inboxFileDataSource.setInboxList(inboxList);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             inboxTable.getColumns().clear();
             showData();
             managePane.toFront();
@@ -128,7 +141,6 @@ public class WorkerStageController {
             AlertDefined.alertWarning("failed to addInbox","please input all box");
         }
     }
-
     private boolean checkAllBoxNull(){
         return  senderFirstname.getText().equals("") ||
                 senderLastname.getText().equals("") ||
@@ -144,9 +156,15 @@ public class WorkerStageController {
     private boolean isDocument(){
         return !degree.getText().equals("");
     }
-
     public void receivedInboxBtnAction(){
         selectedMail.setReceived(true);
+        InboxFileDataSource inboxFileDataSource  = null;
+        try {
+            inboxFileDataSource = new InboxFileDataSource("data","inboxList.csv");
+            inboxFileDataSource.setInboxList(inboxList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         clearSelectedMail();
         inboxTable.getColumns().clear();
         showData();
@@ -211,6 +229,5 @@ public class WorkerStageController {
     }
     public void setAddressList(AddressList addressList) {
         this.addressList = addressList;
-
     }
 }

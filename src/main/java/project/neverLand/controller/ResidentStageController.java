@@ -1,4 +1,4 @@
-package project.neverland.controller;
+package project.neverLand.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,11 +12,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import project.neverland.models.Account;
-import project.neverland.models.Address;
-import project.neverland.models.InboxList;
-import project.neverland.models.Mail;
-import project.neverland.services.StringConfiguration;
+import project.neverLand.models.Account;
+import project.neverLand.models.Address;
+import project.neverLand.models.InboxList;
+import project.neverLand.models.Mail;
+import project.neverLand.services.StringConfiguration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,10 +29,10 @@ public class ResidentStageController {
     private Mail selectedMail;
     private ObservableList mailObservableList;
 
-    @FXML Button inbox, profile, home;
-    @FXML TableView inboxTable;
-    @FXML Button changePassword;
-    @FXML Pane inboxPane, profilePane;
+    @FXML private Button inbox, profile, home;
+    @FXML private TableView inboxTable;
+    @FXML private Button changePassword;
+    @FXML private Pane inboxPane, profilePane;
     @FXML
     public void initialize() {
         inboxTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
