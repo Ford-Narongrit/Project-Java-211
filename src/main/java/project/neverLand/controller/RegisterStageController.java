@@ -18,13 +18,9 @@ public class RegisterStageController {
     private AccountList accountList;
     private AddressList addressList;
 
-    @FXML
-    private TextField username, firstname, lastname;
-    @FXML
-    private PasswordField password, confirmPassword;
-    @FXML
-    private Button create, cancel;
-
+    @FXML private TextField username, firstname, lastname;
+    @FXML private PasswordField password, confirmPassword;
+    @FXML private Button create, cancel;
     public void initialize() {
     }
 
@@ -56,7 +52,6 @@ public class RegisterStageController {
             AlertDefined.alertWarning("Any box has null", "Please fill all box.");
         }
     }
-
     public void cancelBtnAction(ActionEvent event) throws IOException {
         Button b = (Button) event.getSource();
         Stage stage = (Stage) b.getScene().getWindow();
@@ -70,10 +65,10 @@ public class RegisterStageController {
     public boolean isConfirmEqualsPassword() {
         return password.getText().equals(confirmPassword.getText());
     }
+
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;
     }
-
     public void setAddressList(AddressList addressList) {
         this.addressList = addressList;
     }

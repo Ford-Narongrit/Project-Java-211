@@ -41,20 +41,10 @@ public class ResidentStageController {
             }
         });
     }
-
+    /** inboxPane **/
     public void inboxBtnAction(){
         inboxPane.toFront();
     }
-    public void profileBtnAction(){
-        profilePane.toFront();
-    }
-    public void homeBtnAction(ActionEvent event) throws IOException {
-        Button b = (Button) event.getSource();
-        Stage stage = (Stage) b.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginStage.fxml"));
-        stage.setScene(new Scene(loader.load(),960, 600));
-    }
-
     private void showData() {
         mailObservableList = FXCollections.observableArrayList(inboxList.toPersonList(account.getPersonData()));
         inboxTable.setItems(mailObservableList);
@@ -72,6 +62,21 @@ public class ResidentStageController {
             inboxTable.getColumns().add(col);
         }
     }
+
+    /** profile **/
+    public void profileBtnAction(){
+        profilePane.toFront();
+    }
+
+    /** HOME **/
+    public void homeBtnAction(ActionEvent event) throws IOException {
+        Button b = (Button) event.getSource();
+        Stage stage = (Stage) b.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginStage.fxml"));
+        stage.setScene(new Scene(loader.load(),960, 600));
+    }
+
+
 
     public void setAddress(Address address) {
         this.address = address;

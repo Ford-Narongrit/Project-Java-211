@@ -15,12 +15,15 @@ import project.neverLand.models.Package;
 import project.neverLand.helper.AlertDefined;
 import project.neverLand.services.CustomDialog;
 import project.neverLand.services.StringConfiguration;
+import project.neverLand.services.fileDataSource.AccountFileDataSource;
+import project.neverLand.services.fileDataSource.AddressListFileDataSource;
 import project.neverLand.services.fileDataSource.InboxFileDataSource;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class WorkerStageController {
+    private AccountList accountList;
     private InboxList inboxList;
     private AddressList addressList;
     private Account worker;
@@ -57,26 +60,60 @@ public class WorkerStageController {
             }
         });
     }
+    /** managePane **/
     public void manageBtnAction(){
         managePane.toFront();
     }
+    private void showData() {
+        mailObservableList = FXCollections.observableArrayList(inboxList.toNotReceivedList());
+        inboxTable.setItems(mailObservableList);
+
+        ArrayList<StringConfiguration> configs = new ArrayList<>();
+        configs.add(new StringConfiguration("title:Receiver", "field:receiver", "width:0.2"));
+        configs.add(new StringConfiguration("title:Sender", "field:sender", "width:0.3"));
+        configs.add(new StringConfiguration("title:size", "field:size", "width:0.3"));
+
+        for (StringConfiguration conf : configs) {
+            TableColumn col = new TableColumn(conf.get("title"));
+            col.prefWidthProperty().bind(inboxTable.widthProperty().multiply(Double.parseDouble(conf.get("width"))));
+            col.setCellValueFactory(new PropertyValueFactory<>(conf.get("field")));
+            col.setResizable(false);
+            inboxTable.getColumns().add(col);
+        }
+    }
+    private void showSelectedMail(Mail mail) {
+        selectedMail = mail;
+        receiver.setText(selectedMail.getReceiver().getFirstName());
+        sender.setText(selectedMail.getSender().getFirstName());
+        size.setText(String.valueOf(selectedMail.getSize()));
+    }
+    public void receivedInboxBtnAction(){
+        selectedMail.setReceived(true);
+        saveUpdateInboxList();
+        clearSelectedMail();
+        inboxTable.getColumns().clear();
+        showData();
+    }
+    private void clearSelectedMail(){
+        selectedMail = null;
+        inboxTable.getSelectionModel().clearSelection();
+    }
+
+    /** registerPane **/
     public void registerBtnAction(){
         registerPane.toFront();
     }
+    public void createBtnAction(){
+        Address address = new Address(building.getText(),floor.getText(),room.getText(),roomType.getText());
+        address.addPersonToRoom(new Person(firstname.getText(),lastname.getText()));
+        addressList.addAddress(address);
+        saveUpdateAddressList();
+        clearAllField();
+    }
+
+    /** profilePane **/
     public void profileBtnAction(){
         profilePane.toFront();
-    }
-    public void addInboxBtnAction(){
-        addNewInboxPane.toFront();
-    }
-    public void homeBtnAction(ActionEvent event) throws IOException {
-        Button b = (Button) event.getSource();
-        Stage stage = (Stage) b.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginStage.fxml"));
-        stage.setScene(new Scene(loader.load(), 960, 600));
-        LoginStageController loginStageController = loader.getController();
-        loginStageController.setInboxList(inboxList);
-        loginStageController.setAddressList(addressList);
     }
     public void reSetPasswordBtnAction() throws IOException {
         CustomDialog customDialog = new CustomDialog();
@@ -88,20 +125,13 @@ public class WorkerStageController {
             worker.setPassword(customDialog.getOutput());
             System.out.println(worker.toString());
         }
-        /// TODO: 10/5/2020 write file accountList change workerPassword ////////////////
-    }
-    public void cancelBtnAction(){
-        clearAllField();
-        managePane.toFront();
-    }
-    public void createBtnAction(){
-        Address address = new Address(building.getText(),floor.getText(),room.getText(),roomType.getText());
-        address.addPersonToRoom(new Person(firstname.getText(),lastname.getText()));
-        addressList.addAddress(address);
-        // TODO: 10/5/2020 write file addressList //
-        clearAllField();
+        saveUpdateAccountList();
     }
 
+    /** addNewInBox **/
+    public void addInboxBtnAction(){
+        addNewInboxPane.toFront();
+    }
     public void addNewInboxBtnAction(){
         if(!checkAllBoxNull()) {
             Mail mail;
@@ -125,17 +155,10 @@ public class WorkerStageController {
             }
             inboxList.addInbox(mail);
             InboxFileDataSource inboxFileDataSource  = null;
-            try {
-                inboxFileDataSource = new InboxFileDataSource("data","inboxList.csv");
-                inboxFileDataSource.setInboxList(inboxList);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+            saveUpdateInboxList();
             inboxTable.getColumns().clear();
             showData();
             managePane.toFront();
-
         }
         else{
             AlertDefined.alertWarning("failed to addInbox","please input all box");
@@ -156,49 +179,23 @@ public class WorkerStageController {
     private boolean isDocument(){
         return !degree.getText().equals("");
     }
-    public void receivedInboxBtnAction(){
-        selectedMail.setReceived(true);
-        InboxFileDataSource inboxFileDataSource  = null;
-        try {
-            inboxFileDataSource = new InboxFileDataSource("data","inboxList.csv");
-            inboxFileDataSource.setInboxList(inboxList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        clearSelectedMail();
-        inboxTable.getColumns().clear();
-        showData();
+
+    /** home **/
+    public void homeBtnAction(ActionEvent event) throws IOException {
+        Button b = (Button) event.getSource();
+        Stage stage = (Stage) b.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginStage.fxml"));
+        stage.setScene(new Scene(loader.load(), 960, 600));
+        LoginStageController loginStageController = loader.getController();
+        loginStageController.setInboxList(inboxList);
+        loginStageController.setAddressList(addressList);
+    }
+    public void cancelBtnAction(){
+        clearAllField();
+        managePane.toFront();
     }
 
-    private void showSelectedMail(Mail mail) {
-        selectedMail = mail;
-        receiver.setText(selectedMail.getReceiver().getFirstName());
-        sender.setText(selectedMail.getSender().getFirstName());
-        size.setText(String.valueOf(selectedMail.getSize()));
-    }
-
-    private void showData() {
-        mailObservableList = FXCollections.observableArrayList(inboxList.toNotReceivedList());
-        inboxTable.setItems(mailObservableList);
-
-        ArrayList<StringConfiguration> configs = new ArrayList<>();
-        configs.add(new StringConfiguration("title:Receiver", "field:receiver", "width:0.2"));
-        configs.add(new StringConfiguration("title:Sender", "field:sender", "width:0.3"));
-        configs.add(new StringConfiguration("title:size", "field:size", "width:0.3"));
-
-        for (StringConfiguration conf : configs) {
-            TableColumn col = new TableColumn(conf.get("title"));
-            col.prefWidthProperty().bind(inboxTable.widthProperty().multiply(Double.parseDouble(conf.get("width"))));
-            col.setCellValueFactory(new PropertyValueFactory<>(conf.get("field")));
-            col.setResizable(false);
-            inboxTable.getColumns().add(col);
-        }
-    }
-
-    private void clearSelectedMail(){
-        selectedMail = null;
-        inboxTable.getSelectionModel().clearSelection();
-    }
+    /** clear/Save/Update **/
     private void clearAllField(){
         firstname.clear();
         lastname.clear();
@@ -217,7 +214,36 @@ public class WorkerStageController {
         station.clear();
         trackingNum.clear();
     }
+    private void saveUpdateAccountList(){
+        AccountFileDataSource accountFileDataSource = null;
+        try {
+            accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
+            accountFileDataSource.setAccountList(accountList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void saveUpdateAddressList(){
+        AddressListFileDataSource addressListFileDataSource = null;
+        try {
+            addressListFileDataSource = new AddressListFileDataSource("data","addressList.csv");
+            addressListFileDataSource.setAddressList(addressList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+    }
+    private void saveUpdateInboxList(){
+        InboxFileDataSource inboxFileDataSource = null;
+        try {
+            inboxFileDataSource = new InboxFileDataSource("data", "inboxList.csv");
+            inboxFileDataSource.setInboxList(inboxList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** PassValueToThisStage **/
     public void setWorker(Account worker) {
         this.worker = worker;
         name.setText(worker.getPersonData().getFirstName());
@@ -229,5 +255,8 @@ public class WorkerStageController {
     }
     public void setAddressList(AddressList addressList) {
         this.addressList = addressList;
+    }
+    public void setAccountList(AccountList accountList) {
+        this.accountList = accountList;
     }
 }

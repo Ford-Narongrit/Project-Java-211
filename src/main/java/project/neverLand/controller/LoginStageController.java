@@ -72,6 +72,7 @@ public class LoginStageController {
 
                 WorkerStageController workerStageController = loader.getController();
                 workerStageController.setWorker(accountList.getCurrentAccount());
+                workerStageController.setAccountList(accountList);
                 workerStageController.setAddressList(addressList);
                 workerStageController.setInboxList(inboxList);
             }

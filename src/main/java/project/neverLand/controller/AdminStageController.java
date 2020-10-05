@@ -53,11 +53,13 @@ public class AdminStageController {
         selectedAccount.setBan(false);
         clearSelectedAccount();
         accountTable.refresh();
+        saveUpdate();
     }
     public void banBtnAction() {
         selectedAccount.setBan(true);
         clearSelectedAccount();
         accountTable.refresh();
+        saveUpdate();
     }
     private void showData() {
         accountObservableList = FXCollections.observableArrayList(accountList.toRoleList("worker"));
@@ -112,13 +114,7 @@ public class AdminStageController {
                 account.setPassword(password.getText());
                 accountList.addAccount(account);
 
-                try {
-                    AccountFileDataSource accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
-                    accountFileDataSource.setAccountList(accountList);
-                    AlertDefined.alertWarning("create complete", "This username can use now");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                saveUpdate();
                 clearAllBox();
                 accountTable.getColumns().clear();
                 showData();
@@ -158,7 +154,10 @@ public class AdminStageController {
         if (customDialog.isCheckNotnull()) {
             admin.setPassword(customDialog.getOutput());
         }
+        saveUpdate();
     }
+
+    /** HOME **/
     public void homeBtnAction(ActionEvent event) throws IOException {
         Button b = (Button) event.getSource();
         Stage stage = (Stage) b.getScene().getWindow();
@@ -166,6 +165,17 @@ public class AdminStageController {
         stage.setScene(new Scene(loader.load(), 960, 600));
         LoginStageController loginStageController = loader.getController();
         loginStageController.setAccountList(accountList);
+    }
+
+    /** SaveUpdate **/
+    public void saveUpdate(){
+        AccountFileDataSource accountFileDataSource = null;
+        try {
+            accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
+            accountFileDataSource.setAccountList(accountList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /** PassValueToThisStage */
@@ -179,6 +189,5 @@ public class AdminStageController {
         showData();
     }
 
-    /** SaveUpdate **/
-    
+
 }
