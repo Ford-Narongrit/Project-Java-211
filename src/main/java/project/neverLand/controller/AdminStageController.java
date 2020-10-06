@@ -66,9 +66,9 @@ public class AdminStageController {
         accountTable.setItems(accountObservableList);
 
         ArrayList<StringConfiguration> configs = new ArrayList<>();
-        configs.add(new StringConfiguration("title:Username", "field:username", "width:0.2"));
-        configs.add(new StringConfiguration("title:Name", "field:personData", "width:0.5"));
-        configs.add(new StringConfiguration("title:BanStage", "field:ban", "width:0.2"));
+        configs.add(new StringConfiguration("title:Last login", "field:lastLogin", "width:0.2"));
+        configs.add(new StringConfiguration("title:Username", "field:username", "width:0.3"));
+        configs.add(new StringConfiguration("title:Name", "field:personData", "width:0.2"));
 
         for (StringConfiguration conf : configs) {
             TableColumn col = new TableColumn(conf.get("title"));

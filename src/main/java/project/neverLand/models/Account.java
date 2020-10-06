@@ -7,8 +7,11 @@ public class Account {
     private String password;
     private Person personData;
     private String role;
+
+    private String lastLogin;
     private boolean ban;
     private int loginBanCount;
+
 
     public Account(String username, Person person, String role){
         this.username = username;
@@ -18,14 +21,18 @@ public class Account {
         loginBanCount = 0;
     }
 
-    public Account(String username, Person personData, String role, boolean ban, int loginBanCount) {
+    public Account(String username, Person personData, String role, boolean ban, int loginBanCount, String lastLogin) {
         this.username = username;
         this.personData = personData;
         this.role = role;
         this.ban = ban;
         this.loginBanCount = loginBanCount;
+        this.lastLogin = lastLogin;
     }
 
+    public String getLastLogin() {
+        return lastLogin;
+    }
     public String getUsername() {
         return username;
     }
@@ -51,15 +58,15 @@ public class Account {
     public void setPassword(String password) {
         this.password = BCrypt.hashpw(password, BCrypt.gensalt(12));
     }
-
     public void setHashPassword(String password){
         this.password = password;
     }
-
     public void setBan(boolean ban) {
         this.ban = ban;
     }
-
+    public void setLastLogin(String lastLogin) {
+        this.lastLogin = lastLogin;
+    }
 
     public void banCountAddOne(){
         loginBanCount++;
@@ -71,5 +78,18 @@ public class Account {
 
     public boolean validate(String username) {
         return this.username.equals(username);
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", personData=" + personData +
+                ", role='" + role + '\'' +
+                ", loginDate='" + lastLogin + '\'' +
+                ", ban=" + ban +
+                ", loginBanCount=" + loginBanCount +
+                '}';
     }
 }

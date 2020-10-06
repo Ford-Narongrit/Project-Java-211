@@ -13,10 +13,12 @@ import project.neverLand.models.InboxList;
 import project.neverLand.services.fileDataSource.AccountFileDataSource;
 import project.neverLand.services.fileDataSource.AddressListFileDataSource;
 import project.neverLand.services.fileDataSource.InboxFileDataSource;
-import project.neverLand.services.hardCodeSource.AddressDataBase;
 import project.neverLand.helper.AlertDefined;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LoginStageController {
     @FXML private Label register;
@@ -53,6 +55,13 @@ public class LoginStageController {
         if(accountList.login(username.getText(), password.getText())){
             Button b = (Button) event.getSource();
             Stage stage = (Stage) b.getScene().getWindow();
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd--HH:mm:ss");
+            Date date = new Date();
+            accountList.getCurrentAccount().setLastLogin(dateFormat.format(date));
+            AccountFileDataSource accountFileDataSource = new AccountFileDataSource("data", "accountList.csv");
+            accountFileDataSource.setAccountList(accountList);
+
             if(accountList.getCurrentAccount().isBan()){
                 AlertDefined.alertWarning("Your account is Ban.", "Please try again.");
                 accountList.getCurrentAccount().banCountAddOne();

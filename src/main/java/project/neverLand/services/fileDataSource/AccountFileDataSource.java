@@ -25,7 +25,7 @@ public class AccountFileDataSource extends FileDataSource {
                                 new Person(data[1].trim(), data[2].trim())
                                 ,data[3].trim()
                                 ,Boolean.parseBoolean(data[4])
-                                ,Integer.parseInt(data[5]));
+                                ,Integer.parseInt(data[5]) , data[7].trim());
             account.setHashPassword(data[6]);
             accountList.addAccount(account);
             //
@@ -52,7 +52,8 @@ public class AccountFileDataSource extends FileDataSource {
                             account.getRole() + "," +
                             account.isBan() + "," +
                             account.getLoginBanCount() + "," +
-                            account.getPassword();
+                            account.getPassword() + "," +
+                            account.getLastLogin();
             bufferedWriter.append(line);
             bufferedWriter.newLine();
         }
