@@ -39,17 +39,32 @@
                         <Image url="@image/profileDefault.jpg" />
                      </image>
                   </ImageView>
-                  <Label layoutX="281.0" layoutY="249.0" prefHeight="39.0" prefWidth="72.0" text="Name" textFill="#e4e5e5">
+                  <Label layoutX="263.0" layoutY="251.0" prefHeight="39.0" prefWidth="72.0" text="Name" textFill="#e4e5e5">
                      <font>
                         <Font size="27.0" />
                      </font>
                   </Label>
-                  <Label layoutX="281.0" layoutY="304.0" prefHeight="39.0" prefWidth="127.0" text="Username" textFill="#e4e5e5">
+                  <Label layoutX="214.0" layoutY="302.0" prefHeight="39.0" prefWidth="121.0" text="Username" textFill="#e4e5e5">
                      <font>
                         <Font size="27.0" />
                      </font>
                   </Label>
-                  <Button fx:id="changePassword" layoutX="337.0" layoutY="430.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="167.0" styleClass="buttonSignUp" text="Change Password" textFill="#e4e5e5">
+                  <Button fx:id="changePassword" layoutX="337.0" layoutY="407.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="167.0" styleClass="buttonSignUp" text="Change Password" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="name" layoutX="349.0" layoutY="251.0" prefHeight="39.0" prefWidth="355.0" text="Name" textFill="#e4e5e5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="username" layoutX="349.0" layoutY="302.0" prefHeight="39.0" prefWidth="355.0" text="Username" textFill="#e4e5e5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="337.0" layoutY="474.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="167.0" styleClass="buttonSignUp" text="Change Profile" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
@@ -64,9 +79,34 @@
                         <Image url="@image/emptyInbox.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="557.0" layoutY="217.0" prefHeight="39.0" prefWidth="72.0" text="from" textFill="#e4e5e5">
+                  <Label fx:id="receiver" layoutX="617.0" layoutY="269.0" prefHeight="46.0" prefWidth="122.0" text="Receiver" textFill="#e4e5e5">
                      <font>
-                        <Font size="27.0" />
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sender" layoutX="617.0" layoutY="355.0" prefHeight="46.0" prefWidth="122.0" text="Sender" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="size" layoutX="617.0" layoutY="447.0" prefHeight="46.0" prefWidth="122.0" text="size" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="569.0" layoutY="223.0" prefHeight="46.0" prefWidth="68.0" text="Receiver" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="569.0" layoutY="309.0" prefHeight="46.0" prefWidth="68.0" text="Sender" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="569.0" layoutY="401.0" prefHeight="46.0" prefWidth="68.0" text="Size" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
                      </font>
                   </Label>
                </children>

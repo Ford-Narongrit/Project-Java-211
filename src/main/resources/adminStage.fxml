@@ -106,6 +106,12 @@
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
+                  <ImageView fitHeight="113.0" fitWidth="121.0" layoutX="675.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/profileDefault.jpg" />
+                     </image>
+                  </ImageView>
+                  <Button layoutX="686.0" layoutY="188.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="92.0" text="choose image" />
                </children>
             </Pane>
             <Pane fx:id="adminPane" layoutX="6.0" layoutY="6.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -115,17 +121,32 @@
                         <Image url="@image/profileDefault.jpg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="name" layoutX="225.0" layoutY="271.0" prefHeight="39.0" prefWidth="355.0" text="Name" textFill="#e4e5e5">
+                  <Label fx:id="name" layoutX="337.0" layoutY="271.0" prefHeight="39.0" prefWidth="355.0" text="Name" textFill="#e4e5e5">
                      <font>
                         <Font size="27.0" />
                      </font>
                   </Label>
-                  <Label fx:id="adminUsername" layoutX="225.0" layoutY="326.0" prefHeight="39.0" prefWidth="355.0" text="Username" textFill="#e4e5e5">
+                  <Label fx:id="adminUsername" layoutX="337.0" layoutY="325.0" prefHeight="39.0" prefWidth="355.0" text="Username" textFill="#e4e5e5">
                      <font>
                         <Font size="27.0" />
                      </font>
                   </Label>
                   <Button fx:id="rePassword" layoutX="337.0" layoutY="426.0" mnemonicParsing="false" onAction="#reSetPasswordBtnAction" prefHeight="46.0" prefWidth="167.0" styleClass="buttonSignUp" text="Change Password" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="239.0" layoutY="271.0" prefHeight="39.0" prefWidth="76.0" text="Name" textFill="#e4e5e5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="189.0" layoutY="325.0" prefHeight="39.0" prefWidth="123.0" text="Username" textFill="#e4e5e5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="337.0" layoutY="495.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="167.0" styleClass="buttonSignUp" text="Change Profile" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>

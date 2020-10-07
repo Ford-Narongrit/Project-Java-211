@@ -27,6 +27,7 @@ public class AdminStageController {
     private Account selectedAccount;
 
     private ObservableList accountObservableList;
+
     @FXML private Label name, adminUsername;
     @FXML private Pane registerPane, infoPane, adminPane;
     @FXML private PasswordField password, confirmPassword;
@@ -69,6 +70,7 @@ public class AdminStageController {
         configs.add(new StringConfiguration("title:Last login", "field:lastLogin", "width:0.2"));
         configs.add(new StringConfiguration("title:Username", "field:username", "width:0.3"));
         configs.add(new StringConfiguration("title:Name", "field:personData", "width:0.2"));
+        configs.add(new StringConfiguration("title:Ban login count", "field:loginBanCount", "width:0.2"));
 
         for (StringConfiguration conf : configs) {
             TableColumn col = new TableColumn(conf.get("title"));

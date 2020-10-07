@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,14 +31,16 @@ public class ResidentStageController {
     private ObservableList mailObservableList;
 
     @FXML private Button inbox, profile, home;
-    @FXML private TableView inboxTable;
+    @FXML private TableView<Mail> inboxTable;
     @FXML private Button changePassword;
     @FXML private Pane inboxPane, profilePane;
+    @FXML private Label name, username;
+    @FXML private Label receiver, sender, size;
     @FXML
     public void initialize() {
         inboxTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-//                showSelectedMail(newValue);
+                showSelectedMail(newValue);
             }
         });
     }
@@ -62,6 +65,13 @@ public class ResidentStageController {
             inboxTable.getColumns().add(col);
         }
     }
+    private void showSelectedMail(Mail mail) {
+        selectedMail = mail;
+        receiver.setText(selectedMail.getReceiver().getFirstName());
+        sender.setText(selectedMail.getSender().getFirstName());
+        size.setText(String.valueOf(selectedMail.getSize()));
+    }
+
 
     /** profile **/
     public void profileBtnAction(){
@@ -77,12 +87,14 @@ public class ResidentStageController {
     }
 
 
-
+    /** PassValueToThisStage */
     public void setAddress(Address address) {
         this.address = address;
     }
     public void setAccount(Account account) {
         this.account = account;
+        name.setText(account.getPersonData().getFirstName());
+        username.setText(account.getUsername());
     }
     public void setInboxList(InboxList inboxList) {
         this.inboxList = inboxList;
