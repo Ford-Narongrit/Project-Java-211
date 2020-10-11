@@ -7,6 +7,7 @@ public class Account {
     private String password;
     private Person personData;
     private String role;
+    private String imagePath;
 
     private String lastLogin;
     private boolean ban;
@@ -21,13 +22,14 @@ public class Account {
         loginBanCount = 0;
     }
 
-    public Account(String username, Person personData, String role, boolean ban, int loginBanCount, String lastLogin) {
+    public Account(String username, Person personData, String role, boolean ban, int loginBanCount, String lastLogin , String imagePath) {
         this.username = username;
         this.personData = personData;
         this.role = role;
         this.ban = ban;
         this.loginBanCount = loginBanCount;
         this.lastLogin = lastLogin;
+        this.imagePath = imagePath;
     }
 
     public String getLastLogin() {
@@ -91,5 +93,13 @@ public class Account {
                 ", ban=" + ban +
                 ", loginBanCount=" + loginBanCount +
                 '}';
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagPath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

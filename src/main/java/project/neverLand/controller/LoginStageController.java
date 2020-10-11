@@ -1,5 +1,6 @@
 package project.neverLand.controller;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,23 +32,34 @@ public class LoginStageController {
     private InboxList inboxList;
 
     @FXML public void initialize(){
-        try {
-            AccountFileDataSource accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
-            accountList = accountFileDataSource.getAccountList();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            AddressListFileDataSource addressListFileDataSource = new AddressListFileDataSource("data","addressList.csv");
-            addressList = addressListFileDataSource.getAddressList();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            InboxFileDataSource inboxFileDataSource = new InboxFileDataSource("data","inboxList.csv");
-            inboxList = inboxFileDataSource.getInboxList();
-        } catch (IOException e) {
-            e.printStackTrace();
+        Dotenv dotenv = Dotenv.load();
+        String driver = dotenv.get("DRIVER", "file");
+        if (driver.equals("file")) {
+            try {
+
+                AccountFileDataSource accountFileDataSource = new AccountFileDataSource(
+                        dotenv.get("DATA_DIRECTORY", "data"),
+                        dotenv.get("ACCOUNT_FILENAME", "accountList.csv"));
+                accountList = accountFileDataSource.getAccountList();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                AddressListFileDataSource addressListFileDataSource = new AddressListFileDataSource(
+                        dotenv.get("DATA_DIRECTORY", "data"),
+                        dotenv.get("ADDRESS_FILENAME", "addressList.csv"));
+                addressList = addressListFileDataSource.getAddressList();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                InboxFileDataSource inboxFileDataSource = new InboxFileDataSource(
+                        dotenv.get("DATA_DIRECTORY", "data"),
+                        dotenv.get("INBOX_FILENAME", "inboxList.csv"));
+                inboxList = inboxFileDataSource.getInboxList();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -7,9 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import project.neverLand.models.*;
 import project.neverLand.helper.AlertDefined;
+import project.neverLand.services.fileDataSource.AccountFileDataSource;
+import project.neverLand.services.fileDataSource.ImageDateSource;
 
 
 import java.io.IOException;
@@ -17,10 +21,13 @@ import java.io.IOException;
 public class RegisterStageController {
     private AccountList accountList;
     private AddressList addressList;
+    private String imagePath = "image/profileDefault.jpg";
 
     @FXML private TextField username, firstname, lastname;
     @FXML private PasswordField password, confirmPassword;
-    @FXML private Button create, cancel;
+    @FXML private Button create, cancel, chooseImage;
+    @FXML private ImageView registerImageView;
+
     public void initialize() {
     }
 
@@ -30,9 +37,14 @@ public class RegisterStageController {
                 if (!accountList.isUsernameDuplicate(username.getText())) {
                     if (isConfirmEqualsPassword()) {
                         Account account = new Account(username.getText(), new Person(firstname.getText(), lastname.getText()), "resident");
+                        account.setImagPath(imagePath);
                         account.setPassword(password.getText());
                         accountList.addAccount(account);
 
+                        AccountFileDataSource accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
+                        accountFileDataSource.setAccountList(accountList);
+
+                        imagePath = "image/profileDefault.jpg";
                         Button b = (Button) event.getSource();
                         Stage stage = (Stage) b.getScene().getWindow();
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginStage.fxml"));
@@ -52,6 +64,13 @@ public class RegisterStageController {
             AlertDefined.alertWarning("Any box has null", "Please fill all box.");
         }
     }
+
+    public void changeProfile(ActionEvent event){
+        ImageDateSource imageDateSource = new ImageDateSource();
+        imagePath = imageDateSource.getPathForFileChooser(event);
+        registerImageView.setImage(new Image(imagePath));
+    }
+
     public void cancelBtnAction(ActionEvent event) throws IOException {
         Button b = (Button) event.getSource();
         Stage stage = (Stage) b.getScene().getWindow();

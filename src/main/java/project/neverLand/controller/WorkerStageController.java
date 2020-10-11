@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import project.neverLand.models.*;
@@ -17,6 +19,7 @@ import project.neverLand.services.CustomDialog;
 import project.neverLand.services.StringConfiguration;
 import project.neverLand.services.fileDataSource.AccountFileDataSource;
 import project.neverLand.services.fileDataSource.AddressListFileDataSource;
+import project.neverLand.services.fileDataSource.ImageDateSource;
 import project.neverLand.services.fileDataSource.InboxFileDataSource;
 
 import java.io.IOException;
@@ -30,6 +33,8 @@ public class WorkerStageController {
 
     private Mail selectedMail;
     private ObservableList mailObservableList;
+    private ImageDateSource imageDateSource;
+    private String imagePath;
 
     @FXML private Pane managePane;
     @FXML private Button manageBtn, registerBtn, profileBtn, homeBtn;
@@ -40,11 +45,13 @@ public class WorkerStageController {
 
     @FXML private Pane registerPane;
     @FXML private TextField firstname, lastname, building, floor, room, roomType;
-    @FXML private Button create, cancel;
+    @FXML private Button create, cancel, registerChooseImage;
+    @FXML private ImageView registerImageView;
 
     @FXML private Pane profilePane;
     @FXML private Label name, username;
-    @FXML private Button rePassword;
+    @FXML private Button rePassword, changeProfile;
+    @FXML private ImageView profileImageView;
 
     @FXML private Pane addNewInboxPane;
     @FXML private TextField receiverFirstname, receiverLastname, receiverAddress;
@@ -54,6 +61,7 @@ public class WorkerStageController {
 
 
     @FXML public void initialize(){
+        imageDateSource = new ImageDateSource();
         inboxTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showSelectedMail(newValue);
@@ -103,9 +111,14 @@ public class WorkerStageController {
     public void registerBtnAction(){
         registerPane.toFront();
     }
+    public void registerChooseImage(ActionEvent event){
+        imagePath = imageDateSource.getPathForFileChooser(event);
+        registerImageView.setImage(new Image(imagePath));
+    }
     public void createBtnAction(){
         Address address = new Address(building.getText(),floor.getText(),room.getText(),roomType.getText());
         address.addPersonToRoom(new Person(firstname.getText(),lastname.getText()));
+        //todo add image to Person class//
         addressList.addAddress(address);
         saveUpdateAddressList();
         clearAllField();
@@ -117,7 +130,7 @@ public class WorkerStageController {
     }
     public void reSetPasswordBtnAction() throws IOException {
         CustomDialog customDialog = new CustomDialog();
-        customDialog.setTitleAndHeaderDialog("Repassword", "Please enter new password.");
+        customDialog.setTitleAndHeaderDialog("RePassword", "Please enter new password.");
         customDialog.addButton("Confirm");
         customDialog.createFields();
         customDialog.getResult();
@@ -127,6 +140,14 @@ public class WorkerStageController {
         }
         saveUpdateAccountList();
     }
+    public void changeProfile(ActionEvent event){
+        imagePath = imageDateSource.getPathForFileChooser(event);
+        profileImageView.setImage(new Image(imagePath));
+        worker.setImagPath(imagePath);
+        imagePath = "image/profileDefault.jpg";
+        saveUpdateAccountList();
+    }
+
 
     /** addNewInBox **/
     public void addInboxBtnAction(){
@@ -248,6 +269,7 @@ public class WorkerStageController {
         this.worker = worker;
         name.setText(worker.getPersonData().getFirstName());
         username.setText(worker.getUsername());
+        profileImageView.setImage(new Image(worker.getImagePath()));
     }
     public void setInboxList(InboxList inboxList) {
         this.inboxList = inboxList;

@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import project.neverLand.models.Account;
@@ -17,6 +19,7 @@ import project.neverLand.helper.AlertDefined;
 import project.neverLand.services.CustomDialog;
 import project.neverLand.services.StringConfiguration;
 import project.neverLand.services.fileDataSource.AccountFileDataSource;
+import project.neverLand.services.fileDataSource.ImageDateSource;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,17 +30,29 @@ public class AdminStageController {
     private Account selectedAccount;
 
     private ObservableList accountObservableList;
+    private String imagePath = "image/profileDefault.jpg";
+    private ImageDateSource imageDateSource;
 
-    @FXML private Label name, adminUsername;
-    @FXML private Pane registerPane, infoPane, adminPane;
-    @FXML private PasswordField password, confirmPassword;
-    @FXML private TextField firstName, lastName, username;
-    @FXML private Button banBtn, unBanBtn, rePassword, signUp, cancel;
-    @FXML private Button registerBtn, homeBtn, manageBtn, adminBtn;
+    @FXML private Pane managePane;
+    @FXML private Button banBtn, unBanBtn;
     @FXML private TableView<Account> accountTable;
+    @FXML private ImageView manageImageView;
+
+    @FXML private Pane registerPane;
+    @FXML private TextField firstName, lastName, username;
+    @FXML private PasswordField password, confirmPassword;
+    @FXML private ImageView registerImageView;
+    @FXML private Button signUpBtn, cancelBtn, chooseImageBtn;
+
+    @FXML private Pane adminPane;
+    @FXML private ImageView adminImage;
+    @FXML private Label name, adminUsername;
+    @FXML private Button changeProfileBtn, changePasswordBtn;
 
     @FXML
     public void initialize() {
+        imageDateSource = new ImageDateSource();
+
         banBtn.setVisible(false);
         unBanBtn.setVisible(false);
         accountTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -48,7 +63,7 @@ public class AdminStageController {
     }
     /** managePane Function **/
     public void manageBtnAction(){
-        infoPane.toFront();
+        managePane.toFront();
     }
     public void unBanBtnAction() {
         selectedAccount.setBan(false);
@@ -67,7 +82,7 @@ public class AdminStageController {
         accountTable.setItems(accountObservableList);
 
         ArrayList<StringConfiguration> configs = new ArrayList<>();
-        configs.add(new StringConfiguration("title:Last login", "field:lastLogin", "width:0.2"));
+        configs.add(new StringConfiguration("title:Last login", "field:lastLogin", "width:0.3"));
         configs.add(new StringConfiguration("title:Username", "field:username", "width:0.3"));
         configs.add(new StringConfiguration("title:Name", "field:personData", "width:0.2"));
         configs.add(new StringConfiguration("title:Ban login count", "field:loginBanCount", "width:0.2"));
@@ -82,6 +97,7 @@ public class AdminStageController {
     }
     private void showSelectedAccount(Account account) {
         selectedAccount = account;
+        manageImageView.setImage(new Image(selectedAccount.getImagePath()));
         if (!selectedAccount.isBan()) {
             banBtn.setVisible(true);
             unBanBtn.setVisible(false);
@@ -92,6 +108,7 @@ public class AdminStageController {
     }
     private void clearSelectedAccount() {
         selectedAccount = null;
+        manageImageView.setImage(new Image("image/profileDefault.jpg"));
         accountTable.getSelectionModel().clearSelection();
         banBtn.setVisible(false);
         unBanBtn.setVisible(false);
@@ -114,6 +131,7 @@ public class AdminStageController {
             else {
                 Account account = new Account(username.getText(), new Person(firstName.getText(), lastName.getText()), "worker");
                 account.setPassword(password.getText());
+                account.setImagPath(imagePath);
                 accountList.addAccount(account);
 
                 saveUpdate();
@@ -138,16 +156,22 @@ public class AdminStageController {
         username.clear();
         password.clear();
         confirmPassword.clear();
+        imagePath = "image/profileDefault.jpg";
+        registerImageView.setImage(new Image(imagePath));
     }
     public void cancelBtnAction(){
         clearAllBox();
+    }
+    public void chooseImageBtnAction(ActionEvent event){
+        imagePath = imageDateSource.getPathForFileChooser(event);
+        registerImageView.setImage(new Image(imagePath));
     }
 
     /** adminPane Function **/
     public void adminBtnAction(){
         adminPane.toFront();
     }
-    public void reSetPasswordBtnAction() throws IOException {
+    public void reSetPasswordBtnAction() {
         CustomDialog customDialog = new CustomDialog();
         customDialog.setTitleAndHeaderDialog("RePassword", "Please enter new password.");
         customDialog.addButton("Confirm");
@@ -157,6 +181,13 @@ public class AdminStageController {
             admin.setPassword(customDialog.getOutput());
         }
         saveUpdate();
+    }
+    public void changeProfile(ActionEvent event){
+       imagePath = imageDateSource.getPathForFileChooser(event);
+       adminImage.setImage(new Image(imagePath));
+       admin.setImagPath(imagePath);
+       imagePath = "image/profileDefault.jpg";
+       saveUpdate();
     }
 
     /** HOME **/
@@ -185,6 +216,7 @@ public class AdminStageController {
         this.admin = admin;
         name.setText(admin.getPersonData().getFirstName());
         adminUsername.setText(admin.getUsername());
+        adminImage.setImage(new Image(admin.getImagePath()));
     }
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;

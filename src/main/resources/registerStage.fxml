@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="960.0" style="-fx-background-color: #2f3136;" stylesheets="@css/register.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverLand.controller.RegisterStageController">
+<AnchorPane prefHeight="600.0" prefWidth="960.0" style="-fx-background-color: #2f3136;" stylesheets="@css/register.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverLand.controller.RegisterStageController">
    <children>
       <Label layoutX="38.0" layoutY="14.0" text="Register" textFill="#e4e5e5">
          <font>
@@ -18,7 +18,7 @@
       </Label>
       <AnchorPane layoutX="38.0" layoutY="81.0" prefHeight="487.0" prefWidth="890.0" style="-fx-background-color: #36393f;">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="676.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="registerImageView" fitHeight="150.0" fitWidth="200.0" layoutX="676.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@image/profileDefault.jpg" />
                </image>
@@ -79,6 +79,11 @@
                </font>
             </Button>
             <Button fx:id="cancel" layoutX="751.0" layoutY="406.0" mnemonicParsing="false" onAction="#cancelBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonCancel" text="Cancel" textFill="#831e34">
+               <font>
+                  <Font name="Candara" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="chooseImage" layoutX="683.0" layoutY="189.0" mnemonicParsing="false" onAction="#changeProfile" prefHeight="46.0" prefWidth="137.0" styleClass="buttonCreate" text="choose image" textFill="#e4e5e5">
                <font>
                   <Font name="Candara" size="18.0" />
                </font>

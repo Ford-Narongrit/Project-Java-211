@@ -3,13 +3,14 @@ package project.neverLand.services.fileDataSource;
 import project.neverLand.models.Account;
 import project.neverLand.models.AccountList;
 import project.neverLand.models.Person;
+
 import java.io.*;
 
 public class AccountFileDataSource extends FileDataSource {
     private AccountList accountList;
 
     public AccountFileDataSource(String fileDirectoryName, String fileName) throws IOException {
-        super(fileDirectoryName,fileName);
+        super(fileDirectoryName, fileName);
     }
 
     private void readData() throws IOException {
@@ -18,14 +19,14 @@ public class AccountFileDataSource extends FileDataSource {
         FileReader fileReader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String line = "";
-        while((line = bufferedReader.readLine()) != null){
+        while ((line = bufferedReader.readLine()) != null) {
             String[] data = line.split(",");
             //new object
-            Account account =   new Account(data[0].trim(),
-                                new Person(data[1].trim(), data[2].trim())
-                                ,data[3].trim()
-                                ,Boolean.parseBoolean(data[4])
-                                ,Integer.parseInt(data[5]) , data[7].trim());
+            Account account = new Account(data[0].trim(),
+                    new Person(data[1].trim(), data[2].trim())
+                    , data[3].trim()
+                    , Boolean.parseBoolean(data[4])
+                    , Integer.parseInt(data[5]), data[7].trim(), data[8].trim());
             account.setHashPassword(data[6]);
             accountList.addAccount(account);
             //
@@ -45,15 +46,15 @@ public class AccountFileDataSource extends FileDataSource {
         FileWriter fileWriter = null;
         fileWriter = new FileWriter(file);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        for(Account account: accountList.toList()){
-            String line =   account.getUsername() + "," +
-                            account.getPersonData().getFirstName() + "," +
-                            account.getPersonData().getLastName() + "," +
-                            account.getRole() + "," +
-                            account.isBan() + "," +
-                            account.getLoginBanCount() + "," +
-                            account.getPassword() + "," +
-                            account.getLastLogin();
+        for (Account account : accountList.toList()) {
+            String line = account.getUsername() + "," +
+                    account.getPersonData().getFirstName() + "," +
+                    account.getPersonData().getLastName() + "," +
+                    account.getRole() + "," +
+                    account.isBan() + "," +
+                    account.getLoginBanCount() + "," +
+                    account.getPassword() + "," +
+                    account.getLastLogin()+ "," + account.getImagePath();
             bufferedWriter.append(line);
             bufferedWriter.newLine();
         }

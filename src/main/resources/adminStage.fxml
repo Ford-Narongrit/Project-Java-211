@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="960.0" style="-fx-background-color: #2f3136;" stylesheets="@css/admin.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverLand.controller.AdminStageController">
+<AnchorPane prefHeight="600.0" prefWidth="960.0" style="-fx-background-color: #2f3136;" stylesheets="@css/admin.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverLand.controller.AdminStageController">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="100.0" style="-fx-background-color: #a0a2ac;" stylesheets="@css/admin.css">
          <children>
@@ -96,27 +96,27 @@
                         <Font size="18.0" />
                      </font>
                   </PasswordField>
-                  <Button fx:id="signUp" layoutX="296.0" layoutY="446.0" mnemonicParsing="false" onAction="#signUpBtnAction" prefHeight="35.0" prefWidth="106.0" styleClass="buttonSignUp" text="signup" textFill="#e4e5e5">
+                  <Button fx:id="signUpBtn" layoutX="296.0" layoutY="446.0" mnemonicParsing="false" onAction="#signUpBtnAction" prefHeight="35.0" prefWidth="106.0" styleClass="buttonSignUp" text="signup" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="cancel" layoutX="440.0" layoutY="446.0" mnemonicParsing="false" onAction="#cancelBtnAction" prefHeight="35.0" prefWidth="106.0" styleClass="buttonSignUp" text="cancel" textFill="#e4e5e5">
+                  <Button fx:id="cancelBtn" layoutX="440.0" layoutY="446.0" mnemonicParsing="false" onAction="#cancelBtnAction" prefHeight="35.0" prefWidth="106.0" styleClass="buttonSignUp" text="cancel" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
-                  <ImageView fitHeight="113.0" fitWidth="121.0" layoutX="675.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="registerImageView" fitHeight="113.0" fitWidth="121.0" layoutX="675.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@image/profileDefault.jpg" />
                      </image>
                   </ImageView>
-                  <Button layoutX="686.0" layoutY="188.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="92.0" text="choose image" />
+                  <Button fx:id="chooseImageBtn" layoutX="686.0" layoutY="188.0" mnemonicParsing="false" onAction="#chooseImageBtnAction" prefHeight="34.0" prefWidth="92.0" text="choose image" />
                </children>
             </Pane>
             <Pane fx:id="adminPane" layoutX="6.0" layoutY="6.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                <children>
-                  <ImageView fitHeight="217.0" fitWidth="217.0" layoutX="312.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="adminImage" fitHeight="217.0" fitWidth="217.0" layoutX="312.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@image/profileDefault.jpg" />
                      </image>
@@ -131,7 +131,7 @@
                         <Font size="27.0" />
                      </font>
                   </Label>
-                  <Button fx:id="rePassword" layoutX="337.0" layoutY="426.0" mnemonicParsing="false" onAction="#reSetPasswordBtnAction" prefHeight="46.0" prefWidth="167.0" styleClass="buttonSignUp" text="Change Password" textFill="#e4e5e5">
+                  <Button fx:id="changePasswordBtn" layoutX="337.0" layoutY="426.0" mnemonicParsing="false" onAction="#reSetPasswordBtnAction" prefHeight="46.0" prefWidth="167.0" styleClass="buttonSignUp" text="Change Password" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
@@ -146,17 +146,17 @@
                         <Font size="27.0" />
                      </font>
                   </Label>
-                  <Button layoutX="337.0" layoutY="495.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="167.0" styleClass="buttonSignUp" text="Change Profile" textFill="#e4e5e5">
+                  <Button fx:id="changeProfileBtn" layoutX="337.0" layoutY="495.0" mnemonicParsing="false" onAction="#changeProfile" prefHeight="46.0" prefWidth="167.0" styleClass="buttonSignUp" text="Change Profile" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="infoPane" layoutX="10.0" layoutY="10.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <Pane fx:id="managePane" layoutX="10.0" layoutY="10.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                <children>
                   <TableView fx:id="accountTable" layoutX="38.0" layoutY="70.0" prefHeight="482.0" prefWidth="617.0" style="-fx-background-color: #bbbbc3;" />
-                  <ImageView fitHeight="113.0" fitWidth="137.0" layoutX="689.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="manageImageView" fitHeight="113.0" fitWidth="137.0" layoutX="689.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@image/profileDefault.jpg" />
                      </image>

@@ -1,6 +1,7 @@
 package project.neverLand.services.fileDataSource;
 
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 
@@ -14,9 +15,11 @@ import java.time.LocalDate;
 
 public class ImageDateSource {
 
-    public void getPathForFileChooser(ActionEvent event) {
-        Button b = (Button) event.getSource();
+    public String getPathForFileChooser(ActionEvent event) {
+        return chooseFile((Node) event.getSource());
+    }
 
+    private String chooseFile(Node b) {
         FileChooser chooser = new FileChooser();
         chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("image PNG JPG", "*.png", "*.jpg"));
@@ -33,11 +36,13 @@ public class ImageDateSource {
                 // COPY WITH FLAG REPLACE FILE IF FILE IS EXIST
                 Files.copy(file.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
 
-//                return destDir.getAbsolutePath() + System.getProperty("file.separator") + filename;
+                return target.toUri().toString();
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return "image/profileDefault.jpg";
     }
+
 }
