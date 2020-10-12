@@ -13,7 +13,6 @@ public class Account {
     private boolean ban;
     private int loginBanCount;
 
-
     public Account(String username, Person person, String role){
         this.username = username;
         this.personData = person;
@@ -50,9 +49,15 @@ public class Account {
     public int getLoginBanCount() {
         return loginBanCount;
     }
-
     public boolean isBan() {
         return ban;
+    }
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
     public boolean isRole(String role) {
         return this.role.equals(role);
@@ -95,11 +100,5 @@ public class Account {
                 '}';
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
 
-    public void setImagPath(String imagePath) {
-        this.imagePath = imagePath;
-    }
 }

@@ -11,15 +11,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import project.neverLand.helper.AlertDefined;
 import project.neverLand.models.*;
 import project.neverLand.models.Package;
-import project.neverLand.helper.AlertDefined;
 import project.neverLand.services.CustomDialog;
 import project.neverLand.services.StringConfiguration;
 import project.neverLand.services.fileDataSource.AccountFileDataSource;
 import project.neverLand.services.fileDataSource.AddressListFileDataSource;
-import project.neverLand.services.fileDataSource.ImageDateSource;
+import project.neverLand.services.fileDataSource.ImageDataSource;
 import project.neverLand.services.fileDataSource.InboxFileDataSource;
 
 import java.io.IOException;
@@ -31,50 +32,110 @@ public class WorkerStageController {
     private AddressList addressList;
     private Account worker;
 
-    private Mail selectedMail;
-    private ObservableList mailObservableList;
-    private ImageDateSource imageDateSource;
-    private String imagePath;
+    private ImageDataSource imageDateSource;
+    private String personImagePath;
+    private String inboxImagePath;
 
+    /** infoPane **/
+    @FXML private Pane infoPane;
+    @FXML private Button infoBtn;
+    @FXML private TableView<Address> addressTable;
+    private ObservableList addressObservableList;
+    private Address selectedAddress;
+    @FXML private VBox personBox;
+
+    /** managePane **/
     @FXML private Pane managePane;
-    @FXML private Button manageBtn, registerBtn, profileBtn, homeBtn;
-    @FXML private Button addInbox, receivedBtn;
+    @FXML private Button manageBtn;
     @FXML private TableView<Mail> inboxTable;
+    private ObservableList inboxObservableList;
+    private Mail selectedMail;
     @FXML private Label receiver, sender, size;
     @FXML private TextField search;
+    @FXML private ImageView inboxImageView;
 
+    /** addNewInboxPane **/
+    @FXML private Pane addNewInboxPane;
+    @FXML private TextField receiverFirstname, receiverLastname;
+    @FXML private TextArea receiverAddress;
+    @FXML private TextField senderFirstname, senderLastname;
+    @FXML private TextArea senderAddress;
+    @FXML private TextField width, length, height, degree, station, trackingNum;
+    @FXML private ImageView newInboxImageView;
+    @FXML private Button addNewInboxBtn, addNewInboxCancelBtn, chooseImageBtn;
+
+    /** registerPane **/
     @FXML private Pane registerPane;
-    @FXML private TextField firstname, lastname, building, floor, room, roomType;
-    @FXML private Button create, cancel, registerChooseImage;
+    @FXML private TextField firstname, lastname;
+    @FXML private ComboBox building, floor, room, roomType;
+    @FXML private Button registerBtn, createBtn, registerCancelBtn, registerChooseImageBtn;
     @FXML private ImageView registerImageView;
 
+    /** profilePane **/
     @FXML private Pane profilePane;
     @FXML private Label name, username;
-    @FXML private Button rePassword, changeProfile;
+    @FXML private Button profileBtn, rePassword, changeProfile;
     @FXML private ImageView profileImageView;
 
-    @FXML private Pane addNewInboxPane;
-    @FXML private TextField receiverFirstname, receiverLastname, receiverAddress;
-    @FXML private TextField senderFirstname, senderLastname, senderAddress;
-    @FXML private TextField sizeAddInbox, degree, station, trackingNum;
-    @FXML private Button addNewInbox, Cancel;
-
-
     @FXML public void initialize(){
-        imageDateSource = new ImageDateSource();
+        imageDateSource = new ImageDataSource();
+        setTextComboBox();
+        addressTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                showSelectedAddress(newValue);
+            }
+        });
+
         inboxTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showSelectedMail(newValue);
             }
         });
     }
+
+    /** infoPane **/
+    public void infoBtnAction(){
+        infoPane.toFront();
+    }
+    private void showAddressData(){
+        addressObservableList = FXCollections.observableArrayList(addressList.toList());
+        addressTable.setItems(addressObservableList);
+
+        ArrayList<StringConfiguration> configs = new ArrayList<>();
+        configs.add(new StringConfiguration("title:Room Number", "field:roomNumber", "width:0.1"));
+        configs.add(new StringConfiguration("title:Floor", "field:floor", "width:0.2"));
+        configs.add(new StringConfiguration("title:Building", "field:building", "width:0.3"));
+        configs.add(new StringConfiguration("title:Room Type", "field:roomType", "width:0.4"));
+
+        for(StringConfiguration configuration : configs){
+            TableColumn col = new TableColumn(configuration.get("title"));
+            col.prefWidthProperty().bind(addressTable.widthProperty().multiply(Double.parseDouble(configuration.get("width"))));
+            col.setCellValueFactory(new PropertyValueFactory<>(configuration.get("field")));
+            col.setResizable(false);
+            addressTable.getColumns().add(col);
+        }
+    }
+    private void showSelectedAddress(Address address){
+        personBox.getChildren().clear();
+        selectedAddress = address;
+        for(Person person: selectedAddress.getRoomers()){
+            ImageView imageView = new ImageView(new Image(person.getImagePath()));
+            //todo set width height image
+            personBox.getChildren().add(imageView);
+            Label personName = new Label(person.toString());
+            //todo set css to label personName
+            personBox.getChildren().add(personName);
+        }
+    }
+    //todo create method can edit personData
+
     /** managePane **/
     public void manageBtnAction(){
         managePane.toFront();
     }
-    private void showData() {
-        mailObservableList = FXCollections.observableArrayList(inboxList.toNotReceivedList());
-        inboxTable.setItems(mailObservableList);
+    private void showInboxData() {
+        inboxObservableList = FXCollections.observableArrayList(inboxList.toNotReceivedList());
+        inboxTable.setItems(inboxObservableList);
 
         ArrayList<StringConfiguration> configs = new ArrayList<>();
         configs.add(new StringConfiguration("title:Receiver", "field:receiver", "width:0.2"));
@@ -89,8 +150,9 @@ public class WorkerStageController {
             inboxTable.getColumns().add(col);
         }
     }
-    private void showSelectedMail(Mail mail) {
+    private void showSelectedMail(Mail mail){
         selectedMail = mail;
+        inboxImageView.setImage(new Image(selectedMail.getImagePath()));
         receiver.setText(selectedMail.getReceiver().getFirstName());
         sender.setText(selectedMail.getSender().getFirstName());
         size.setText(String.valueOf(selectedMail.getSize()));
@@ -98,60 +160,18 @@ public class WorkerStageController {
     public void receivedInboxBtnAction(){
         selectedMail.setReceived(true);
         saveUpdateInboxList();
-        clearSelectedMail();
+        clearSelectMail();
         inboxTable.getColumns().clear();
-        showData();
-    }
-    private void clearSelectedMail(){
-        selectedMail = null;
-        inboxTable.getSelectionModel().clearSelection();
+        showInboxData();
     }
 
-    /** registerPane **/
-    public void registerBtnAction(){
-        registerPane.toFront();
-    }
-    public void registerChooseImage(ActionEvent event){
-        imagePath = imageDateSource.getPathForFileChooser(event);
-        registerImageView.setImage(new Image(imagePath));
-    }
-    public void createBtnAction(){
-        Address address = new Address(building.getText(),floor.getText(),room.getText(),roomType.getText());
-        address.addPersonToRoom(new Person(firstname.getText(),lastname.getText()));
-        //todo add image to Person class//
-        addressList.addAddress(address);
-        saveUpdateAddressList();
-        clearAllField();
-    }
-
-    /** profilePane **/
-    public void profileBtnAction(){
-        profilePane.toFront();
-    }
-    public void reSetPasswordBtnAction() throws IOException {
-        CustomDialog customDialog = new CustomDialog();
-        customDialog.setTitleAndHeaderDialog("RePassword", "Please enter new password.");
-        customDialog.addButton("Confirm");
-        customDialog.createFields();
-        customDialog.getResult();
-        if (customDialog.isCheckNotnull()) {
-            worker.setPassword(customDialog.getOutput());
-            System.out.println(worker.toString());
-        }
-        saveUpdateAccountList();
-    }
-    public void changeProfile(ActionEvent event){
-        imagePath = imageDateSource.getPathForFileChooser(event);
-        profileImageView.setImage(new Image(imagePath));
-        worker.setImagPath(imagePath);
-        imagePath = "image/profileDefault.jpg";
-        saveUpdateAccountList();
-    }
-
-
-    /** addNewInBox **/
+    /** addNewInboxPane **/
     public void addInboxBtnAction(){
         addNewInboxPane.toFront();
+    }
+    public void addNewInboxChooseImage(ActionEvent event){
+        inboxImagePath = imageDateSource.getPathForFileChooser(event);
+        newInboxImageView.setImage(new Image(inboxImagePath));
     }
     public void addNewInboxBtnAction(){
         if(!checkAllBoxNull()) {
@@ -161,25 +181,29 @@ public class WorkerStageController {
                         senderAddress.getText(),
                         new Person(receiverFirstname.getText(), receiverLastname.getText()),
                         receiverAddress.getText(),
-                        station.getText(), trackingNum.getText());
+                        station.getText(), trackingNum.getText(), inboxImagePath,
+                        Double.parseDouble(width.getText()), Double.parseDouble(length.getText()),
+                        Double.parseDouble(height.getText()));
             } else if (isDocument()) {
                 mail = new Document(new Person(senderFirstname.getText(), senderLastname.getText()),
                         senderAddress.getText(),
                         new Person(receiverFirstname.getText(), receiverLastname.getText()),
                         receiverAddress.getText(),
-                        degree.getText());
+                        degree.getText(),
+                        inboxImagePath, Double.parseDouble(width.getText()), Double.parseDouble(length.getText()));
             } else {
                 mail = new Mail(new Person(senderFirstname.getText(), senderLastname.getText()),
                         senderAddress.getText(),
                         new Person(receiverFirstname.getText(), receiverLastname.getText()),
-                        receiverAddress.getText());
+                        receiverAddress.getText(),
+                        inboxImagePath, Double.parseDouble(width.getText()), Double.parseDouble(length.getText()));
             }
+            mail.calSize();
             inboxList.addInbox(mail);
-            InboxFileDataSource inboxFileDataSource  = null;
             saveUpdateInboxList();
+            clearAddInboxField();
             inboxTable.getColumns().clear();
-            showData();
-            managePane.toFront();
+            showInboxData();
         }
         else{
             AlertDefined.alertWarning("failed to addInbox","please input all box");
@@ -200,6 +224,58 @@ public class WorkerStageController {
     private boolean isDocument(){
         return !degree.getText().equals("");
     }
+    public void addNewInboxCancelBtnAction(){
+        managePane.toFront();
+        clearAddInboxField();
+    }
+
+    /** registerPane **/
+    public void registerBtnAction(){
+        registerPane.toFront();
+    }
+    private void setTextComboBox(){
+        building.getItems().addAll("1","2");
+        floor.getItems().addAll("1","2","3","4","5","6","7","8");
+        roomType.getItems().addAll("one bedroom","two bedrooms");
+        room.getItems().addAll("1","2","3","4","5","6","7","8","9","10");
+    }
+    public void registerChooseImage(ActionEvent event){
+        personImagePath = imageDateSource.getPathForFileChooser(event);
+        registerImageView.setImage(new Image(personImagePath));
+    }
+    public void createBtnAction(){
+        addressList.findAddress((String)building.getValue(),(String)floor.getValue(),(String)room.getValue(),(String)roomType.getValue());
+        addressList.getCurrentAddress().addPersonToRoom(new Person(firstname.getText(),lastname.getText(),personImagePath));
+        saveUpdateAddressList();
+        clearRegisterPaneField();
+    }
+    public void registerCancelBtnAction(){
+        clearRegisterPaneField();
+    }
+
+    /** profilePane **/
+    public void profileBtnAction(){
+        profilePane.toFront();
+    }
+    public void reSetPasswordBtnAction() throws IOException {
+        CustomDialog customDialog = new CustomDialog();
+        customDialog.setTitleAndHeaderDialog("RePassword", "Please enter new password.");
+        customDialog.addButton("Confirm");
+        customDialog.createFields();
+        customDialog.getResult();
+        if (customDialog.isCheckNotnull()) {
+            worker.setPassword(customDialog.getOutput());
+            System.out.println(worker.toString());
+        }
+        saveUpdateAccountList();
+    }
+    public void changeProfile(ActionEvent event){
+        personImagePath = imageDateSource.getPathForFileChooser(event);
+        profileImageView.setImage(new Image(personImagePath));
+        worker.setImagePath(personImagePath);
+        personImagePath = "image/profileDefault.jpg";
+        saveUpdateAccountList();
+    }
 
     /** home **/
     public void homeBtnAction(ActionEvent event) throws IOException {
@@ -210,30 +286,50 @@ public class WorkerStageController {
         LoginStageController loginStageController = loader.getController();
         loginStageController.setInboxList(inboxList);
         loginStageController.setAddressList(addressList);
-    }
-    public void cancelBtnAction(){
-        clearAllField();
-        managePane.toFront();
-    }
+    };
 
-    /** clear/Save/Update **/
-    private void clearAllField(){
-        firstname.clear();
-        lastname.clear();
-        building.clear();
-        floor.clear();
-        room.clear();
-        roomType.clear();
+    /** clear/save/update **/
+    private void clearSelectMail(){
+        inboxImagePath = "image/emptyInbox.png";
+        inboxImageView.setImage(new Image(inboxImagePath));
+        selectedMail = null;
+        inboxTable.getSelectionModel().clearSelection();
+    }
+    private void clearAddInboxField(){
         receiverFirstname.clear();
         receiverLastname.clear();
         receiverAddress.clear();
         senderFirstname.clear();
         senderLastname.clear();
         senderAddress.clear();
-        sizeAddInbox.clear();
+        width.clear();
+        length.clear();
+        height.clear();
         degree.clear();
         station.clear();
         trackingNum.clear();
+        inboxImagePath = "image/emptyInbox.png";
+        newInboxImageView.setImage(new Image(inboxImagePath));
+    }
+    private void clearRegisterPaneField(){
+        firstname.clear();
+        lastname.clear();
+        building.getSelectionModel().clearSelection();
+        floor.getSelectionModel().clearSelection();
+        room.getSelectionModel().clearSelection();
+        roomType.getSelectionModel().clearSelection();
+        personImagePath = "image/profileDefault.jpg";
+        registerImageView.setImage(new Image(personImagePath));
+    }
+
+    private void saveUpdateInboxList(){
+        InboxFileDataSource inboxFileDataSource = null;
+        try {
+            inboxFileDataSource = new InboxFileDataSource("data", "inboxList.csv");
+            inboxFileDataSource.setInboxList(inboxList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     private void saveUpdateAccountList(){
         AccountFileDataSource accountFileDataSource = null;
@@ -254,15 +350,6 @@ public class WorkerStageController {
         }
 
     }
-    private void saveUpdateInboxList(){
-        InboxFileDataSource inboxFileDataSource = null;
-        try {
-            inboxFileDataSource = new InboxFileDataSource("data", "inboxList.csv");
-            inboxFileDataSource.setInboxList(inboxList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /** PassValueToThisStage **/
     public void setWorker(Account worker) {
@@ -273,10 +360,11 @@ public class WorkerStageController {
     }
     public void setInboxList(InboxList inboxList) {
         this.inboxList = inboxList;
-        showData();
+        showInboxData();
     }
     public void setAddressList(AddressList addressList) {
         this.addressList = addressList;
+        showAddressData();
     }
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;

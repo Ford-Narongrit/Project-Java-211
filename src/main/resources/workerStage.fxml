@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="960.0" style="-fx-background-color: #2f3136;" stylesheets="@css/worker.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverLand.controller.WorkerStageController">
+<AnchorPane prefHeight="600.0" prefWidth="960.0" style="-fx-background-color: #2f3136;" stylesheets="@css/worker.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverLand.controller.WorkerStageController">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="100.0" style="-fx-background-color: #a0a2ac;">
          <children>
-            <Button fx:id="manageBtn" mnemonicParsing="false" onAction="#manageBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="manage" textFill="#e4e5e5">
+            <Button fx:id="manageBtn" layoutY="46.0" mnemonicParsing="false" onAction="#manageBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="manage" textFill="#e4e5e5">
                <font>
                   <Font name="Candara" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="registerBtn" layoutY="46.0" mnemonicParsing="false" onAction="#registerBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="Register" textFill="#e4e5e5">
+            <Button fx:id="registerBtn" layoutY="92.0" mnemonicParsing="false" onAction="#registerBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="Register" textFill="#e4e5e5">
                <font>
                   <Font name="Candara" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="profileBtn" layoutY="92.0" mnemonicParsing="false" onAction="#profileBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="Profile" textFill="#e4e5e5">
+            <Button fx:id="infoBtn" mnemonicParsing="false" onAction="#infoBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="Info" textFill="#e4e5e5">
                <font>
                   <Font name="Candara" size="18.0" />
                </font>
@@ -34,63 +37,87 @@
                   <Font name="Candara" size="18.0" />
                </font>
             </Button>
+            <Button fx:id="profileBtn" layoutY="138.0" mnemonicParsing="false" onAction="#profileBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="Profile" textFill="#e4e5e5">
+               <font>
+                  <Font name="Candara" size="18.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="100.0" prefHeight="600.0" prefWidth="861.0">
          <children>
-            <Pane fx:id="managePane" layoutX="6.0" layoutY="21.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <Pane fx:id="registerPane" layoutY="26.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                <children>
-                  <TableView fx:id="inboxTable" layoutX="14.0" layoutY="13.0" prefHeight="565.0" prefWidth="593.0" />
-                  <TextField fx:id="search" layoutX="621.0" layoutY="14.0" prefHeight="25.0" prefWidth="217.0" styleClass="boxField" text="search">
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="122.0" text="Register" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara Italic" size="35.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="39.0" layoutY="106.0" prefHeight="34.0" prefWidth="80.0" text="Firstname" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="39.0" layoutY="159.0" prefHeight="34.0" prefWidth="80.0" text="Lastname" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="39.0" layoutY="208.0" prefHeight="34.0" prefWidth="80.0" text="Building" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="39.0" layoutY="267.0" prefHeight="34.0" prefWidth="80.0" text="floor" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="39.0" layoutY="321.0" prefHeight="34.0" prefWidth="100.0" text="Room" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="39.0" layoutY="379.0" prefHeight="34.0" prefWidth="100.0" text="Roomtype" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="firstname" layoutX="136.0" layoutY="106.0" styleClass="boxField">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="receivedBtn" layoutX="646.0" layoutY="467.0" mnemonicParsing="false" onAction="#receivedInboxBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonRemoveInbox" text="Received">
+                  <TextField fx:id="lastname" layoutX="136.0" layoutY="159.0" styleClass="boxField">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="create" layoutX="510.0" layoutY="495.0" mnemonicParsing="false" onAction="#createBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonDefault" text="Create">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="addInbox" layoutX="646.0" layoutY="530.0" mnemonicParsing="false" onAction="#addInboxBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonDefault" text="Add new inbox">
+                  <Button fx:id="registerCancelBtn" layoutX="677.0" layoutY="495.0" mnemonicParsing="false" onAction="#registerCancelBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonCancel" text="Cancel">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="655.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="607.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="registerImageView" fitHeight="150.0" fitWidth="200.0" layoutX="632.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@image/emptyInbox.png" />
+                        <Image url="@image/profileDefault.jpg" />
                      </image>
                   </ImageView>
-                  <Label fx:id="receiver" layoutX="669.0" layoutY="227.0" prefHeight="46.0" prefWidth="122.0" text="Receiver" textFill="#e4e5e5">
+                  <Button fx:id="registerChooseImage" layoutX="637.0" layoutY="202.0" mnemonicParsing="false" onAction="#registerChooseImage" prefHeight="46.0" prefWidth="140.0" text="choose image">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
-                  </Label>
-                  <Label fx:id="sender" layoutX="669.0" layoutY="313.0" prefHeight="46.0" prefWidth="122.0" text="Sender" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="size" layoutX="669.0" layoutY="405.0" prefHeight="46.0" prefWidth="122.0" text="size" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="621.0" layoutY="181.0" prefHeight="46.0" prefWidth="68.0" text="Receiver" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="621.0" layoutY="267.0" prefHeight="46.0" prefWidth="68.0" text="Sender" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="621.0" layoutY="359.0" prefHeight="46.0" prefWidth="68.0" text="Size" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Label>
+                  </Button>
+                  <ComboBox fx:id="building" layoutX="136.0" layoutY="208.0" prefHeight="34.0" prefWidth="213.0" promptText="Select Building" />
+                  <ComboBox fx:id="floor" layoutX="136.0" layoutY="267.0" prefHeight="34.0" prefWidth="213.0" promptText="Select floor" />
+                  <ComboBox fx:id="room" layoutX="136.0" layoutY="321.0" prefHeight="34.0" prefWidth="213.0" promptText="Select Room" />
+                  <ComboBox fx:id="roomType" layoutX="136.0" layoutY="379.0" prefHeight="34.0" prefWidth="213.0" promptText="Select Roomtype" />
                </children>
             </Pane>
             <Pane fx:id="profilePane" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -130,6 +157,61 @@
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
+               </children>
+            </Pane>
+            <Pane fx:id="managePane" layoutX="6.0" layoutY="21.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <TableView fx:id="inboxTable" layoutX="14.0" layoutY="13.0" prefHeight="565.0" prefWidth="593.0" />
+                  <TextField fx:id="search" layoutX="621.0" layoutY="14.0" prefHeight="25.0" prefWidth="217.0" styleClass="boxField" text="search">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="receivedBtn" layoutX="646.0" layoutY="467.0" mnemonicParsing="false" onAction="#receivedInboxBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonRemoveInbox" text="Received">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="addInbox" layoutX="646.0" layoutY="530.0" mnemonicParsing="false" onAction="#addInboxBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonDefault" text="Add new inbox">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Button>
+                  <ImageView fx:id="inboxImageView" fitHeight="150.0" fitWidth="200.0" layoutX="655.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/emptyInbox.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="receiver" layoutX="669.0" layoutY="227.0" prefHeight="46.0" prefWidth="122.0" text="Receiver" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sender" layoutX="669.0" layoutY="313.0" prefHeight="46.0" prefWidth="122.0" text="Sender" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="size" layoutX="669.0" layoutY="405.0" prefHeight="46.0" prefWidth="122.0" text="size" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="621.0" layoutY="181.0" prefHeight="46.0" prefWidth="68.0" text="Receiver" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="621.0" layoutY="267.0" prefHeight="46.0" prefWidth="68.0" text="Sender" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="621.0" layoutY="359.0" prefHeight="46.0" prefWidth="68.0" text="Size" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Pane fx:id="addNewInboxPane" layoutX="20.0" layoutY="20.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -174,11 +256,6 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="receiverAddress" layoutX="141.0" layoutY="153.0" prefHeight="60.0" prefWidth="525.0" styleClass="boxField">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
                   <Label layoutX="48.0" layoutY="257.0" text="Firstname" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="20.0" />
@@ -204,27 +281,17 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="senderAddress" layoutX="145.0" layoutY="310.0" prefHeight="60.0" prefWidth="525.0" styleClass="boxField">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
                   <Label layoutX="50.0" layoutY="397.0" text="Size" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="sizeAddInbox" layoutX="91.0" layoutY="390.0" prefHeight="39.0" prefWidth="215.0" styleClass="boxField">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
-                  <Label layoutX="320.0" layoutY="397.0" text="Degree" textFill="#e4e5e5">
+                  <Label layoutX="480.0" layoutY="397.0" text="Degree" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="degree" layoutX="388.0" layoutY="390.0" prefHeight="39.0" prefWidth="215.0" styleClass="boxField">
+                  <TextField fx:id="degree" layoutX="548.0" layoutY="390.0" prefHeight="39.0" prefWidth="215.0" styleClass="boxField">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -249,116 +316,45 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="addNewInbox" layoutX="680.0" layoutY="455.0" mnemonicParsing="false" onAction="#addNewInboxBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonDefault" text="Add new inbox">
+                  <Button fx:id="addNewInboxBtn" layoutX="680.0" layoutY="455.0" mnemonicParsing="false" onAction="#addNewInboxBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonDefault" text="Add new inbox">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Cancel" layoutX="680.0" layoutY="514.0" mnemonicParsing="false" onAction="#cancelBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonDefault" text="cancel">
+                  <Button fx:id="addNewInboxCancelBtn" layoutX="680.0" layoutY="514.0" mnemonicParsing="false" onAction="#addNewInboxCancelBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonDefault" text="cancel">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
-                  <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="713.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="newInboxImageView" fitHeight="127.0" fitWidth="143.0" layoutX="687.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@image/emptyInbox.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="706.0" layoutY="130.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="114.0" text="choose image">
+                  <Button fx:id="chooseImageBtn" layoutX="694.0" layoutY="160.0" mnemonicParsing="false" onAction="#addNewInboxChooseImage" prefHeight="46.0" prefWidth="114.0" text="choose image">
                      <font>
                         <Font name="Candara" size="14.0" />
                      </font>
                   </Button>
+                  <TextArea fx:id="receiverAddress" layoutX="145.0" layoutY="146.0" prefHeight="75.0" prefWidth="517.0" />
+                  <TextArea fx:id="senderAddress" layoutX="141.0" layoutY="298.0" prefHeight="75.0" prefWidth="525.0" />
+                  <ComboBox layoutX="93.0" layoutY="397.0" prefHeight="25.0" prefWidth="60.0" />
+                  <TextField fx:id="width" layoutX="171.0" layoutY="397.0" prefHeight="25.0" prefWidth="60.0" />
+                  <TextField fx:id="length" layoutX="249.0" layoutY="397.0" prefHeight="25.0" prefWidth="60.0" />
+                  <TextField fx:id="height" layoutX="339.0" layoutY="397.0" prefHeight="25.0" prefWidth="60.0" />
+                  <Label layoutX="234.0" layoutY="401.0" prefHeight="17.0" prefWidth="15.0" text="x" textFill="WHITE" />
+                  <Label layoutX="317.0" layoutY="401.0" prefHeight="17.0" prefWidth="15.0" text="x" textFill="WHITE" />
                </children>
             </Pane>
-            <Pane fx:id="registerPane" layoutY="26.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <Pane fx:id="infoPane" layoutX="20.0" layoutY="20.0" prefHeight="590.0" prefWidth="850.0" style="-fx-background-color: #3c3c44;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                <children>
-                  <Label layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="122.0" text="Register" textFill="#e4e5e5">
+                  <TableView fx:id="addressTable" layoutX="14.0" layoutY="70.0" prefHeight="480.0" prefWidth="640.0" />
+                  <VBox fx:id="personBox" layoutX="689.0" layoutY="14.0" prefHeight="565.0" prefWidth="122.0" />
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="53.0" prefWidth="73.0" text="Info" textFill="WHITE">
                      <font>
-                        <Font name="Candara Italic" size="35.0" />
+                        <Font size="36.0" />
                      </font>
                   </Label>
-                  <Label layoutX="39.0" layoutY="106.0" prefHeight="34.0" prefWidth="80.0" text="Firstname" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="39.0" layoutY="159.0" prefHeight="34.0" prefWidth="80.0" text="Lastname" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="39.0" layoutY="208.0" prefHeight="34.0" prefWidth="80.0" text="Building" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="39.0" layoutY="267.0" prefHeight="34.0" prefWidth="80.0" text="floor" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="39.0" layoutY="321.0" prefHeight="34.0" prefWidth="114.0" text="Room" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="39.0" layoutY="379.0" prefHeight="34.0" prefWidth="114.0" text="Roomtype" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="firstname" layoutX="136.0" layoutY="106.0" styleClass="boxField">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="lastname" layoutX="136.0" layoutY="159.0" styleClass="boxField">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="building" layoutX="136.0" layoutY="208.0" styleClass="boxField">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="floor" layoutX="136.0" layoutY="267.0" styleClass="boxField">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="room" layoutX="136.0" layoutY="321.0" styleClass="boxField">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="roomType" layoutX="136.0" layoutY="379.0" styleClass="boxField">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </TextField>
-                  <Button fx:id="create" layoutX="510.0" layoutY="495.0" mnemonicParsing="false" onAction="#createBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonDefault" text="Create">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="cancel" layoutX="677.0" layoutY="495.0" mnemonicParsing="false" onAction="#cancelBtnAction" prefHeight="46.0" prefWidth="140.0" styleClass="buttonCancel" text="Cancel">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="607.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="registerImageView" fitHeight="150.0" fitWidth="200.0" layoutX="632.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/profileDefault.jpg" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="registerChooseImage" layoutX="637.0" layoutY="202.0" mnemonicParsing="false" onAction="#registerChooseImage" prefHeight="46.0" prefWidth="140.0" text="choose image">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Button>
                </children>
             </Pane>
          </children>

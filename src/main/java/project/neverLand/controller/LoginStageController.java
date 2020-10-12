@@ -36,7 +36,6 @@ public class LoginStageController {
         String driver = dotenv.get("DRIVER", "file");
         if (driver.equals("file")) {
             try {
-
                 AccountFileDataSource accountFileDataSource = new AccountFileDataSource(
                         dotenv.get("DATA_DIRECTORY", "data"),
                         dotenv.get("ACCOUNT_FILENAME", "accountList.csv"));

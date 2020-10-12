@@ -13,6 +13,7 @@ public class AccountList {
     public Account getCurrentAccount() {
         return currentAccount;
     }
+
     public boolean isUsernameDuplicate(String username){
         for(Account account : accounts){
             if(account.validate(username))

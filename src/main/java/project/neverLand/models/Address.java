@@ -36,11 +36,18 @@ public class Address {
     public ArrayList<Person> getRoomers() {
         return roomers;
     }
-
+    public boolean isPersonInRoom(Person person){
+        for(Person roomer: roomers){
+            if(roomer.isThisPerson(person)){
+                return true;
+            }
+        }
+        return false;
+    }
     public String getRoomerToString() {
         String roomerString = "";
         for(Person person: roomers){
-            roomerString = roomerString + "," + person.getFirstName() + "," + person.getLastName();
+            roomerString = roomerString + "," + person.getFirstName() + "," + person.getLastName() + "," + person.getImagePath();
         }
         return roomerString;
     }
@@ -63,12 +70,7 @@ public class Address {
         return false;
     }
 
-    public boolean isPersonInRoom(Person person){
-        for(Person roomer: roomers){
-            if(roomer.isThisPerson(person)){
-                return true;
-            }
-        }
-        return false;
+    public boolean isThisRoom(String building, String floor, String roomNumber, String roomType) {
+        return this.building.equals(building) && this.floor.equals(floor) && this.roomNumber.equals(roomNumber) && this.roomType.equals(roomType);
     }
 }

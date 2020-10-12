@@ -19,7 +19,7 @@ import project.neverLand.helper.AlertDefined;
 import project.neverLand.services.CustomDialog;
 import project.neverLand.services.StringConfiguration;
 import project.neverLand.services.fileDataSource.AccountFileDataSource;
-import project.neverLand.services.fileDataSource.ImageDateSource;
+import project.neverLand.services.fileDataSource.ImageDataSource;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class AdminStageController {
 
     private ObservableList accountObservableList;
     private String imagePath = "image/profileDefault.jpg";
-    private ImageDateSource imageDateSource;
+    private ImageDataSource imageDateSource;
 
     @FXML private Pane managePane;
     @FXML private Button banBtn, unBanBtn;
@@ -51,7 +51,7 @@ public class AdminStageController {
 
     @FXML
     public void initialize() {
-        imageDateSource = new ImageDateSource();
+        imageDateSource = new ImageDataSource();
 
         banBtn.setVisible(false);
         unBanBtn.setVisible(false);
@@ -131,7 +131,7 @@ public class AdminStageController {
             else {
                 Account account = new Account(username.getText(), new Person(firstName.getText(), lastName.getText()), "worker");
                 account.setPassword(password.getText());
-                account.setImagPath(imagePath);
+                account.setImagePath(imagePath);
                 accountList.addAccount(account);
 
                 saveUpdate();
@@ -185,7 +185,7 @@ public class AdminStageController {
     public void changeProfile(ActionEvent event){
        imagePath = imageDateSource.getPathForFileChooser(event);
        adminImage.setImage(new Image(imagePath));
-       admin.setImagPath(imagePath);
+       admin.setImagePath(imagePath);
        imagePath = "image/profileDefault.jpg";
        saveUpdate();
     }
@@ -222,6 +222,4 @@ public class AdminStageController {
         this.accountList = accountList;
         showData();
     }
-
-
 }

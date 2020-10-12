@@ -12,21 +12,25 @@ public class Mail {
     private boolean received;
     private String imagePath;
 
-    public Mail(Person sender, String senderLocation, Person receiver, String receiverLocation) {
+    public Mail(Person sender, String senderLocation, Person receiver, String receiverLocation, String imagePath, double width, double length) {
         this.sender = sender;
         this.senderLocation = senderLocation;
         this.receiver = receiver;
         this.receiverLocation = receiverLocation;
         this.received = false;
+        this.imagePath = imagePath;
+        this.width = width;
+        this.length = length;
     }
 
-    public Mail(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, boolean received) {
+    public Mail(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, boolean received, String imagePath) {
         this.sender = sender;
         this.senderLocation = senderLocation;
         this.receiver = receiver;
         this.receiverLocation = receiverLocation;
         this.size = size;
         this.received = received;
+        this.imagePath = imagePath;
     }
 
     public Person getSender() {
@@ -98,7 +102,8 @@ public class Mail {
                 receiver.getLastName() + "," +
                 receiverLocation + "," +
                 size + "," +
-                received + ",";
+                received + "," +
+                imagePath;
     }
 
     @Override

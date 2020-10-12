@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import project.neverLand.models.*;
 import project.neverLand.helper.AlertDefined;
 import project.neverLand.services.fileDataSource.AccountFileDataSource;
-import project.neverLand.services.fileDataSource.ImageDateSource;
+import project.neverLand.services.fileDataSource.ImageDataSource;
 
 
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class RegisterStageController {
                 if (!accountList.isUsernameDuplicate(username.getText())) {
                     if (isConfirmEqualsPassword()) {
                         Account account = new Account(username.getText(), new Person(firstname.getText(), lastname.getText()), "resident");
-                        account.setImagPath(imagePath);
+                        account.setImagePath(imagePath);
                         account.setPassword(password.getText());
                         accountList.addAccount(account);
 
@@ -66,7 +66,7 @@ public class RegisterStageController {
     }
 
     public void changeProfile(ActionEvent event){
-        ImageDateSource imageDateSource = new ImageDateSource();
+        ImageDataSource imageDateSource = new ImageDataSource();
         imagePath = imageDateSource.getPathForFileChooser(event);
         registerImageView.setImage(new Image(imagePath));
     }
