@@ -65,10 +65,10 @@ public class RegisterStageController {
         }
     }
 
-    public void changeProfile(ActionEvent event){
+    public void chooseImage(ActionEvent event){
         ImageDataSource imageDateSource = new ImageDataSource();
         imagePath = imageDateSource.getPathForFileChooser(event);
-        registerImageView.setImage(new Image(imagePath));
+        registerImageView.setImage(new Image(imagePath,150.00,150.00,false,false));
     }
 
     public void cancelBtnAction(ActionEvent event) throws IOException {

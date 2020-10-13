@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -119,11 +120,11 @@ public class WorkerStageController {
         personBox.getChildren().clear();
         selectedAddress = address;
         for(Person person: selectedAddress.getRoomers()){
-            ImageView imageView = new ImageView(new Image(person.getImagePath()));
-            //todo set width height image
+            ImageView imageView = new ImageView(new Image(person.getImagePath(),150.00,150.00,false,false));
             personBox.getChildren().add(imageView);
             Label personName = new Label(person.toString());
-            //todo set css to label personName
+            personName.setPadding(new Insets(20,0,20,0));
+            personName.getStyleClass().add("bigLabel");
             personBox.getChildren().add(personName);
         }
     }
@@ -152,7 +153,7 @@ public class WorkerStageController {
     }
     private void showSelectedMail(Mail mail){
         selectedMail = mail;
-        inboxImageView.setImage(new Image(selectedMail.getImagePath()));
+        inboxImageView.setImage(new Image(selectedMail.getImagePath(),150.00,150.00,false,false));
         receiver.setText(selectedMail.getReceiver().getFirstName());
         sender.setText(selectedMail.getSender().getFirstName());
         size.setText(String.valueOf(selectedMail.getSize()));
@@ -241,7 +242,7 @@ public class WorkerStageController {
     }
     public void registerChooseImage(ActionEvent event){
         personImagePath = imageDateSource.getPathForFileChooser(event);
-        registerImageView.setImage(new Image(personImagePath));
+        registerImageView.setImage(new Image(personImagePath,150.00,150.00,false,false));
     }
     public void createBtnAction(){
         addressList.findAddress((String)building.getValue(),(String)floor.getValue(),(String)room.getValue(),(String)roomType.getValue());
@@ -257,7 +258,7 @@ public class WorkerStageController {
     public void profileBtnAction(){
         profilePane.toFront();
     }
-    public void reSetPasswordBtnAction() throws IOException {
+    public void reSetPasswordBtnAction() {
         CustomDialog customDialog = new CustomDialog();
         customDialog.setTitleAndHeaderDialog("RePassword", "Please enter new password.");
         customDialog.addButton("Confirm");
@@ -271,7 +272,7 @@ public class WorkerStageController {
     }
     public void changeProfile(ActionEvent event){
         personImagePath = imageDateSource.getPathForFileChooser(event);
-        profileImageView.setImage(new Image(personImagePath));
+        profileImageView.setImage(new Image(personImagePath,150.00,150.00,false,false));
         worker.setImagePath(personImagePath);
         personImagePath = "image/profileDefault.jpg";
         saveUpdateAccountList();
@@ -291,7 +292,7 @@ public class WorkerStageController {
     /** clear/save/update **/
     private void clearSelectMail(){
         inboxImagePath = "image/emptyInbox.png";
-        inboxImageView.setImage(new Image(inboxImagePath));
+        inboxImageView.setImage(new Image(inboxImagePath,150.00,150.00,false,false));
         selectedMail = null;
         inboxTable.getSelectionModel().clearSelection();
     }
@@ -309,7 +310,7 @@ public class WorkerStageController {
         station.clear();
         trackingNum.clear();
         inboxImagePath = "image/emptyInbox.png";
-        newInboxImageView.setImage(new Image(inboxImagePath));
+        newInboxImageView.setImage(new Image(inboxImagePath,150.00,150.00,false,false));
     }
     private void clearRegisterPaneField(){
         firstname.clear();
@@ -319,7 +320,7 @@ public class WorkerStageController {
         room.getSelectionModel().clearSelection();
         roomType.getSelectionModel().clearSelection();
         personImagePath = "image/profileDefault.jpg";
-        registerImageView.setImage(new Image(personImagePath));
+        registerImageView.setImage(new Image(personImagePath,150.00,150.00,false,false));
     }
 
     private void saveUpdateInboxList(){
@@ -356,7 +357,7 @@ public class WorkerStageController {
         this.worker = worker;
         name.setText(worker.getPersonData().getFirstName());
         username.setText(worker.getUsername());
-        profileImageView.setImage(new Image(worker.getImagePath()));
+        profileImageView.setImage(new Image(worker.getImagePath(),150.00,150.00,false,false));
     }
     public void setInboxList(InboxList inboxList) {
         this.inboxList = inboxList;

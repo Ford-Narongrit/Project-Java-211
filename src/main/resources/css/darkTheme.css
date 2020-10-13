@@ -1,0 +1,94 @@
+.anchorPane{
+    -fx-background-color: #2f3136;
+}
+.anchorPaneMenu{
+    -fx-background-color: #a0a2ac;
+}
+.pane{
+    -fx-background-color: #3c3c44;
+}
+
+
+.headerLabel{
+    -fx-font: 36px Candara;
+    -fx-text-fill: #e4e5e5;
+    -fx-font-weight: bold;
+}
+.normalLabel{
+    -fx-font: 18px Candara;
+    -fx-text-fill: #e4e5e5;
+}
+.bigLabel{
+    -fx-font: 27px Candara;
+    -fx-text-fill: #e4e5e5;
+}
+
+
+.boxField{
+    -fx-font: 18px Candara;
+    -fx-background-color:  #303338;
+    -fx-text-fill:  #e4e5e5;
+    -fx-background-radius: 10;
+}
+.boxField:focused{
+    -fx-border-color: #7289da;
+}
+.boxArea{
+    -fx-font: 18px Candara;
+    -fx-text-fill:  #e4e5e5;
+    -fx-background-radius: 10;
+    -fx-control-inner-background: #303338;
+}
+.boxArea:focused{
+    -fx-border-color: #7289da;
+}
+
+
+.buttonMenu{
+    -fx-font: 18px Candara;
+    -fx-text-fill: #e4e5e5;
+    -fx-background-color: #303036;
+    -fx-background-radius: 0;
+}
+.buttonMenu:hover{
+    -fx-background-color: #60606c;
+}
+.buttonMenu:pressed{
+    -fx-background-color: #787887;
+}
+.buttonDefault{
+    -fx-font: 18px Candara;
+    -fx-text-fill: #e4e5e5;
+    -fx-background-radius: 10;
+    -fx-background-color: #7289da;
+}
+.buttonDefault:hover{
+    -fx-background-color: #5e77d4;
+}
+.buttonDefault:pressed{
+     -fx-background-color: #4a67cf;
+}
+.buttonCancel{
+    -fx-font: 18px Candara;
+    -fx-text-fill:  #e4e5e5;
+    -fx-background-radius: 10;
+    -fx-background-color:  #7289da;
+}
+.buttonCancel:hover{
+    -fx-background-color:  #ff8000;
+}
+.buttonCancel:pressed{
+    -fx-background-color:   #cc6600;
+}
+.buttonBan{
+    -fx-font: 18px Candara;
+    -fx-text-fill:  #e4e5e5;
+    -fx-background-radius: 10;
+    -fx-background-color:  #7289da;
+}
+.buttonBan:hover {
+    -fx-background-color:  #ff0000;
+}
+.buttonBan:pressed {
+    -fx-background-color:  #b30000;
+}

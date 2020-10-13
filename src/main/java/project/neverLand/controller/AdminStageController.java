@@ -97,7 +97,7 @@ public class AdminStageController {
     }
     private void showSelectedAccount(Account account) {
         selectedAccount = account;
-        manageImageView.setImage(new Image(selectedAccount.getImagePath()));
+        manageImageView.setImage(new Image(selectedAccount.getImagePath(),150.00,150.00,false,false));
         if (!selectedAccount.isBan()) {
             banBtn.setVisible(true);
             unBanBtn.setVisible(false);
@@ -108,7 +108,7 @@ public class AdminStageController {
     }
     private void clearSelectedAccount() {
         selectedAccount = null;
-        manageImageView.setImage(new Image("image/profileDefault.jpg"));
+        manageImageView.setImage(new Image("image/profileDefault.jpg",150.00,150.00,false,false));
         accountTable.getSelectionModel().clearSelection();
         banBtn.setVisible(false);
         unBanBtn.setVisible(false);
@@ -157,7 +157,7 @@ public class AdminStageController {
         password.clear();
         confirmPassword.clear();
         imagePath = "image/profileDefault.jpg";
-        registerImageView.setImage(new Image(imagePath));
+        registerImageView.setImage(new Image(imagePath,150.00,150.00,false,false));
     }
     public void cancelBtnAction(){
         clearAllBox();
@@ -184,7 +184,7 @@ public class AdminStageController {
     }
     public void changeProfile(ActionEvent event){
        imagePath = imageDateSource.getPathForFileChooser(event);
-       adminImage.setImage(new Image(imagePath));
+       adminImage.setImage(new Image(imagePath,150.00,150.00,false,false));
        admin.setImagePath(imagePath);
        imagePath = "image/profileDefault.jpg";
        saveUpdate();
