@@ -25,7 +25,10 @@ import project.neverLand.services.fileDataSource.ImageDataSource;
 import project.neverLand.services.fileDataSource.InboxFileDataSource;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class WorkerStageController {
     private AccountList accountList;
@@ -34,8 +37,8 @@ public class WorkerStageController {
     private Account worker;
 
     private ImageDataSource imageDateSource;
-    private String personImagePath;
-    private String inboxImagePath;
+    private String personImagePath = "image/profileDefault.jpg";
+    private String inboxImagePath = "image/emptyInbox.png";
 
     /** infoPane **/
     @FXML private Pane infoPane;
@@ -57,10 +60,8 @@ public class WorkerStageController {
 
     /** addNewInboxPane **/
     @FXML private Pane addNewInboxPane;
-    @FXML private TextField receiverFirstname, receiverLastname;
-    @FXML private TextArea receiverAddress;
-    @FXML private TextField senderFirstname, senderLastname;
-    @FXML private TextArea senderAddress;
+    @FXML private TextField receiverFirstname, receiverLastname, receiverAddress;
+    @FXML private TextField senderFirstname, senderLastname, senderAddress;
     @FXML private TextField width, length, height, degree, station, trackingNum;
     @FXML private ImageView newInboxImageView;
     @FXML private Button addNewInboxBtn, addNewInboxCancelBtn, chooseImageBtn;
@@ -103,10 +104,8 @@ public class WorkerStageController {
         addressTable.setItems(addressObservableList);
 
         ArrayList<StringConfiguration> configs = new ArrayList<>();
-        configs.add(new StringConfiguration("title:Room Number", "field:roomNumber", "width:0.1"));
-        configs.add(new StringConfiguration("title:Floor", "field:floor", "width:0.2"));
-        configs.add(new StringConfiguration("title:Building", "field:building", "width:0.3"));
-        configs.add(new StringConfiguration("title:Room Type", "field:roomType", "width:0.4"));
+        configs.add(new StringConfiguration("title:Room Number", "field:roomNumber", "width:0.5"));
+        configs.add(new StringConfiguration("title:Room Type", "field:roomType", "width:0.5"));
 
         for(StringConfiguration configuration : configs){
             TableColumn col = new TableColumn(configuration.get("title"));
@@ -139,9 +138,10 @@ public class WorkerStageController {
         inboxTable.setItems(inboxObservableList);
 
         ArrayList<StringConfiguration> configs = new ArrayList<>();
-        configs.add(new StringConfiguration("title:Receiver", "field:receiver", "width:0.2"));
+        configs.add(new StringConfiguration("title:Date", "field:date", "width:0.4"));
+        configs.add(new StringConfiguration("title:Receiver", "field:receiver", "width:0.3"));
         configs.add(new StringConfiguration("title:Sender", "field:sender", "width:0.3"));
-        configs.add(new StringConfiguration("title:size", "field:size", "width:0.3"));
+        configs.add(new StringConfiguration("title:size", "field:size", "width:0.2"));
 
         for (StringConfiguration conf : configs) {
             TableColumn col = new TableColumn(conf.get("title"));
@@ -160,8 +160,9 @@ public class WorkerStageController {
     }
     public void receivedInboxBtnAction(){
         selectedMail.setReceived(true);
-        saveUpdateInboxList();
+        saveInboxList();
         clearSelectMail();
+
         inboxTable.getColumns().clear();
         showInboxData();
     }
@@ -175,6 +176,8 @@ public class WorkerStageController {
         newInboxImageView.setImage(new Image(inboxImagePath));
     }
     public void addNewInboxBtnAction(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd--HH:mm:ss");
+        Date date = new Date();
         if(!checkAllBoxNull()) {
             Mail mail;
             if (isPackage()) {
@@ -184,25 +187,26 @@ public class WorkerStageController {
                         receiverAddress.getText(),
                         station.getText(), trackingNum.getText(), inboxImagePath,
                         Double.parseDouble(width.getText()), Double.parseDouble(length.getText()),
-                        Double.parseDouble(height.getText()));
+                        Double.parseDouble(height.getText()), dateFormat.format(date), worker.getUsername());
             } else if (isDocument()) {
                 mail = new Document(new Person(senderFirstname.getText(), senderLastname.getText()),
                         senderAddress.getText(),
                         new Person(receiverFirstname.getText(), receiverLastname.getText()),
                         receiverAddress.getText(),
                         degree.getText(),
-                        inboxImagePath, Double.parseDouble(width.getText()), Double.parseDouble(length.getText()));
+                        inboxImagePath, Double.parseDouble(width.getText()), Double.parseDouble(length.getText()), dateFormat.format(date), worker.getUsername());
             } else {
                 mail = new Mail(new Person(senderFirstname.getText(), senderLastname.getText()),
                         senderAddress.getText(),
                         new Person(receiverFirstname.getText(), receiverLastname.getText()),
                         receiverAddress.getText(),
-                        inboxImagePath, Double.parseDouble(width.getText()), Double.parseDouble(length.getText()));
+                        inboxImagePath, Double.parseDouble(width.getText()), Double.parseDouble(length.getText()), dateFormat.format(date), worker.getUsername());
             }
             mail.calSize();
             inboxList.addInbox(mail);
-            saveUpdateInboxList();
+            saveInboxList();
             clearAddInboxField();
+
             inboxTable.getColumns().clear();
             showInboxData();
         }
@@ -245,10 +249,14 @@ public class WorkerStageController {
         registerImageView.setImage(new Image(personImagePath,150.00,150.00,false,false));
     }
     public void createBtnAction(){
-        addressList.findAddress((String)building.getValue(),(String)floor.getValue(),(String)room.getValue(),(String)roomType.getValue());
+        addressList.findAddress((String)building.getValue() +"-"+ (String)floor.getValue() + "/" + (String)room.getValue(),(String)roomType.getValue());
         addressList.getCurrentAddress().addPersonToRoom(new Person(firstname.getText(),lastname.getText(),personImagePath));
-        saveUpdateAddressList();
+        saveAddressList();
         clearRegisterPaneField();
+
+        addressTable.getColumns().clear();
+        showAddressData();
+
     }
     public void registerCancelBtnAction(){
         clearRegisterPaneField();
@@ -268,14 +276,14 @@ public class WorkerStageController {
             worker.setPassword(customDialog.getOutput());
             System.out.println(worker.toString());
         }
-        saveUpdateAccountList();
+        saveAccountList();
     }
     public void changeProfile(ActionEvent event){
         personImagePath = imageDateSource.getPathForFileChooser(event);
         profileImageView.setImage(new Image(personImagePath,150.00,150.00,false,false));
         worker.setImagePath(personImagePath);
         personImagePath = "image/profileDefault.jpg";
-        saveUpdateAccountList();
+        saveAccountList();
     }
 
     /** home **/
@@ -323,7 +331,7 @@ public class WorkerStageController {
         registerImageView.setImage(new Image(personImagePath,150.00,150.00,false,false));
     }
 
-    private void saveUpdateInboxList(){
+    private void saveInboxList(){
         InboxFileDataSource inboxFileDataSource = null;
         try {
             inboxFileDataSource = new InboxFileDataSource("data", "inboxList.csv");
@@ -332,7 +340,7 @@ public class WorkerStageController {
             e.printStackTrace();
         }
     }
-    private void saveUpdateAccountList(){
+    private void saveAccountList(){
         AccountFileDataSource accountFileDataSource = null;
         try {
             accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
@@ -341,7 +349,7 @@ public class WorkerStageController {
             e.printStackTrace();
         }
     }
-    private void saveUpdateAddressList(){
+    private void saveAddressList(){
         AddressListFileDataSource addressListFileDataSource = null;
         try {
             addressListFileDataSource = new AddressListFileDataSource("data","addressList.csv");

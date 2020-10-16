@@ -1,8 +1,9 @@
 package project.neverLand.models;
 
+import org.jetbrains.annotations.NotNull;
 import org.mindrot.jbcrypt.BCrypt;
 
-public class Account {
+public class Account implements Comparable<Account>{
     private String username;
     private String password;
     private Person personData;
@@ -13,8 +14,9 @@ public class Account {
     private boolean ban;
     private int loginBanCount;
 
-    public Account(String username, Person person, String role){
+    public Account(String username, Person person, String role, String date){
         this.username = username;
+        this.lastLogin = date;
         this.personData = person;
         this.role = role;
         this.ban = false;
@@ -100,5 +102,8 @@ public class Account {
                 '}';
     }
 
-
+    @Override
+    public int compareTo(@NotNull Account o) {
+        return -1*this.getLastLogin().compareTo(o.getLastLogin());
+    }
 }

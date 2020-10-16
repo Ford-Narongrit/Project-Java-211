@@ -26,6 +26,7 @@ public class  InboxList {
                 notReceivedList.add(mail);
             }
         }
+        notReceivedList.sort(Mail::compareTo);
         return notReceivedList;
     }
     public ArrayList<Mail> toPersonList(Person person){

@@ -19,8 +19,8 @@ public class AddressListFileDataSource extends FileDataSource {
         String line = "";
         while ((line = bufferedReader.readLine()) != null){
             String[] data = line.split(",");
-            Address address = new Address(data[0].trim(),data[1].trim(),data[2].trim(),data[3].trim());
-            for(int i=4; i<data.length; i = i+3) {
+            Address address = new Address(data[0].trim(),data[1].trim());
+            for(int i=2; i<data.length; i = i+3) {
                 address.addPersonToRoom(new Person(data[i].trim(), data[i+1].trim(), data[i+2].trim()));
             }
             addressList.addAddress(address);
@@ -41,9 +41,7 @@ public class AddressListFileDataSource extends FileDataSource {
         fileWriter = new FileWriter(file);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         for (Address address: addressList.toList()) {
-            String line =   address.getBuilding() + "," +
-                    address.getFloor() + "," +
-                    address.getRoomNumber() + "," +
+            String line = address.getRoomNumber() + "," +
                     address.getRoomType();
             line += address.getRoomerToString();
 

@@ -5,15 +5,15 @@ public class Package extends Mail{
     private String trackingNum;
     private double height;
 
-    public Package(Person sender, String senderLocation, Person receiver, String receiverLocation, String station, String trackingNum ,String imagePath, double width, double length, double height) {
-        super(sender, senderLocation, receiver, receiverLocation, imagePath, width, length);
+    public Package(Person sender, String senderLocation, Person receiver, String receiverLocation, String station, String trackingNum ,String imagePath, double width, double length, double height, String date, String workerName) {
+        super(sender, senderLocation, receiver, receiverLocation, imagePath, width, length, date, workerName);
         this.height = height;
         this.station = station;
         this.trackingNum = trackingNum;
     }
 
-    public Package(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, boolean received, String station, String trackingNum, String imagePath) {
-        super(sender, senderLocation, receiver, receiverLocation, size, received, imagePath);
+    public Package(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, boolean received, String station, String trackingNum, String imagePath, String date, String workerName) {
+        super(sender, senderLocation, receiver, receiverLocation, size, received, imagePath, date, workerName);
         this.station = station;
         this.trackingNum = trackingNum;
     }
@@ -58,6 +58,8 @@ public class Package extends Mail{
                 getReceiver() + "," +
                 station + "," +
                 trackingNum + "," +
-                getImagePath();
+                getImagePath() + "," +
+                getDate()+ "," +
+                getWorkerName();
     }
 }

@@ -5,28 +5,18 @@ import sun.awt.geom.AreaOp;
 import java.util.ArrayList;
 
 public class Address {
-    private String building;
-    private String floor;
     private String roomNumber;
     private String roomType;
     //have 2 type 1 bedroom , 2 bedroom
 
     private ArrayList<Person> roomers;
 
-    public Address(String building, String floor, String roomNumber, String roomType) {
-        this.building = building;
-        this.floor = floor;
+    public Address(String roomNumber, String roomType) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         roomers = new ArrayList<>();
     }
 
-    public String getBuilding() {
-        return building;
-    }
-    public String getFloor() {
-        return floor;
-    }
     public String getRoomNumber() {
         return roomNumber;
     }
@@ -53,10 +43,10 @@ public class Address {
     }
 
     public boolean isRoomerMax(){
-        if(roomType.equals("oneBedroom") && roomers.size()==1){
+        if(roomType.equals("one bedroom") && roomers.size()==1){
             return true;
         }
-        else if(roomType.equals("twoBedroom") && roomers.size()==2){
+        else if(roomType.equals("two bedroom") && roomers.size()==2){
             return true;
         }
         return false;
@@ -70,7 +60,7 @@ public class Address {
         return false;
     }
 
-    public boolean isThisRoom(String building, String floor, String roomNumber, String roomType) {
-        return this.building.equals(building) && this.floor.equals(floor) && this.roomNumber.equals(roomNumber) && this.roomType.equals(roomType);
+    public boolean isThisRoom(String roomNumber, String roomType) {
+        return this.roomNumber.equals(roomNumber) && this.roomType.equals(roomType);
     }
 }

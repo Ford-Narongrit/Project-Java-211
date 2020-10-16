@@ -3,13 +3,13 @@ package project.neverLand.models;
 public class Document extends Mail{
     private String degree;
 
-    public Document(Person sender, String senderLocation, Person receiver, String receiverLocation, String degree, String imagePath, double width, double length) {
-        super(sender, senderLocation, receiver, receiverLocation, imagePath, width, length);
+    public Document(Person sender, String senderLocation, Person receiver, String receiverLocation, String degree, String imagePath, double width, double length, String date, String username) {
+        super(sender, senderLocation, receiver, receiverLocation, imagePath, width, length, date, username);
         this.degree = degree;
     }
 
-    public Document(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, boolean received, String degree, String imagePath) {
-        super(sender, senderLocation, receiver, receiverLocation, size, received, imagePath);
+    public Document(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, boolean received, String degree, String imagePath, String date, String username) {
+        super(sender, senderLocation, receiver, receiverLocation, size, received, imagePath, date, username);
         this.degree = degree;
     }
 
@@ -39,6 +39,8 @@ public class Document extends Mail{
                 getSize() + "," +
                 getReceiver() + "," +
                 degree+ "," +
-                getImagePath();
+                getImagePath() + "," +
+                getDate() + "," +
+                getWorkerName();
     }
 }

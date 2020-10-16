@@ -1,6 +1,8 @@
 package project.neverLand.models;
 
-public class Mail {
+import org.jetbrains.annotations.NotNull;
+
+public class Mail implements Comparable<Mail>{
     private Person sender;
     private String senderLocation;
     private Person receiver;
@@ -12,7 +14,10 @@ public class Mail {
     private boolean received;
     private String imagePath;
 
-    public Mail(Person sender, String senderLocation, Person receiver, String receiverLocation, String imagePath, double width, double length) {
+    private String date;
+    private String workerName;
+
+    public Mail(Person sender, String senderLocation, Person receiver, String receiverLocation, String imagePath, double width, double length, String date, String workerName) {
         this.sender = sender;
         this.senderLocation = senderLocation;
         this.receiver = receiver;
@@ -21,9 +26,11 @@ public class Mail {
         this.imagePath = imagePath;
         this.width = width;
         this.length = length;
+        this.date = date;
+        this.workerName = workerName;
     }
 
-    public Mail(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, boolean received, String imagePath) {
+    public Mail(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, boolean received, String imagePath, String date, String workerName) {
         this.sender = sender;
         this.senderLocation = senderLocation;
         this.receiver = receiver;
@@ -31,6 +38,8 @@ public class Mail {
         this.size = size;
         this.received = received;
         this.imagePath = imagePath;
+        this.date = date;
+        this.workerName = workerName;
     }
 
     public Person getSender() {
@@ -50,6 +59,14 @@ public class Mail {
     }
     public String getReceiverLocation() {
         return receiverLocation;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getWorkerName() {
+        return workerName;
     }
 
     public double getWidth() {
@@ -95,29 +112,21 @@ public class Mail {
     }
 
     public String getStructure() {
-        return  sender.getFirstName()+ "," +
-                sender.getLastName()+ "," +
+        return sender.getFirstName() + "," +
+                sender.getLastName() + "," +
                 senderLocation + "," +
                 receiver.getFirstName() + "," +
                 receiver.getLastName() + "," +
                 receiverLocation + "," +
                 size + "," +
                 received + "," +
-                imagePath;
+                imagePath + "," +
+                date + "," +
+                workerName;
     }
 
     @Override
-    public String toString() {
-        return "Mail{" +
-                "sender=" + sender +
-                ", senderLocation='" + senderLocation + '\'' +
-                ", receiver=" + receiver +
-                ", receiverLocation='" + receiverLocation + '\'' +
-                ", size='" + size + '\'' +
-                ", width=" + width +
-                ", length=" + length +
-                ", received=" + received +
-                ", imagePath='" + imagePath + '\'' +
-                '}';
+    public int compareTo(@NotNull Mail o) {
+        return -1*this.getDate().compareTo(o.getDate());
     }
 }

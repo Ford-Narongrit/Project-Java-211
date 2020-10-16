@@ -129,7 +129,7 @@ public class AdminStageController {
                 confirmPassword.clear();
             }
             else {
-                Account account = new Account(username.getText(), new Person(firstName.getText(), lastName.getText()), "worker");
+                Account account = new Account(username.getText(), new Person(firstName.getText(), lastName.getText()), "worker", "0000/00/00--00:00:00");
                 account.setPassword(password.getText());
                 account.setImagePath(imagePath);
                 accountList.addAccount(account);

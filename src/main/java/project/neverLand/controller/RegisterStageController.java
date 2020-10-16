@@ -36,7 +36,7 @@ public class RegisterStageController {
             if (addressList.linkToAddress(new Person(firstname.getText(), lastname.getText()))) {
                 if (!accountList.isUsernameDuplicate(username.getText())) {
                     if (isConfirmEqualsPassword()) {
-                        Account account = new Account(username.getText(), new Person(firstname.getText(), lastname.getText()), "resident");
+                        Account account = new Account(username.getText(), new Person(firstname.getText(), lastname.getText()), "resident", "0000/00/00--00:00:00");
                         account.setImagePath(imagePath);
                         account.setPassword(password.getText());
                         accountList.addAccount(account);

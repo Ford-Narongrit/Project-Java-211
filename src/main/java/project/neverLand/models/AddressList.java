@@ -31,14 +31,14 @@ public class AddressList {
         return addressList;
     }
 
-    public void findAddress(String building, String floor, String roomNumber, String roomType){
+    public void findAddress(String roomNumber, String roomType){
         for (Address address: addressList) {
-            if (address.isThisRoom(building, floor, roomNumber, roomType)) {
+            if (address.isThisRoom(roomNumber, roomType)) {
                 currentAddress = address;
                 return;
             }
         }
-        Address address1 = new Address(building, floor, roomNumber, roomType);
+        Address address1 = new Address(roomNumber, roomType);
         addressList.add(address1);
         currentAddress = address1;
         }

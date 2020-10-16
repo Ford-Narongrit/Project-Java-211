@@ -43,12 +43,12 @@
                   <Font name="Candara" size="18.0" />
                </font>
             </Button>
-            <Label layoutX="48.0" layoutY="500.0" text="Need an account?" textFill="#a4a4a4" AnchorPane.bottomAnchor="70.0">
+            <Label layoutX="48.0" layoutY="500.0" styleClass="normalLabel" text="Need an account?" textFill="#a4a4a4" AnchorPane.bottomAnchor="70.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="register" layoutX="200.0" layoutY="480.0" onMouseClicked="#registerResidentAction" styleClass="labelRegister" text="Register" textFill="#7289da" AnchorPane.bottomAnchor="70.0">
+            <Label fx:id="register" layoutX="200.0" layoutY="480.0" onMouseClicked="#registerResidentAction" styleClass="actionLabel" text="Register" textFill="#7289da" AnchorPane.bottomAnchor="70.0">
                <font>
                   <Font size="18.0" />
                </font>

@@ -21,28 +21,28 @@ public class InboxFileDataSource extends FileDataSource {
         while ((line = bufferedReader.readLine()) != null) {
             String[] data = line.split(",");
             Mail mail;
-            if (data.length == 11) {
+            if (data.length == 13) {
                 mail = new Package(new Person(data[0].trim(), data[1].trim()),
                         data[2].trim(),
                         new Person(data[3].trim(), data[4].trim()),
                         data[5].trim(),
                         data[6].trim(), Boolean.parseBoolean(data[7]),
                         data[8].trim(), data[9].trim(),
-                        data[10].trim());
-            } else if (data.length == 10) {
+                        data[10].trim(), data[11].trim(), data[12].trim());
+            } else if (data.length == 12) {
                 mail = new Document(new Person(data[0].trim(), data[1].trim()),
                         data[2].trim(),
                         new Person(data[3].trim(), data[4].trim()),
                         data[5].trim(),
                         data[6].trim(), Boolean.parseBoolean(data[7]), data[8].trim(),
-                        data[9].trim());
+                        data[9].trim(), data[10].trim(), data[11].trim());
             } else {
                 mail = new Mail(new Person(data[0].trim(), data[1].trim()),
                         data[2].trim(),
                         new Person(data[3].trim(), data[4].trim()),
                         data[5].trim(),
                         data[6].trim(), Boolean.parseBoolean(data[7].trim()),
-                        data[8].trim());
+                        data[8].trim(),data[9].trim(),data[10]);
             }
             inboxList.addInbox(mail);
         }
