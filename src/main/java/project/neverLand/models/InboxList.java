@@ -40,4 +40,13 @@ public class  InboxList {
     }
 
 
+    public ArrayList<Mail> toRoomNumber(String roomNumber) {
+        ArrayList<Mail> inboxList = new ArrayList<>();
+        for(Mail mail: this.inboxList){
+            if(mail.getReceiverLocation().contains(roomNumber)){
+                inboxList.add(mail);
+            }
+        }
+        return inboxList;
+    }
 }

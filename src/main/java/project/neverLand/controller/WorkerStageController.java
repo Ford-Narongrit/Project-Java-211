@@ -46,6 +46,7 @@ public class WorkerStageController {
     @FXML private TableView<Address> addressTable;
     private ObservableList addressObservableList;
     private Address selectedAddress;
+    @FXML private TextField searchInfoPane;
     @FXML private VBox personBox;
 
     /** managePane **/
@@ -55,7 +56,7 @@ public class WorkerStageController {
     private ObservableList inboxObservableList;
     private Mail selectedMail;
     @FXML private Label receiver, sender, size;
-    @FXML private TextField search;
+    @FXML private TextField searchManagePane;
     @FXML private ImageView inboxImageView;
 
     /** addNewInboxPane **/
@@ -93,14 +94,25 @@ public class WorkerStageController {
                 showSelectedMail(newValue);
             }
         });
+
+        searchManagePane.textProperty().addListener((observable, oldValue, newValue) -> {
+            inboxTable.getColumns().clear();
+            showInboxData(inboxList.toRoomNumber(newValue));
+        });
+
+        searchInfoPane.textProperty().addListener((observable, oldValue, newValue) -> {
+            addressTable.getColumns().clear();
+            showAddressData(addressList.toPersonList(newValue));
+        });
+
     }
 
     /** infoPane **/
     public void infoBtnAction(){
         infoPane.toFront();
     }
-    private void showAddressData(){
-        addressObservableList = FXCollections.observableArrayList(addressList.toList());
+    private void showAddressData(ArrayList<Address> addressList){
+        addressObservableList = FXCollections.observableArrayList(addressList);
         addressTable.setItems(addressObservableList);
 
         ArrayList<StringConfiguration> configs = new ArrayList<>();
@@ -133,8 +145,8 @@ public class WorkerStageController {
     public void manageBtnAction(){
         managePane.toFront();
     }
-    private void showInboxData() {
-        inboxObservableList = FXCollections.observableArrayList(inboxList.toNotReceivedList());
+    private void showInboxData(ArrayList<Mail> inboxList) {
+        inboxObservableList = FXCollections.observableArrayList(inboxList);
         inboxTable.setItems(inboxObservableList);
 
         ArrayList<StringConfiguration> configs = new ArrayList<>();
@@ -162,10 +174,9 @@ public class WorkerStageController {
         selectedMail.setReceived(true);
         saveInboxList();
         clearSelectMail();
-
-        inboxTable.getColumns().clear();
-        showInboxData();
+        updateInboxTable();
     }
+
 
     /** addNewInboxPane **/
     public void addInboxBtnAction(){
@@ -206,9 +217,7 @@ public class WorkerStageController {
             inboxList.addInbox(mail);
             saveInboxList();
             clearAddInboxField();
-
-            inboxTable.getColumns().clear();
-            showInboxData();
+            updateInboxTable();
         }
         else{
             AlertDefined.alertWarning("failed to addInbox","please input all box");
@@ -253,10 +262,7 @@ public class WorkerStageController {
         addressList.getCurrentAddress().addPersonToRoom(new Person(firstname.getText(),lastname.getText(),personImagePath));
         saveAddressList();
         clearRegisterPaneField();
-
-        addressTable.getColumns().clear();
-        showAddressData();
-
+        updateAddressTable();
     }
     public void registerCancelBtnAction(){
         clearRegisterPaneField();
@@ -360,6 +366,15 @@ public class WorkerStageController {
 
     }
 
+    private void updateInboxTable(){
+        inboxTable.getColumns().clear();
+        showInboxData(inboxList.toNotReceivedList());
+    }
+    private void updateAddressTable() {
+        addressTable.getColumns().clear();
+        showAddressData(addressList.toList());
+    }
+
     /** PassValueToThisStage **/
     public void setWorker(Account worker) {
         this.worker = worker;
@@ -369,11 +384,11 @@ public class WorkerStageController {
     }
     public void setInboxList(InboxList inboxList) {
         this.inboxList = inboxList;
-        showInboxData();
+        showInboxData(inboxList.toNotReceivedList());
     }
     public void setAddressList(AddressList addressList) {
         this.addressList = addressList;
-        showAddressData();
+        showAddressData(addressList.toList());
     }
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;

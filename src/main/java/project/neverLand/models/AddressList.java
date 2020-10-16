@@ -31,6 +31,18 @@ public class AddressList {
         return addressList;
     }
 
+    public ArrayList<Address> toPersonList(String name){
+        ArrayList<Address> addresses = new ArrayList<>();
+        for(Address address : addressList){
+            for(Person person: address.getRoomers()){
+                if((person.getFirstName()+person.getLastName()).contains(name.toUpperCase())){
+                    addresses.add(address);
+                }
+            }
+        }
+        return addresses;
+    }
+
     public void findAddress(String roomNumber, String roomType){
         for (Address address: addressList) {
             if (address.isThisRoom(roomNumber, roomType)) {
