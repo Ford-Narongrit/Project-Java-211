@@ -1,3 +1,5 @@
-worker1,ANGEL,TEST,worker,false,0,$2a$12$PLqlehcpkfV9Y834V/n0duaxKTVOoFem4JU8rPP1yKQysK/fOouQW,2020/10/17--00:35:15,file:///C:/programming/Lab_Java-Y2/6210402402/images/2020-10-17_1602868929377.png
-worker2,SKADI,TEST,worker,false,0,$2a$12$ehRI/fSaf./Ktj8SLloSfOdNLQJYEEdvXGbfOxjyUys6e8LTokptS,2020/10/17--00:22:50,file:///C:/programming/Lab_Java-Y2/6210402402/images/2020-10-17_1602868955426.png
-Admin,NARONGRIT,THAMMAPALO,admin,false,0,$2a$12$xt3RaqOu50w/AATW55smR.g8gf/8vRR29H8af0jJdEp0tRp7Jv1GS,2020/10/17--00:20:31,file:///C:/programming/Lab_Java-Y2/6210402402/images/2020-10-17_1602868838554.png
+resident1,CHEN,RESIDENT,resident,false,0,$2a$12$ca39yAP/w5q56pJ3XKvV2.zwzp7/67.Gse5MyXQMMtcdpFRbYq8Yq,2020/10/18--00:52:30,file:///C:/programming/Lab_Java-Y2/6210402402/images/2020-10-17_1602953110490.png
+worker1,SILVERASH,WORKER,worker,false,0,$2a$12$8CB333JEkbPYuh.PJxt8KuIfPOD17ZR.Xm5E/4FwowLDdK3JGOIhq,2020/10/18--00:52:01,file:///C:/programming/Lab_Java-Y2/6210402402/images/2020-10-17_1602952054612.png
+Admin,NARONGRIT,THAMMAPALO,admin,false,0,$2a$12$WOMKhdlLxS/DYeyLs/dsReVqigTp.O.RT0XhsiCh7qgDLm5L8PChq,2020/10/18--00:51:34,file:///C:/programming/Lab_Java-Y2/6210402402/images/2020-10-17_1602951947009.png
+resident2,SIEGE,RESIDENT,resident,false,0,$2a$12$eUtP1JLGKR6jT9XDC3sV4eQEkcu5DF8Xv7P4aPWJ9m8KwM.NQiYte,2020/10/17--23:56:59,file:///C:/programming/Lab_Java-Y2/6210402402/images/2020-10-17_1602953812117.png
+worker2,HOSHIGUMA,WORKER,worker,false,0,$2a$12$J4cE5nj09EF9nuGn1JrNg.S4iMMFf0dQvpsmm85R4lvguZ09NPEMO,0000/00/00--00:00:00,file:///C:/programming/Lab_Java-Y2/6210402402/images/2020-10-17_1602952086998.png

@@ -30,7 +30,7 @@ public class AdminStageController {
     private Account selectedAccount;
 
     private ObservableList accountObservableList;
-    private String imagePath = "image/profileDefault.jpg";
+    private String imagePath;
     private ImageDataSource imageDateSource;
 
     @FXML private Pane managePane;
@@ -52,6 +52,7 @@ public class AdminStageController {
     @FXML
     public void initialize() {
         imageDateSource = new ImageDataSource();
+        imagePath = "image/profileDefault.jpg";
 
         banBtn.setVisible(false);
         unBanBtn.setVisible(false);
@@ -69,13 +70,13 @@ public class AdminStageController {
         selectedAccount.setBan(false);
         clearSelectedAccount();
         accountTable.refresh();
-        saveUpdate();
+        save();
     }
     public void banBtnAction() {
         selectedAccount.setBan(true);
         clearSelectedAccount();
         accountTable.refresh();
-        saveUpdate();
+        save();
     }
     private void showData() {
         accountObservableList = FXCollections.observableArrayList(accountList.toRoleList("worker"));
@@ -119,36 +120,16 @@ public class AdminStageController {
         registerPane.toFront();
     }
     public void signUpBtnAction() {
-        if (!accountList.isUsernameDuplicate(username.getText())) {
-            if(checkBoxNull()){
-                AlertDefined.alertWarning("failed to sign up","any box id empty");
-            }
-            else if(!checkConfirmPassword()){
-                AlertDefined.alertWarning("failed to sign up","ConfirmPassword not correct");
-                password.clear();
-                confirmPassword.clear();
-            }
-            else {
-                Account account = new Account(username.getText(), new Person(firstName.getText(), lastName.getText()), "worker", "0000/00/00--00:00:00");
-                account.setPassword(password.getText());
-                account.setImagePath(imagePath);
-                accountList.addAccount(account);
-
-                saveUpdate();
-                clearAllBox();
-                accountTable.getColumns().clear();
-                showData();
-            }
+        try {
+            accountList.register("worker",firstName.getText(),lastName.getText(),username.getText(),password.getText(),confirmPassword.getText(), imagePath, null);
+            save();
+            AlertDefined.alertWarning("complete");
+            accountTable.getColumns().clear();
+            showData();
+        } catch (IllegalAccessException e) {
+            AlertDefined.alertWarning(e.getMessage());
         }
-        else {
-            AlertDefined.alertWarning("failed to sign up","This username has already used");
-        }
-    }
-    private boolean checkBoxNull(){
-        return (firstName.getText().equals("") || lastName.getText().equals("") || username.getText().equals("") || password.getText().equals(""));
-    }
-    private boolean checkConfirmPassword() {
-        return password.getText().equals(confirmPassword.getText());
+        clearAllBox();
     }
     private void clearAllBox(){
         firstName.clear();
@@ -180,14 +161,14 @@ public class AdminStageController {
         if (customDialog.isCheckNotnull()) {
             admin.setPassword(customDialog.getOutput());
         }
-        saveUpdate();
+        save();
     }
     public void changeProfile(ActionEvent event){
        imagePath = imageDateSource.getPathForFileChooser(event);
        adminImage.setImage(new Image(imagePath,150.00,150.00,false,false));
        admin.setImagePath(imagePath);
        imagePath = "image/profileDefault.jpg";
-       saveUpdate();
+       save();
     }
 
     /** HOME **/
@@ -201,7 +182,7 @@ public class AdminStageController {
     }
 
     /** SaveUpdate **/
-    public void saveUpdate(){
+    public void save(){
         AccountFileDataSource accountFileDataSource = null;
         try {
             accountFileDataSource = new AccountFileDataSource("data","accountList.csv");

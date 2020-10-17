@@ -21,7 +21,7 @@ import java.io.IOException;
 public class RegisterStageController {
     private AccountList accountList;
     private AddressList addressList;
-    private String imagePath = "image/profileDefault.jpg";
+    private String imagePath;
 
     @FXML private TextField username, firstname, lastname;
     @FXML private PasswordField password, confirmPassword;
@@ -29,39 +29,21 @@ public class RegisterStageController {
     @FXML private ImageView registerImageView;
 
     public void initialize() {
+        imagePath = "image/profileDefault.jpg";
     }
 
-    public void createBtnAction(ActionEvent event) throws IOException {
-        if (!isAnyBoxNull()) {
-            if (addressList.linkToAddress(new Person(firstname.getText(), lastname.getText()))) {
-                if (!accountList.isUsernameDuplicate(username.getText())) {
-                    if (isConfirmEqualsPassword()) {
-                        Account account = new Account(username.getText(), new Person(firstname.getText(), lastname.getText()), "resident", "0000/00/00--00:00:00");
-                        account.setImagePath(imagePath);
-                        account.setPassword(password.getText());
-                        accountList.addAccount(account);
+    public void createBtnAction(ActionEvent event){
+        try {
+            accountList.register("resident", firstname.getText(),lastname.getText(),username.getText(),password.getText(),confirmPassword.getText(), imagePath, addressList);
+            AccountFileDataSource accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
+            accountFileDataSource.setAccountList(accountList);
+            AlertDefined.alertWarning("complete");
+            returnHomeAction(event);
 
-                        AccountFileDataSource accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
-                        accountFileDataSource.setAccountList(accountList);
-
-                        imagePath = "image/profileDefault.jpg";
-                        Button b = (Button) event.getSource();
-                        Stage stage = (Stage) b.getScene().getWindow();
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginStage.fxml"));
-                        stage.setScene(new Scene(loader.load(), 960, 600));
-                        LoginStageController loginStageController = loader.getController();
-                        loginStageController.setAccountList(accountList);
-                    } else {
-                        AlertDefined.alertWarning("ConfirmPassword not match", "Please try again.");
-                    }
-                } else {
-                    AlertDefined.alertWarning("account has already use.", "Please try again.");
-                }
-            } else {
-                AlertDefined.alertWarning("Your are not Resident.", "Please register.");
-            }
-        } else {
-            AlertDefined.alertWarning("Any box has null", "Please fill all box.");
+        } catch (IllegalAccessException e){
+            AlertDefined.alertWarning(e.getMessage());
+        } catch (IOException e){
+            e.printStackTrace();
         }
     }
 
@@ -71,18 +53,11 @@ public class RegisterStageController {
         registerImageView.setImage(new Image(imagePath,150.00,150.00,false,false));
     }
 
-    public void cancelBtnAction(ActionEvent event) throws IOException {
+    public void returnHomeAction(ActionEvent event) throws IOException {
         Button b = (Button) event.getSource();
         Stage stage = (Stage) b.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginStage.fxml"));
         stage.setScene(new Scene(loader.load(), 960, 600));
-    }
-
-    public boolean isAnyBoxNull() {
-        return firstname.getText().equals("") || lastname.getText().equals("") || username.getText().equals("") || password.getText().equals("");
-    }
-    public boolean isConfirmEqualsPassword() {
-        return password.getText().equals(confirmPassword.getText());
     }
 
     public void setAccountList(AccountList accountList) {

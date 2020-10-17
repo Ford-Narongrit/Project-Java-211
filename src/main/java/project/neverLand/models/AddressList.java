@@ -15,6 +15,7 @@ public class AddressList {
     }
 
     public boolean linkToAddress(Person person){
+        currentAddress = null;
         for(Address address : addressList){
             if(address.isPersonInRoom(person)){
                 currentAddress = address;
@@ -23,6 +24,7 @@ public class AddressList {
         }
         return false;
     }
+
     public Address getCurrentAddress() {
         return currentAddress;
     }

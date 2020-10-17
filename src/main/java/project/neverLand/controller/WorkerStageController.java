@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import project.neverLand.helper.AlertDefined;
 import project.neverLand.models.*;
@@ -51,7 +53,7 @@ public class WorkerStageController {
 
     /** managePane **/
     @FXML private Pane managePane;
-    @FXML private Button manageBtn;
+    @FXML private Button manageBtn, receivedBtn, showAllInboxBtn;
     @FXML private TableView<Mail> inboxTable;
     private ObservableList inboxObservableList;
     private Mail selectedMail;
@@ -88,23 +90,19 @@ public class WorkerStageController {
                 showSelectedAddress(newValue);
             }
         });
-
         inboxTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showSelectedMail(newValue);
             }
         });
-
         searchManagePane.textProperty().addListener((observable, oldValue, newValue) -> {
             inboxTable.getColumns().clear();
             showInboxData(inboxList.toRoomNumber(newValue));
         });
-
         searchInfoPane.textProperty().addListener((observable, oldValue, newValue) -> {
             addressTable.getColumns().clear();
             showAddressData(addressList.toPersonList(newValue));
         });
-
     }
 
     /** infoPane **/
@@ -150,10 +148,9 @@ public class WorkerStageController {
         inboxTable.setItems(inboxObservableList);
 
         ArrayList<StringConfiguration> configs = new ArrayList<>();
-        configs.add(new StringConfiguration("title:Date", "field:date", "width:0.4"));
-        configs.add(new StringConfiguration("title:Receiver", "field:receiver", "width:0.3"));
-        configs.add(new StringConfiguration("title:Sender", "field:sender", "width:0.3"));
-        configs.add(new StringConfiguration("title:size", "field:size", "width:0.2"));
+        configs.add(new StringConfiguration("title:Date", "field:date", "width:0.3"));
+        configs.add(new StringConfiguration("title:Room Number", "field:senderLocation", "width:0.3"));
+        configs.add(new StringConfiguration("title:Worker", "field:workerName", "width:0.4"));
 
         for (StringConfiguration conf : configs) {
             TableColumn col = new TableColumn(conf.get("title"));
@@ -170,13 +167,22 @@ public class WorkerStageController {
         sender.setText(selectedMail.getSender().getFirstName());
         size.setText(String.valueOf(selectedMail.getSize()));
     }
+    public void showAllInboxBtnAction(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/showAllInboxStage.fxml"));
+        stage.setScene(new Scene(loader.load(),800,600));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        ShowAllInboxStageController showAllInboxStageController = loader.getController();
+        showAllInboxStageController.setInboxList(inboxList);
+
+        stage.show();
+    }
     public void receivedInboxBtnAction(){
         selectedMail.setReceived(true);
         saveInboxList();
         clearSelectMail();
         updateInboxTable();
     }
-
 
     /** addNewInboxPane **/
     public void addInboxBtnAction(){
@@ -220,7 +226,7 @@ public class WorkerStageController {
             updateInboxTable();
         }
         else{
-            AlertDefined.alertWarning("failed to addInbox","please input all box");
+            AlertDefined.alertWarning("please input all box");
         }
     }
     private boolean checkAllBoxNull(){
@@ -280,7 +286,6 @@ public class WorkerStageController {
         customDialog.getResult();
         if (customDialog.isCheckNotnull()) {
             worker.setPassword(customDialog.getOutput());
-            System.out.println(worker.toString());
         }
         saveAccountList();
     }

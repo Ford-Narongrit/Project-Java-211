@@ -6,36 +6,44 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import project.neverLand.models.Account;
-import project.neverLand.models.Address;
-import project.neverLand.models.InboxList;
-import project.neverLand.models.Mail;
+import project.neverLand.models.*;
+import project.neverLand.services.CustomDialog;
 import project.neverLand.services.StringConfiguration;
+import project.neverLand.services.fileDataSource.AccountFileDataSource;
+import project.neverLand.services.fileDataSource.ImageDataSource;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class ResidentStageController {
-    private Address address;
+    private AccountList accountList;
     private Account account;
     private InboxList inboxList;
 
     private Mail selectedMail;
-    private ObservableList mailObservableList;
+    private ObservableList inboxObservableList;
+    private String imagePath;
 
-    @FXML private Button inbox, profile, home;
+    /** INBOX pane **/
+    @FXML private Button inbox;
+    @FXML private Pane inboxPane;
     @FXML private TableView<Mail> inboxTable;
-    @FXML private Button changePassword;
-    @FXML private Pane inboxPane, profilePane;
-    @FXML private Label name, username;
+    @FXML private ImageView inboxImageView;
     @FXML private Label receiver, sender, size;
+
+    /** profile pane **/
+    @FXML private Button profile;
+    @FXML private Pane profilePane;
+    @FXML private ImageView profileImageView;
+    @FXML private Label name, username;
+    @FXML private Button changePassword, changeProfile;
+
     @FXML
     public void initialize() {
         inboxTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -48,14 +56,14 @@ public class ResidentStageController {
     public void inboxBtnAction(){
         inboxPane.toFront();
     }
-    private void showData() {
-        mailObservableList = FXCollections.observableArrayList(inboxList.toPersonList(account.getPersonData()));
-        inboxTable.setItems(mailObservableList);
+    private void showInboxData(ArrayList<Mail> inboxList) {
+        inboxObservableList = FXCollections.observableArrayList(inboxList);
+        inboxTable.setItems(inboxObservableList);
 
         ArrayList<StringConfiguration> configs = new ArrayList<>();
-        configs.add(new StringConfiguration("title:Receiver", "field:receiver", "width:0.2"));
-        configs.add(new StringConfiguration("title:Sender", "field:sender", "width:0.3"));
-        configs.add(new StringConfiguration("title:size", "field:size", "width:0.3"));
+        configs.add(new StringConfiguration("title:Date", "field:date", "width:0.3"));
+        configs.add(new StringConfiguration("title:from", "field:senderLocation", "width:0.3"));
+        configs.add(new StringConfiguration("title:Worker", "field:workerName", "width:0.4"));
 
         for (StringConfiguration conf : configs) {
             TableColumn col = new TableColumn(conf.get("title"));
@@ -67,15 +75,34 @@ public class ResidentStageController {
     }
     private void showSelectedMail(Mail mail) {
         selectedMail = mail;
+        inboxImageView.setImage(new Image(selectedMail.getImagePath(),150.00,150.00,false,false));
         receiver.setText(selectedMail.getReceiver().getFirstName());
         sender.setText(selectedMail.getSender().getFirstName());
         size.setText(String.valueOf(selectedMail.getSize()));
     }
 
-
     /** profile **/
     public void profileBtnAction(){
         profilePane.toFront();
+    }
+    public void reSetPasswordBtnAction() {
+        CustomDialog customDialog = new CustomDialog();
+        customDialog.setTitleAndHeaderDialog("RePassword", "Please enter new password.");
+        customDialog.addButton("Confirm");
+        customDialog.createFields();
+        customDialog.getResult();
+        if (customDialog.isCheckNotnull()) {
+            account.setPassword(customDialog.getOutput());
+        }
+        saveAccountList();
+    }
+    public void changeProfile(ActionEvent event){
+        ImageDataSource imageDataSource = new ImageDataSource();
+        imagePath = imageDataSource.getPathForFileChooser(event);
+        profileImageView.setImage(new Image(imagePath,150.00,150.00,false,false));
+        account.setImagePath(imagePath);
+        imagePath = "image/profileDefault.jpg";
+        saveAccountList();
     }
 
     /** HOME **/
@@ -86,18 +113,28 @@ public class ResidentStageController {
         stage.setScene(new Scene(loader.load(),960, 600));
     }
 
+    private void saveAccountList(){
+        AccountFileDataSource accountFileDataSource = null;
+        try {
+            accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
+            accountFileDataSource.setAccountList(accountList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /** PassValueToThisStage */
-    public void setAddress(Address address) {
-        this.address = address;
-    }
     public void setAccount(Account account) {
         this.account = account;
         name.setText(account.getPersonData().getFirstName());
+        profileImageView.setImage(new Image(account.getImagePath(),150.00,150.00,false,false));
         username.setText(account.getUsername());
+    }
+    public void setAccountList(AccountList accountList) {
+        this.accountList = accountList;
     }
     public void setInboxList(InboxList inboxList) {
         this.inboxList = inboxList;
-        showData();
+        showInboxData(inboxList.toPersonList(account.getPersonData()));
     }
 }

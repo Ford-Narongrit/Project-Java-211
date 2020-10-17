@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="960.0" stylesheets="@css/darkTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverLand.controller.AdminStageController">
+<AnchorPane prefHeight="600.0" prefWidth="960.0" stylesheets="@css/colorTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverLand.controller.AdminStageController">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="100.0" styleClass="anchorPaneMenu">
          <children>
@@ -40,6 +40,53 @@
       </AnchorPane>
       <AnchorPane layoutX="99.0" prefHeight="600.0" prefWidth="861.0" styleClass="anchorPane">
          <children>
+            <Pane fx:id="adminPane" layoutX="6.0" layoutY="6.0" prefHeight="590.0" prefWidth="850.0" styleClass="pane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label prefHeight="63.0" prefWidth="127.0" styleClass="headerLabel" text="Profile" textFill="WHITE">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <ImageView fx:id="adminImage" fitHeight="150.0" fitWidth="150.0" layoutX="350.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/profileDefault.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="name" layoutX="350.0" layoutY="270.0" prefHeight="40.0" prefWidth="355.0" styleClass="bigLabel" text="Name" textFill="#e4e5e5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="adminUsername" layoutX="350.0" layoutY="330.0" prefHeight="40.0" prefWidth="355.0" styleClass="bigLabel" text="Username" textFill="#e4e5e5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="changePasswordBtn" layoutX="230.0" layoutY="430.0" mnemonicParsing="false" onAction="#reSetPasswordBtnAction" prefHeight="50.0" prefWidth="170.0" styleClass="buttonDefault" text="Change Password" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="250.0" layoutY="270.0" prefHeight="40.0" prefWidth="75.0" styleClass="bigLabel" text="Name" textFill="#e4e5e5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="200.0" layoutY="330.0" prefHeight="40.0" prefWidth="125.0" styleClass="bigLabel" text="Username" textFill="#e4e5e5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="changeProfileBtn" layoutX="450.0" layoutY="430.0" mnemonicParsing="false" onAction="#changeProfile" prefHeight="50.0" prefWidth="170.0" styleClass="buttonDefault" text="Change Profile" textFill="#e4e5e5">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
             <Pane fx:id="registerPane" prefHeight="590.0" prefWidth="850.0" styleClass="pane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                <children>
                   <Label prefHeight="66.0" prefWidth="167.0" styleClass="headerLabel" text="Register" textFill="#e4e5e5">
@@ -106,59 +153,12 @@
                      </image>
                   </ImageView>
                   <Button fx:id="chooseImageBtn" layoutX="655.0" layoutY="240.0" mnemonicParsing="false" onAction="#chooseImageBtnAction" prefHeight="34.0" prefWidth="140.0" styleClass="buttonDefault" text="choose image" />
-                  <Button fx:id="signUpBtn" layoutX="230.0" layoutY="450.0" mnemonicParsing="false" onAction="#signUpBtnAction" prefHeight="35.0" prefWidth="140.0" styleClass="buttonDefault" text="signup" textFill="#e4e5e5">
+                  <Button fx:id="signUpBtn" layoutX="230.0" layoutY="450.0" mnemonicParsing="false" onAction="#signUpBtnAction" prefHeight="35.0" prefWidth="140.0" styleClass="buttonDefault" text="signUp" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
                   <Button fx:id="cancelBtn" layoutX="430.0" layoutY="450.0" mnemonicParsing="false" onAction="#cancelBtnAction" prefHeight="35.0" prefWidth="140.0" styleClass="buttonCancel" text="cancel" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Button>
-               </children>
-            </Pane>
-            <Pane fx:id="adminPane" layoutX="6.0" layoutY="6.0" prefHeight="590.0" prefWidth="850.0" styleClass="pane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-               <children>
-                  <Label prefHeight="63.0" prefWidth="127.0" styleClass="headerLabel" text="Profile" textFill="WHITE">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Label>
-                  <ImageView fx:id="adminImage" fitHeight="150.0" fitWidth="150.0" layoutX="350.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/profileDefault.jpg" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="name" layoutX="350.0" layoutY="270.0" prefHeight="40.0" prefWidth="355.0" text="Name" textFill="#e4e5e5">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="adminUsername" layoutX="350.0" layoutY="330.0" prefHeight="40.0" prefWidth="355.0" text="Username" textFill="#e4e5e5">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="changePasswordBtn" layoutX="230.0" layoutY="430.0" mnemonicParsing="false" onAction="#reSetPasswordBtnAction" prefHeight="50.0" prefWidth="170.0" styleClass="buttonDefault" text="Change Password" textFill="#e4e5e5">
-                     <font>
-                        <Font name="Candara" size="18.0" />
-                     </font>
-                  </Button>
-                  <Label layoutX="250.0" layoutY="270.0" prefHeight="40.0" prefWidth="75.0" text="Name" textFill="#e4e5e5">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="200.0" layoutY="330.0" prefHeight="40.0" prefWidth="125.0" text="Username" textFill="#e4e5e5">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="changeProfileBtn" layoutX="450.0" layoutY="430.0" mnemonicParsing="false" onAction="#changeProfile" prefHeight="50.0" prefWidth="170.0" styleClass="buttonDefault" text="Change Profile" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>

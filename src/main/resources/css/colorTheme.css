@@ -1,0 +1,109 @@
+.anchorPane{
+    -fx-background-color: #999999;
+}
+.anchorPaneMenu{
+    -fx-background-color: #737373;
+}
+.pane{
+    -fx-background-color: #d9d9d9;
+}
+
+
+.headerLabel{
+    -fx-font: 36px Candara;
+    -fx-text-fill: #0d0d0d;
+    -fx-font-weight: bold;
+}
+.normalLabel{
+    -fx-font: 18px Candara;
+    -fx-text-fill: #0d0d0d;
+}
+.actionLabel{
+    -fx-font: 18px Candara;
+    -fx-text-fill: #7289da;
+}
+.actionLabel:hover{
+   -fx-text-fill: #5e77d4;
+   -fx-underline: true;
+}
+.bigLabel{
+    -fx-font: 27px Candara;
+    -fx-text-fill: #0d0d0d;
+}
+
+.boxField{
+    -fx-font: 18px Candara;
+    -fx-background-color:  #b3b3b3;
+    -fx-text-fill:  #0d0d0d;
+    -fx-prompt-text-fill: #0d0d0d;
+    -fx-background-radius: 10;
+}
+.boxField:focused{
+    -fx-border-color: #7289da;
+}
+
+.comboBox {
+    -fx-background-color:  #0d0d0d;
+    -fx-background-radius: 10;
+}
+.comboBox:focused{
+    -fx-border-color: #7289da;
+}
+.comboBox .list-cell{
+    -fx-font: 18px Candara;
+    -fx-text-fill:  #e4e5e5;
+    -fx-background-color: #0d0d0d;
+}
+.comboBox .list-cell:hover{
+    -fx-background-color: #60606c;
+}
+
+
+.buttonMenu{
+    -fx-font: 18px Candara;
+    -fx-text-fill: #0d0d0d;
+    -fx-background-color: #b3b3b3;
+    -fx-background-radius: 0;
+}
+.buttonMenu:hover{
+    -fx-background-color: #a6a6a6;
+}
+.buttonMenu:pressed{
+    -fx-background-color: #8c8c8c;
+}
+.buttonDefault{
+    -fx-font: 18px Candara;
+    -fx-text-fill: #e4e5e5;
+    -fx-background-radius: 10;
+    -fx-background-color: #7289da;
+}
+.buttonDefault:hover{
+    -fx-background-color: #5e77d4;
+}
+.buttonDefault:pressed{
+     -fx-background-color: #4a67cf;
+}
+.buttonCancel{
+    -fx-font: 18px Candara;
+    -fx-text-fill:  #e4e5e5;
+    -fx-background-radius: 10;
+    -fx-background-color:  #7289da;
+}
+.buttonCancel:hover{
+    -fx-background-color:  #ff8000;
+}
+.buttonCancel:pressed{
+    -fx-background-color:   #cc6600;
+}
+.buttonBan{
+    -fx-font: 18px Candara;
+    -fx-text-fill:  #e4e5e5;
+    -fx-background-radius: 10;
+    -fx-background-color:  #7289da;
+}
+.buttonBan:hover {
+    -fx-background-color:  #ff0000;
+}
+.buttonBan:pressed {
+    -fx-background-color:  #b30000;
+}

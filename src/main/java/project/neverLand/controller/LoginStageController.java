@@ -31,14 +31,17 @@ public class LoginStageController {
     private AddressList addressList;
     private InboxList inboxList;
 
+    AccountFileDataSource accountFileDataSource;
+
     @FXML public void initialize(){
         Dotenv dotenv = Dotenv.load();
         String driver = dotenv.get("DRIVER", "file");
         if (driver.equals("file")) {
             try {
-                AccountFileDataSource accountFileDataSource = new AccountFileDataSource(
+                accountFileDataSource = new AccountFileDataSource(
                         dotenv.get("DATA_DIRECTORY", "data"),
                         dotenv.get("ACCOUNT_FILENAME", "accountList.csv"));
+
                 accountList = accountFileDataSource.getAccountList();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -63,53 +66,45 @@ public class LoginStageController {
     }
 
     public void loginBtnAction(ActionEvent event) throws IOException {
-        if(accountList.login(username.getText(), password.getText())){
+        try {
+            accountList.login(username.getText(), password.getText());
             Button b = (Button) event.getSource();
             Stage stage = (Stage) b.getScene().getWindow();
 
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd--HH:mm:ss");
-            Date date = new Date();
-            accountList.getCurrentAccount().setLastLogin(dateFormat.format(date));
-            AccountFileDataSource accountFileDataSource = new AccountFileDataSource("data", "accountList.csv");
+            accountList.getCurrentAccount().setLastLogin(dateFormat.format(new Date()));
             accountFileDataSource.setAccountList(accountList);
 
-            if(accountList.getCurrentAccount().isBan()){
-                AlertDefined.alertWarning("Your account is Ban.", "Please try again.");
-                accountList.getCurrentAccount().banCountAddOne();
-                password.clear();
-            }
-            else if(accountList.getCurrentAccount().isRole("admin")){
+            if (accountList.getCurrentAccount().isRole("admin")) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/adminStage.fxml"));
-                stage.setScene(new Scene(loader.load(),960, 600));
+                stage.setScene(new Scene(loader.load(), 960, 600));
 
                 AdminStageController adminStageController = loader.getController();
                 adminStageController.setAdmin(accountList.getCurrentAccount());
                 adminStageController.setAccountList(accountList);
-            }
-            else if(accountList.getCurrentAccount().isRole("worker")){
+            } else if (accountList.getCurrentAccount().isRole("worker")) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/workerStage.fxml"));
-                stage.setScene(new Scene(loader.load(),960, 600));
+                stage.setScene(new Scene(loader.load(), 960, 600));
 
                 WorkerStageController workerStageController = loader.getController();
                 workerStageController.setWorker(accountList.getCurrentAccount());
                 workerStageController.setAccountList(accountList);
                 workerStageController.setAddressList(addressList);
                 workerStageController.setInboxList(inboxList);
-            }
-            else if(accountList.getCurrentAccount().isRole("resident")){
+            } else if (accountList.getCurrentAccount().isRole("resident")) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/residentStage.fxml"));
-                stage.setScene(new Scene(loader.load(),960, 600));
+                stage.setScene(new Scene(loader.load(), 960, 600));
 
                 ResidentStageController residentStageController = loader.getController();
                 addressList.linkToAddress(accountList.getCurrentAccount().getPersonData());
-                residentStageController.setAddress(addressList.getCurrentAddress());
                 residentStageController.setAccount(accountList.getCurrentAccount());
+                residentStageController.setAccountList(accountList);
                 residentStageController.setInboxList(inboxList);
             }
         }
-        else{
-            AlertDefined.alertWarning("Can not found account.", "Incorrect Username or Password.");
-            password.clear();
+        catch (IllegalAccessException e){
+            AlertDefined.alertWarning(e.getMessage());
+            accountFileDataSource.setAccountList(accountList);
         }
     }
     public void registerResidentAction(MouseEvent event) throws IOException {
