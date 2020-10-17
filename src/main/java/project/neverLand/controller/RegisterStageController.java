@@ -9,6 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import project.neverLand.models.*;
 import project.neverLand.helper.AlertDefined;
@@ -23,10 +24,16 @@ public class RegisterStageController {
     private AddressList addressList;
     private String imagePath;
 
+    @FXML private AnchorPane registerAnchorPane;
+
     @FXML private TextField username, firstname, lastname;
     @FXML private PasswordField password, confirmPassword;
     @FXML private Button create, cancel, chooseImage;
     @FXML private ImageView registerImageView;
+
+    public void setRegisterAnchorPane(String path) {
+        registerAnchorPane.getStylesheets().add(getClass().getResource(path).toExternalForm());
+    }
 
     public void initialize() {
         imagePath = "image/profileDefault.jpg";

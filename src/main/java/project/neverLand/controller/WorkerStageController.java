@@ -6,12 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -41,6 +41,8 @@ public class WorkerStageController {
     private ImageDataSource imageDateSource;
     private String personImagePath = "image/profileDefault.jpg";
     private String inboxImagePath = "image/emptyInbox.png";
+
+    @FXML private AnchorPane workerAnchorPane;
 
     /** infoPane **/
     @FXML private Pane infoPane;
@@ -81,6 +83,10 @@ public class WorkerStageController {
     @FXML private Label name, username;
     @FXML private Button profileBtn, rePassword, changeProfile;
     @FXML private ImageView profileImageView;
+
+    public void setWorkerAnchorPane(String path) {
+        workerAnchorPane.getStylesheets().add(getClass().getResource(path).toExternalForm());
+    }
 
     @FXML public void initialize(){
         imageDateSource = new ImageDataSource();

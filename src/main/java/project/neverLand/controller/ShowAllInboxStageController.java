@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import project.neverLand.models.InboxList;
 import project.neverLand.models.Mail;
 import project.neverLand.services.StringConfiguration;
@@ -16,7 +17,12 @@ public class ShowAllInboxStageController {
     private ObservableList inboxObservableList;
     private InboxList inboxList;
 
+    @FXML private AnchorPane showAllInboxAnchorPane;
     @FXML private TableView<Mail> inboxTable;
+
+    public void setShowAllInboxAnchorPane(String path) {
+        showAllInboxAnchorPane.getStylesheets().add(getClass().getResource(path).toExternalForm());
+    }
 
     public void initialize(){}
 

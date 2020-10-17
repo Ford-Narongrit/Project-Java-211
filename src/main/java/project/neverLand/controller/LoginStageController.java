@@ -1,12 +1,15 @@
 package project.neverLand.controller;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import project.neverLand.models.AccountList;
 import project.neverLand.models.AddressList;
@@ -15,6 +18,7 @@ import project.neverLand.services.fileDataSource.AccountFileDataSource;
 import project.neverLand.services.fileDataSource.AddressListFileDataSource;
 import project.neverLand.services.fileDataSource.InboxFileDataSource;
 import project.neverLand.helper.AlertDefined;
+import com.jfoenix.controls.JFXToggleButton;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -22,18 +26,23 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LoginStageController {
+    @FXML private AnchorPane loginAnchorPane;
     @FXML private Label register;
     @FXML private TextField username;
     @FXML private PasswordField password;
     @FXML private Button loginBtn, help;
+    @FXML private JFXToggleButton toggleButton;
+    @FXML private ToggleButton toggleButton2;
 
     private AccountList accountList;
     private AddressList addressList;
     private InboxList inboxList;
+    private String themeCSSPath;
 
     AccountFileDataSource accountFileDataSource;
 
     @FXML public void initialize(){
+        themeCSSPath = "/css/whiteTheme.css";
         Dotenv dotenv = Dotenv.load();
         String driver = dotenv.get("DRIVER", "file");
         if (driver.equals("file")) {
@@ -63,6 +72,20 @@ public class LoginStageController {
                 e.printStackTrace();
             }
         }
+
+        toggleButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                loginAnchorPane.getStylesheets().clear();
+                if(toggleButton.isSelected() == true){
+                    themeCSSPath = "/css/darkTheme.css";
+                }
+                else{
+                    themeCSSPath = "/css/whiteTheme.css";
+                }
+                loginAnchorPane.getStylesheets().add(getClass().getResource(themeCSSPath).toExternalForm());
+            }
+        });
     }
 
     public void loginBtnAction(ActionEvent event) throws IOException {
@@ -82,6 +105,7 @@ public class LoginStageController {
                 AdminStageController adminStageController = loader.getController();
                 adminStageController.setAdmin(accountList.getCurrentAccount());
                 adminStageController.setAccountList(accountList);
+                adminStageController.setAdminAnchorPane(themeCSSPath);
             } else if (accountList.getCurrentAccount().isRole("worker")) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/workerStage.fxml"));
                 stage.setScene(new Scene(loader.load(), 960, 600));
@@ -91,6 +115,7 @@ public class LoginStageController {
                 workerStageController.setAccountList(accountList);
                 workerStageController.setAddressList(addressList);
                 workerStageController.setInboxList(inboxList);
+                workerStageController.setWorkerAnchorPane(themeCSSPath);
             } else if (accountList.getCurrentAccount().isRole("resident")) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/residentStage.fxml"));
                 stage.setScene(new Scene(loader.load(), 960, 600));
@@ -100,6 +125,7 @@ public class LoginStageController {
                 residentStageController.setAccount(accountList.getCurrentAccount());
                 residentStageController.setAccountList(accountList);
                 residentStageController.setInboxList(inboxList);
+                residentStageController.setResidentAnchorPane(themeCSSPath);
             }
         }
         catch (IllegalAccessException e){
@@ -115,6 +141,7 @@ public class LoginStageController {
         RegisterStageController accountResidentController = loader.getController();
         accountResidentController.setAccountList(accountList);
         accountResidentController.setAddressList(addressList);
+        accountResidentController.setRegisterAnchorPane(themeCSSPath);
     }
     public void helpBtnAction(){
         //load

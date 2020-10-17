@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import project.neverLand.models.Account;
@@ -33,6 +34,8 @@ public class AdminStageController {
     private String imagePath;
     private ImageDataSource imageDateSource;
 
+    @FXML private AnchorPane adminAnchorPane;
+
     @FXML private Pane managePane;
     @FXML private Button banBtn, unBanBtn;
     @FXML private TableView<Account> accountTable;
@@ -48,6 +51,10 @@ public class AdminStageController {
     @FXML private ImageView adminImage;
     @FXML private Label name, adminUsername;
     @FXML private Button changeProfileBtn, changePasswordBtn;
+
+    public void setAdminAnchorPane(String path) {
+        adminAnchorPane.getStylesheets().add(getClass().getResource(path).toExternalForm());
+    }
 
     @FXML
     public void initialize() {

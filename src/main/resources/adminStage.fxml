@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="960.0" stylesheets="@css/colorTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverLand.controller.AdminStageController">
+<AnchorPane fx:id="adminAnchorPane" prefHeight="600.0" prefWidth="960.0" stylesheets="@css/whiteTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.neverLand.controller.AdminStageController">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="100.0" styleClass="anchorPaneMenu">
          <children>

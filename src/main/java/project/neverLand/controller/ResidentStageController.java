@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import project.neverLand.models.*;
@@ -30,6 +31,8 @@ public class ResidentStageController {
     private ObservableList inboxObservableList;
     private String imagePath;
 
+    @FXML private AnchorPane residentAnchorPane;
+
     /** INBOX pane **/
     @FXML private Button inbox;
     @FXML private Pane inboxPane;
@@ -43,6 +46,10 @@ public class ResidentStageController {
     @FXML private ImageView profileImageView;
     @FXML private Label name, username;
     @FXML private Button changePassword, changeProfile;
+
+    public void setResidentAnchorPane(String path) {
+        residentAnchorPane.getStylesheets().add(getClass().getResource(path).toExternalForm());
+    }
 
     @FXML
     public void initialize() {
