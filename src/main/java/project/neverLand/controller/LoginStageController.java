@@ -32,7 +32,6 @@ public class LoginStageController {
     @FXML private PasswordField password;
     @FXML private Button loginBtn, help;
     @FXML private JFXToggleButton toggleButton;
-    @FXML private ToggleButton toggleButton2;
 
     private AccountList accountList;
     private AddressList addressList;
@@ -61,6 +60,9 @@ public class LoginStageController {
                         dotenv.get("ADDRESS_FILENAME", "addressList.csv"));
                 addressList = addressListFileDataSource.getAddressList();
             } catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
             try {

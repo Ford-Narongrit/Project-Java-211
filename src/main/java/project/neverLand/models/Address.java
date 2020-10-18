@@ -52,15 +52,15 @@ public class Address {
         return false;
     }
 
-    public boolean addPersonToRoom(Person person) {
+    public boolean addPersonToRoom(Person person) throws IllegalAccessException {
         if(!isRoomerMax()){
             roomers.add(person);
             return true;
         }
-        return false;
+        throw new IllegalAccessException("This room is full.");
     }
 
-    public boolean isThisRoom(String roomNumber, String roomType) {
-        return this.roomNumber.equals(roomNumber) && this.roomType.equals(roomType);
+    public boolean isThisRoom(String roomNumber) {
+        return this.roomNumber.equals(roomNumber);
     }
 }

@@ -44,17 +44,28 @@ public class AddressList {
         }
         return addresses;
     }
+    public String findRoomNumber(String name){
+        for(Address address : addressList){
+            for(Person person: address.getRoomers()){
+                if((person.getFirstName()+person.getLastName()).contains(name.toUpperCase())){
+                    return address.getRoomNumber();
+                }
+            }
+        }
+        return "";
+    }
 
-    public void findAddress(String roomNumber, String roomType){
-        for (Address address: addressList) {
-            if (address.isThisRoom(roomNumber, roomType)) {
+    public void findAddress(String roomNumber) throws IllegalAccessException {
+        currentAddress = null;
+        for (Address address : addressList) {
+            if (address.isThisRoom(roomNumber)) {
                 currentAddress = address;
                 return;
             }
         }
-        Address address1 = new Address(roomNumber, roomType);
-        addressList.add(address1);
-        currentAddress = address1;
+        if(currentAddress == null) {
+            throw new IllegalAccessException("Room not found.");
         }
+    }
 }
 

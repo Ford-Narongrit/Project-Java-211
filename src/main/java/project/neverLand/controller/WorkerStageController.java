@@ -1,5 +1,7 @@
 package project.neverLand.controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -70,6 +72,7 @@ public class WorkerStageController {
     @FXML private TextField width, length, height, degree, station, trackingNum;
     @FXML private ImageView newInboxImageView;
     @FXML private Button addNewInboxBtn, addNewInboxCancelBtn, chooseImageBtn;
+    @FXML private ComboBox sizeComboBox, typeComboBox;
 
     /** registerPane **/
     @FXML private Pane registerPane;
@@ -109,6 +112,157 @@ public class WorkerStageController {
             addressTable.getColumns().clear();
             showAddressData(addressList.toPersonList(newValue));
         });
+
+        receiverFirstname.textProperty().addListener(((observable, oldValue, newValue) -> {
+            String location = addressList.findRoomNumber(newValue + receiverLastname.getText());
+            if(location != "")
+                receiverAddress.setText(location);
+            else
+                receiverAddress.setText("");
+        }));
+        receiverLastname.textProperty().addListener((observable, oldValue, newValue) -> {
+            String location = addressList.findRoomNumber(receiverFirstname.getText() + newValue);
+            if(location != "")
+                receiverAddress.setText(location);
+            else
+                receiverAddress.setText("");
+        });
+
+        typeComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                sizeComboBox.getSelectionModel().clearSelection();
+                sizeComboBox.getItems().clear();
+                resetDisable();
+                clearAddInboxField();
+                if(newValue == "Mail"){
+                    sizeComboBox.getItems().addAll("C6","C5","C4","DL","Other");
+                    disableToMail();
+                }
+                else if(newValue == "Document"){
+                    sizeComboBox.getItems().addAll("A4","A5","A8","Other");
+                    disableToDocument();
+                }
+                else if(newValue == "Package"){
+                    sizeComboBox.getItems().addAll("A","2A","B","2B","C","2C","Other");
+                    disableToPackage();
+                }
+            }
+        });
+        sizeComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                disableSize();
+                if(newValue != null) {
+                    switch (newValue) {
+                        /** Mail **/
+                        case "C6":
+                            setWidthLength("11.4", "16.2");
+                            break;
+                        case "C5":
+                            setWidthLength("16.2", "22.9");
+                            break;
+                        case "C4":
+                            setWidthLength("22.9", "32.4");
+                            break;
+                        case "DL":
+                            setWidthLength("11", "22");
+                            break;
+                        /** Document **/
+                        case "A4":
+                            setWidthLength("21", "29.7");
+                            break;
+                        case "A5":
+                            setWidthLength("14.8", "21.0");
+                            break;
+                        case "A8":
+                            setWidthLength("5.2", "7.4");
+                            break;
+                        /** package **/
+                        case "A":
+                            setWidthLengthHeight("14", "20", "7");
+                            break;
+                        case "2A":
+                            setWidthLengthHeight("14", "20", "12");
+                            break;
+                        case "B":
+                            setWidthLengthHeight("17", "25", "9");
+                            break;
+                        case "2B":
+                            setWidthLengthHeight("16", "25", "18");
+                            break;
+                        case "C":
+                            setWidthLengthHeight("20", "30", "11");
+                            break;
+                        case "2C":
+                            setWidthLengthHeight("20", "30", "22");
+                            break;
+                        case "Other":
+                            unDisableSize(typeComboBox.getSelectionModel().getSelectedItem().toString());
+                            System.out.println(typeComboBox.getSelectionModel().getSelectedItem());
+                            break;
+                    }
+                }
+            }
+        });
+    }
+    private void setTextComboBox(){
+        building.getItems().addAll("1","2");
+        floor.getItems().addAll("1","2","3","4","5","6","7","8");
+        roomType.getItems().addAll("one bedroom","two bedrooms");
+        room.getItems().addAll("1","2","3","4","5","6","7","8","9","10");
+
+        typeComboBox.getItems().addAll("Mail", "Document", "Package");
+        typeComboBox.getSelectionModel().select("Mail");
+        sizeComboBox.getItems().addAll("C6","C5","C4","DL","Other");
+        disableToMail();
+    }
+    private void disableToMail(){
+        width.setDisable(false);
+        length.setDisable(false);
+        height.setDisable(true);
+        degree.setDisable(true);
+        station.setDisable(true);
+        trackingNum.setDisable(true);
+    }
+    private void disableToPackage(){
+        width.setDisable(false);
+        length.setDisable(false);
+        degree.setDisable(true);
+    }
+    private void disableToDocument(){
+        width.setDisable(false);
+        length.setDisable(false);
+        height.setDisable(true);
+        station.setDisable(true);
+        trackingNum.setDisable(true);
+    }
+    private void resetDisable(){
+        height.setDisable(false);
+        station.setDisable(false);
+        trackingNum.setDisable(false);
+        degree.setDisable(false);
+    }
+    private void disableSize(){
+        height.setDisable(true);
+        width.setDisable(true);
+        length.setDisable(true);
+    }
+    private void unDisableSize(String type){
+        if(type == "Package"){
+            height.setDisable(false);
+        }
+        width.setDisable(false);
+        length.setDisable(false);
+    }
+    private void setWidthLength(String width, String length){
+        this.width.setText(width);
+        this.length.setText(length);
+    }
+    private void setWidthLengthHeight(String width, String length, String height){
+        this.width.setText(width);
+        this.length.setText(length);
+        this.height.setText(height);
     }
 
     /** infoPane **/
@@ -225,11 +379,16 @@ public class WorkerStageController {
                         receiverAddress.getText(),
                         inboxImagePath, Double.parseDouble(width.getText()), Double.parseDouble(length.getText()), dateFormat.format(date), worker.getUsername());
             }
-            mail.calSize();
-            inboxList.addInbox(mail);
-            saveInboxList();
-            clearAddInboxField();
-            updateInboxTable();
+            try {
+                addressList.findAddress(receiverAddress.getText());
+                mail.calSize();
+                inboxList.addInbox(mail);
+                saveInboxList();
+                clearAddInboxField();
+                updateInboxTable();
+            } catch (IllegalAccessException e) {
+                AlertDefined.alertWarning(e.getMessage());
+            }
         }
         else{
             AlertDefined.alertWarning("please input all box");
@@ -259,22 +418,21 @@ public class WorkerStageController {
     public void registerBtnAction(){
         registerPane.toFront();
     }
-    private void setTextComboBox(){
-        building.getItems().addAll("1","2");
-        floor.getItems().addAll("1","2","3","4","5","6","7","8");
-        roomType.getItems().addAll("one bedroom","two bedrooms");
-        room.getItems().addAll("1","2","3","4","5","6","7","8","9","10");
-    }
     public void registerChooseImage(ActionEvent event){
         personImagePath = imageDateSource.getPathForFileChooser(event);
         registerImageView.setImage(new Image(personImagePath,150.00,150.00,false,false));
     }
     public void createBtnAction(){
-        addressList.findAddress((String)building.getValue() +"-"+ (String)floor.getValue() + "/" + (String)room.getValue(),(String)roomType.getValue());
-        addressList.getCurrentAddress().addPersonToRoom(new Person(firstname.getText(),lastname.getText(),personImagePath));
-        saveAddressList();
-        clearRegisterPaneField();
-        updateAddressTable();
+        try {
+            addressList.findAddress((String) building.getValue() + "-" + (String) floor.getValue() + "/" + (String) room.getValue());
+            addressList.getCurrentAddress().addPersonToRoom(new Person(firstname.getText(), lastname.getText(), personImagePath));
+            saveAddressList();
+            clearRegisterPaneField();
+            updateAddressTable();
+        }
+        catch (IllegalAccessException e){
+            AlertDefined.alertWarning(e.getMessage());
+        }
     }
     public void registerCancelBtnAction(){
         clearRegisterPaneField();

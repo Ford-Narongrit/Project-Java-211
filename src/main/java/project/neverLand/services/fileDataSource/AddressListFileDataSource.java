@@ -11,7 +11,7 @@ public class AddressListFileDataSource extends FileDataSource {
         super(fileDirectoryName,fileName);
     }
 
-    private void readData() throws IOException {
+    private void readData() throws IOException, IllegalAccessException {
         String filePath = getFilePath();
         File file = new File(filePath);
         FileReader fileReader = new FileReader(file);
@@ -28,7 +28,7 @@ public class AddressListFileDataSource extends FileDataSource {
         bufferedReader.close();
     }
 
-    public AddressList getAddressList() throws IOException {
+    public AddressList getAddressList() throws IOException, IllegalAccessException {
         addressList = new AddressList();
         readData();
         return addressList;

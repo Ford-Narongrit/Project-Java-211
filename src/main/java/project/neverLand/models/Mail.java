@@ -108,6 +108,9 @@ public class Mail implements Comparable<Mail>{
         else if(size == 741.96){
             setSize("C4");
         }
+        else{
+            setSize("Unknown");
+        }
         return this.size;
     }
 

@@ -25,6 +25,9 @@ public class Document extends Mail{
         else if(size == 38.48){
             setSize("A8");
         }
+        else{
+            setSize("Unknown");
+        }
         return getSize();
     }
 

@@ -40,8 +40,11 @@ public class Package extends Mail{
         else if(size == 6600){
             setSize("C");
         }
-        else if(size == 10780){
+        else if(size == 13200){
             setSize("2C");
+        }
+        else{
+            setSize("Unknown");
         }
         return getSize();
     }
