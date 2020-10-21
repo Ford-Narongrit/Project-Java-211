@@ -77,7 +77,7 @@
                   <Font size="18.0" />
                </font>
             </PasswordField>
-            <Button fx:id="create" layoutX="555.0" layoutY="406.0" mnemonicParsing="false" onAction="#createBtnAction" prefHeight="40.0" prefWidth="140.0" styleClass="buttonDefault" text="signUp" textFill="#e4e5e5">
+            <Button fx:id="create" layoutX="555.0" layoutY="406.0" mnemonicParsing="false" onAction="#createBtnAction" prefHeight="40.0" prefWidth="140.0" styleClass="buttonDefault" text="Sign Up" textFill="#e4e5e5">
                <font>
                   <Font name="Candara" size="18.0" />
                </font>

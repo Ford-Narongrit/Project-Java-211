@@ -22,6 +22,7 @@ import project.neverLand.services.StringConfiguration;
 import project.neverLand.services.fileDataSource.AccountFileDataSource;
 import project.neverLand.services.fileDataSource.ImageDataSource;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -105,7 +106,7 @@ public class AdminStageController {
     }
     private void showSelectedAccount(Account account) {
         selectedAccount = account;
-        manageImageView.setImage(new Image(selectedAccount.getImagePath(),150.00,150.00,false,false));
+        manageImageView.setImage(new Image(new File(selectedAccount.getImagePath()).toURI().toString(),150.00,150.00,false,false));
         if (!selectedAccount.isBan()) {
             banBtn.setVisible(true);
             unBanBtn.setVisible(false);
@@ -152,7 +153,7 @@ public class AdminStageController {
     }
     public void chooseImageBtnAction(ActionEvent event){
         imagePath = imageDateSource.getPathForFileChooser(event);
-        registerImageView.setImage(new Image(imagePath));
+        registerImageView.setImage(new Image(new File(imagePath).toURI().toString(), 150.0, 150.0, false, false));
     }
 
     /** adminPane Function **/
@@ -172,7 +173,7 @@ public class AdminStageController {
     }
     public void changeProfile(ActionEvent event){
        imagePath = imageDateSource.getPathForFileChooser(event);
-       adminImage.setImage(new Image(imagePath,150.00,150.00,false,false));
+       adminImage.setImage(new Image(new File(imagePath).toURI().toString(),150.00,150.00,false,false));
        admin.setImagePath(imagePath);
        imagePath = "image/profileDefault.jpg";
        save();
@@ -204,7 +205,7 @@ public class AdminStageController {
         this.admin = admin;
         name.setText(admin.getPersonData().getFirstName());
         adminUsername.setText(admin.getUsername());
-        adminImage.setImage(new Image(admin.getImagePath()));
+        adminImage.setImage(new Image(new File(admin.getImagePath()).toURI().toString(), 150.00, 150.00 , false, false));
     }
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;

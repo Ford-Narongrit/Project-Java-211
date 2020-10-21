@@ -19,6 +19,7 @@ import project.neverLand.services.StringConfiguration;
 import project.neverLand.services.fileDataSource.AccountFileDataSource;
 import project.neverLand.services.fileDataSource.ImageDataSource;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -82,7 +83,7 @@ public class ResidentStageController {
     }
     private void showSelectedMail(Mail mail) {
         selectedMail = mail;
-        inboxImageView.setImage(new Image(selectedMail.getImagePath(),150.00,150.00,false,false));
+        inboxImageView.setImage(new Image(new File(selectedMail.getImagePath()).toURI().toString(),150.00,150.00,false,false));
         receiver.setText(selectedMail.getReceiver().getFirstName());
         sender.setText(selectedMail.getSender().getFirstName());
         size.setText(String.valueOf(selectedMail.getSize()));
@@ -106,7 +107,7 @@ public class ResidentStageController {
     public void changeProfile(ActionEvent event){
         ImageDataSource imageDataSource = new ImageDataSource();
         imagePath = imageDataSource.getPathForFileChooser(event);
-        profileImageView.setImage(new Image(imagePath,150.00,150.00,false,false));
+        profileImageView.setImage(new Image(new File(imagePath).toURI().toString(),150.00,150.00,false,false));
         account.setImagePath(imagePath);
         imagePath = "image/profileDefault.jpg";
         saveAccountList();
@@ -134,7 +135,7 @@ public class ResidentStageController {
     public void setAccount(Account account) {
         this.account = account;
         name.setText(account.getPersonData().getFirstName());
-        profileImageView.setImage(new Image(account.getImagePath(),150.00,150.00,false,false));
+        profileImageView.setImage(new Image(new File(account.getImagePath()).toURI().toString(),150.00,150.00,false,false));
         username.setText(account.getUsername());
     }
     public void setAccountList(AccountList accountList) {

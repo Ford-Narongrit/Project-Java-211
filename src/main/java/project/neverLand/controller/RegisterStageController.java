@@ -17,6 +17,7 @@ import project.neverLand.services.fileDataSource.AccountFileDataSource;
 import project.neverLand.services.fileDataSource.ImageDataSource;
 
 
+import java.io.File;
 import java.io.IOException;
 
 public class RegisterStageController {
@@ -57,7 +58,7 @@ public class RegisterStageController {
     public void chooseImage(ActionEvent event){
         ImageDataSource imageDateSource = new ImageDataSource();
         imagePath = imageDateSource.getPathForFileChooser(event);
-        registerImageView.setImage(new Image(imagePath,150.00,150.00,false,false));
+        registerImageView.setImage(new Image(new File(imagePath).toURI().toString(),150.00,150.00,false,false));
     }
 
     public void returnHomeAction(ActionEvent event) throws IOException {

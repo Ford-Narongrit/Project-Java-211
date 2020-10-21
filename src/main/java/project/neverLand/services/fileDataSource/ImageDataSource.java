@@ -3,12 +3,11 @@ package project.neverLand.services.fileDataSource;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.FileChooser;
+import sun.applet.Main;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 
@@ -28,9 +27,10 @@ public class ImageDataSource {
                 destDir.mkdirs();
                 String[] fileSplit = file.getName().split("\\.");
                 String filename = LocalDate.now() + "_" + System.currentTimeMillis() + "." + fileSplit[fileSplit.length - 1];
-                Path target = FileSystems.getDefault().getPath(destDir.getAbsolutePath() + System.getProperty("file.separator") + filename);
-                Files.copy(file.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
-                return target.toUri().toString();
+                String target = "images" + File.separator + filename;
+                File imagePath = new File(target);
+                Files.copy(file.toPath(), imagePath.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                return target;
 
             } catch (IOException e) {
                 e.printStackTrace();

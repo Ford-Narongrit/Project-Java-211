@@ -28,6 +28,7 @@ import project.neverLand.services.fileDataSource.AddressListFileDataSource;
 import project.neverLand.services.fileDataSource.ImageDataSource;
 import project.neverLand.services.fileDataSource.InboxFileDataSource;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -289,7 +290,7 @@ public class WorkerStageController {
         personBox.getChildren().clear();
         selectedAddress = address;
         for(Person person: selectedAddress.getRoomers()){
-            ImageView imageView = new ImageView(new Image(person.getImagePath(),150.00,150.00,false,false));
+            ImageView imageView = new ImageView(new Image(new File(person.getImagePath()).toURI().toString(),150.00,150.00,false,false));
             personBox.getChildren().add(imageView);
             Label personName = new Label(person.toString());
             personName.setPadding(new Insets(20,0,20,0));
@@ -322,7 +323,7 @@ public class WorkerStageController {
     }
     private void showSelectedMail(Mail mail){
         selectedMail = mail;
-        inboxImageView.setImage(new Image(selectedMail.getImagePath(),150.00,150.00,false,false));
+        inboxImageView.setImage(new Image(new File(selectedMail.getImagePath()).toURI().toString(),150.00,150.00,false,false));
         receiver.setText(selectedMail.getReceiver().getFirstName());
         sender.setText(selectedMail.getSender().getFirstName());
         size.setText(String.valueOf(selectedMail.getSize()));
@@ -350,7 +351,7 @@ public class WorkerStageController {
     }
     public void addNewInboxChooseImage(ActionEvent event){
         inboxImagePath = imageDateSource.getPathForFileChooser(event);
-        newInboxImageView.setImage(new Image(inboxImagePath));
+        newInboxImageView.setImage(new Image(new File(inboxImagePath).toURI().toString(), 150, 150, false, false));
     }
     public void addNewInboxBtnAction(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd--HH:mm:ss");
@@ -420,7 +421,7 @@ public class WorkerStageController {
     }
     public void registerChooseImage(ActionEvent event){
         personImagePath = imageDateSource.getPathForFileChooser(event);
-        registerImageView.setImage(new Image(personImagePath,150.00,150.00,false,false));
+        registerImageView.setImage(new Image(new File(personImagePath).toURI().toString(),150.00,150.00,false,false));
     }
     public void createBtnAction(){
         try {
@@ -455,7 +456,7 @@ public class WorkerStageController {
     }
     public void changeProfile(ActionEvent event){
         personImagePath = imageDateSource.getPathForFileChooser(event);
-        profileImageView.setImage(new Image(personImagePath,150.00,150.00,false,false));
+        profileImageView.setImage(new Image(new File(personImagePath).toURI().toString(),150.00,150.00,false,false));
         worker.setImagePath(personImagePath);
         personImagePath = "image/profileDefault.jpg";
         saveAccountList();
@@ -549,7 +550,7 @@ public class WorkerStageController {
         this.worker = worker;
         name.setText(worker.getPersonData().getFirstName());
         username.setText(worker.getUsername());
-        profileImageView.setImage(new Image(worker.getImagePath(),150.00,150.00,false,false));
+        profileImageView.setImage(new Image(new File(worker.getImagePath()).toURI().toString(),150.00,150.00,false,false));
     }
     public void setInboxList(InboxList inboxList) {
         this.inboxList = inboxList;
