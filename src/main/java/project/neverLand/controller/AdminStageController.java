@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,6 +19,7 @@ import project.neverLand.models.AccountList;
 import project.neverLand.models.Person;
 import project.neverLand.helper.AlertDefined;
 import project.neverLand.services.CustomDialog;
+import project.neverLand.services.ImageSetter;
 import project.neverLand.services.StringConfiguration;
 import project.neverLand.services.fileDataSource.AccountFileDataSource;
 import project.neverLand.services.fileDataSource.ImageDataSource;
@@ -34,6 +36,7 @@ public class AdminStageController {
     private ObservableList accountObservableList;
     private String imagePath;
     private ImageDataSource imageDateSource;
+    private ImageSetter imageSetter;
 
     @FXML private AnchorPane adminAnchorPane;
 
@@ -59,6 +62,7 @@ public class AdminStageController {
 
     @FXML
     public void initialize() {
+        imageSetter = new ImageSetter();
         imageDateSource = new ImageDataSource();
         imagePath = "image/profileDefault.jpg";
 
@@ -106,7 +110,7 @@ public class AdminStageController {
     }
     private void showSelectedAccount(Account account) {
         selectedAccount = account;
-        manageImageView.setImage(new Image(new File(selectedAccount.getImagePath()).toURI().toString(),150.00,150.00,false,false));
+        imageSetter.setImage(manageImageView, selectedAccount.getImagePath());
         if (!selectedAccount.isBan()) {
             banBtn.setVisible(true);
             unBanBtn.setVisible(false);
@@ -117,7 +121,7 @@ public class AdminStageController {
     }
     private void clearSelectedAccount() {
         selectedAccount = null;
-        manageImageView.setImage(new Image("image/profileDefault.jpg",150.00,150.00,false,false));
+        imageSetter.setImage(manageImageView, imagePath);
         accountTable.getSelectionModel().clearSelection();
         banBtn.setVisible(false);
         unBanBtn.setVisible(false);
@@ -146,14 +150,14 @@ public class AdminStageController {
         password.clear();
         confirmPassword.clear();
         imagePath = "image/profileDefault.jpg";
-        registerImageView.setImage(new Image(imagePath,150.00,150.00,false,false));
+        imageSetter.setImage(registerImageView, imagePath);
     }
     public void cancelBtnAction(){
         clearAllBox();
     }
     public void chooseImageBtnAction(ActionEvent event){
-        imagePath = imageDateSource.getPathForFileChooser(event);
-        registerImageView.setImage(new Image(new File(imagePath).toURI().toString(), 150.0, 150.0, false, false));
+        imagePath = imageDateSource.getPathForFileChooser(event, "person");
+        imageSetter.setImage(registerImageView, imagePath);
     }
 
     /** adminPane Function **/
@@ -172,11 +176,9 @@ public class AdminStageController {
         save();
     }
     public void changeProfile(ActionEvent event){
-       imagePath = imageDateSource.getPathForFileChooser(event);
-       adminImage.setImage(new Image(new File(imagePath).toURI().toString(),150.00,150.00,false,false));
-       admin.setImagePath(imagePath);
-       imagePath = "image/profileDefault.jpg";
-       save();
+        admin.setImagePath(imageDateSource.getPathForFileChooser(event, "person"));
+        imageSetter.setImage(adminImage, admin.getImagePath());
+        save();
     }
 
     /** HOME **/
@@ -190,7 +192,7 @@ public class AdminStageController {
     }
 
     /** SaveUpdate **/
-    public void save(){
+    private void save(){
         AccountFileDataSource accountFileDataSource = null;
         try {
             accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
@@ -205,7 +207,7 @@ public class AdminStageController {
         this.admin = admin;
         name.setText(admin.getPersonData().getFirstName());
         adminUsername.setText(admin.getUsername());
-        adminImage.setImage(new Image(new File(admin.getImagePath()).toURI().toString(), 150.00, 150.00 , false, false));
+        imageSetter.setImage(adminImage, admin.getImagePath());
     }
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;

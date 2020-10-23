@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import project.neverLand.models.*;
 import project.neverLand.services.CustomDialog;
+import project.neverLand.services.ImageSetter;
 import project.neverLand.services.StringConfiguration;
 import project.neverLand.services.fileDataSource.AccountFileDataSource;
 import project.neverLand.services.fileDataSource.ImageDataSource;
@@ -31,6 +32,7 @@ public class ResidentStageController {
     private Mail selectedMail;
     private ObservableList inboxObservableList;
     private String imagePath;
+    private ImageSetter imageSetter;
 
     @FXML private AnchorPane residentAnchorPane;
 
@@ -54,6 +56,7 @@ public class ResidentStageController {
 
     @FXML
     public void initialize() {
+        imageSetter = new ImageSetter();
         inboxTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showSelectedMail(newValue);
@@ -83,7 +86,7 @@ public class ResidentStageController {
     }
     private void showSelectedMail(Mail mail) {
         selectedMail = mail;
-        inboxImageView.setImage(new Image(new File(selectedMail.getImagePath()).toURI().toString(),150.00,150.00,false,false));
+        imageSetter.setImage(inboxImageView, selectedMail.getImagePath());
         receiver.setText(selectedMail.getReceiver().getFirstName());
         sender.setText(selectedMail.getSender().getFirstName());
         size.setText(String.valueOf(selectedMail.getSize()));
@@ -106,8 +109,8 @@ public class ResidentStageController {
     }
     public void changeProfile(ActionEvent event){
         ImageDataSource imageDataSource = new ImageDataSource();
-        imagePath = imageDataSource.getPathForFileChooser(event);
-        profileImageView.setImage(new Image(new File(imagePath).toURI().toString(),150.00,150.00,false,false));
+        imagePath = imageDataSource.getPathForFileChooser(event, "person");
+        imageSetter.setImage(profileImageView, imagePath);
         account.setImagePath(imagePath);
         imagePath = "image/profileDefault.jpg";
         saveAccountList();
@@ -135,8 +138,8 @@ public class ResidentStageController {
     public void setAccount(Account account) {
         this.account = account;
         name.setText(account.getPersonData().getFirstName());
-        profileImageView.setImage(new Image(new File(account.getImagePath()).toURI().toString(),150.00,150.00,false,false));
         username.setText(account.getUsername());
+        imageSetter.setImage(profileImageView, account.getImagePath());
     }
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;

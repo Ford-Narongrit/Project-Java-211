@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import project.neverLand.models.*;
 import project.neverLand.helper.AlertDefined;
+import project.neverLand.services.ImageSetter;
 import project.neverLand.services.fileDataSource.AccountFileDataSource;
 import project.neverLand.services.fileDataSource.ImageDataSource;
 
@@ -24,9 +25,9 @@ public class RegisterStageController {
     private AccountList accountList;
     private AddressList addressList;
     private String imagePath;
+    private ImageSetter imageSetter;
 
     @FXML private AnchorPane registerAnchorPane;
-
     @FXML private TextField username, firstname, lastname;
     @FXML private PasswordField password, confirmPassword;
     @FXML private Button create, cancel, chooseImage;
@@ -37,7 +38,8 @@ public class RegisterStageController {
     }
 
     public void initialize() {
-        imagePath = "image/profileDefault.jpg";
+        imageSetter = new ImageSetter();
+        imagePath = "image"+File.separator+"profileDefault.jpg";
     }
 
     public void createBtnAction(ActionEvent event){
@@ -57,8 +59,7 @@ public class RegisterStageController {
 
     public void chooseImage(ActionEvent event){
         ImageDataSource imageDateSource = new ImageDataSource();
-        imagePath = imageDateSource.getPathForFileChooser(event);
-        registerImageView.setImage(new Image(new File(imagePath).toURI().toString(),150.00,150.00,false,false));
+        imageSetter.setImage(registerImageView, imageDateSource.getPathForFileChooser(event, "person"));
     }
 
     public void returnHomeAction(ActionEvent event) throws IOException {
@@ -67,7 +68,6 @@ public class RegisterStageController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginStage.fxml"));
         stage.setScene(new Scene(loader.load(), 960, 600));
     }
-
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;
     }

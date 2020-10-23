@@ -1,9 +1,9 @@
-1-1/1,one bedroom
-1-1/2,one bedroom,CHEN,RESIDENT,images\2020-10-21_1603292863386.png
+1-1/1,one bedroom,HOSHIGUMA,RESIDENT,2020-10-23_1603472014160.png
+1-1/2,one bedroom,SHINING,RESIDENT,2020-10-23_1603472075246.png
 1-1/3,one bedroom
 1-1/4,one bedroom
 1-1/5,one bedroom
-1-1/6,two bedrooms
+1-1/6,two bedrooms,SLIVERASH,RESIDENT,2020-10-23_1603472109176.png,ABIBIRD,RESIDENT,2020-10-23_1603472155126.png
 1-1/7,two bedrooms
 1-1/8,two bedrooms
 1-1/9,two bedrooms
@@ -32,7 +32,7 @@
 1-4/2,one bedroom
 1-4/3,one bedroom
 1-4/4,one bedroom
-1-4/5,one bedroom,AGLINA,RESIDENT,images\2020-10-21_1603293576548.png
+1-4/5,one bedroom
 1-4/6,two bedrooms
 1-4/7,two bedrooms
 1-4/8,two bedrooms
@@ -77,7 +77,7 @@
 1-8/7,two bedrooms
 1-8/8,two bedrooms
 1-8/9,two bedrooms
-1-8/10,two bedrooms,SKADI,RESIDENT,images\2020-10-21_1603293724936.png
+1-8/10,two bedrooms
 2-1/1,one bedroom
 2-1/2,one bedroom
 2-1/3,one bedroom
@@ -89,7 +89,7 @@
 2-1/9,two bedrooms
 2-1/10,two bedrooms
 2-2/1,one bedroom
-2-2/2,one bedroom
+2-2/2,one bedroom,SHEEP,RESIDENT2,2020-10-23_1603472181411.png
 2-2/3,one bedroom
 2-2/4,one bedroom
 2-2/5,one bedroom
@@ -97,7 +97,7 @@
 2-2/7,two bedrooms
 2-2/8,two bedrooms
 2-2/9,two bedrooms
-2-2/10,two bedrooms,IFRIT,RESIDENT,images\2020-10-21_1603293147770.png,SARIA,RESIDENT,images\2020-10-21_1603293191005.png
+2-2/10,two bedrooms
 2-3/1,one bedroom
 2-3/2,one bedroom
 2-3/3,one bedroom
@@ -153,7 +153,7 @@
 2-8/3,one bedroom
 2-8/4,one bedroom
 2-8/5,one bedroom
-2-8/6,two bedrooms
+2-8/6,two bedrooms,SARIA,RESIDENT2,2020-10-23_1603472209555.png,SKADI,RESIDENT2,2020-10-23_1603472245847.png
 2-8/7,two bedrooms
 2-8/8,two bedrooms
 2-8/9,two bedrooms

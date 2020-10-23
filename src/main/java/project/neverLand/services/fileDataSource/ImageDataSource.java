@@ -13,10 +13,10 @@ import java.time.LocalDate;
 
 public class ImageDataSource {
 
-    public String getPathForFileChooser(ActionEvent event) {
-        return chooseFile((Node) event.getSource());
+    public String getPathForFileChooser(ActionEvent event, String type) {
+        return chooseFile((Node) event.getSource(), type);
     }
-    private String chooseFile(Node b) {
+    private String chooseFile(Node b, String type) {
         FileChooser chooser = new FileChooser();
         chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("image PNG JPG", "*.png", "*.jpg"));
@@ -30,12 +30,18 @@ public class ImageDataSource {
                 String target = "images" + File.separator + filename;
                 File imagePath = new File(target);
                 Files.copy(file.toPath(), imagePath.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                return target;
+                return filename;
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return "image/profileDefault.jpg";
+        else if(type.equals("inbox") && file == null){
+            return "image/emptyInbox.png";
+        }
+        else if(type.equals("person") && file == null){
+            return "image/profileDefault.jpg";
+        }
+        return "";
     }
 }
