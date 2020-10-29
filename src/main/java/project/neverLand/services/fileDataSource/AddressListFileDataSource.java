@@ -8,7 +8,7 @@ public class AddressListFileDataSource extends FileDataSource {
     private AddressList addressList;
 
     public AddressListFileDataSource(String fileDirectoryName, String fileName) throws IOException {
-        super(fileDirectoryName,fileName);
+        super(fileDirectoryName, fileName);
     }
 
     private void readData() throws IOException, IllegalAccessException {
@@ -17,11 +17,11 @@ public class AddressListFileDataSource extends FileDataSource {
         FileReader fileReader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String line = "";
-        while ((line = bufferedReader.readLine()) != null){
+        while ((line = bufferedReader.readLine()) != null) {
             String[] data = line.split(",");
-            Address address = new Address(data[0].trim(),data[1].trim());
-            for(int i=2; i<data.length; i = i+3) {
-                address.addPersonToRoom(new Person(data[i].trim(), data[i+1].trim(), data[i+2].trim()));
+            Address address = new Address(data[0].trim(), data[1].trim());
+            for (int i = 2; i < data.length; i = i + 3) {
+                address.addPersonToRoom(new Person(data[i].trim(), data[i + 1].trim(), data[i + 2].trim()));
             }
             addressList.addAddress(address);
         }
@@ -40,7 +40,7 @@ public class AddressListFileDataSource extends FileDataSource {
         FileWriter fileWriter = null;
         fileWriter = new FileWriter(file);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        for (Address address: addressList.toList()) {
+        for (Address address : addressList.toList()) {
             String line = address.getRoomNumber() + "," +
                     address.getRoomType();
             line += address.getRoomerToString();

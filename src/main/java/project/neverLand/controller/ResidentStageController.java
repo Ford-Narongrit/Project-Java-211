@@ -34,21 +34,36 @@ public class ResidentStageController {
     private String imagePath;
     private ImageSetter imageSetter;
 
-    @FXML private AnchorPane residentAnchorPane;
+    @FXML
+    private AnchorPane residentAnchorPane;
 
-    /** INBOX pane **/
-    @FXML private Button inbox;
-    @FXML private Pane inboxPane;
-    @FXML private TableView<Mail> inboxTable;
-    @FXML private ImageView inboxImageView;
-    @FXML private Label receiver, sender, size;
+    /**
+     * INBOX pane
+     **/
+    @FXML
+    private Button inbox;
+    @FXML
+    private Pane inboxPane;
+    @FXML
+    private TableView<Mail> inboxTable;
+    @FXML
+    private ImageView inboxImageView;
+    @FXML
+    private Label receiver, sender, size;
 
-    /** profile pane **/
-    @FXML private Button profile;
-    @FXML private Pane profilePane;
-    @FXML private ImageView profileImageView;
-    @FXML private Label name, username;
-    @FXML private Button changePassword, changeProfile;
+    /**
+     * profile pane
+     **/
+    @FXML
+    private Button profile;
+    @FXML
+    private Pane profilePane;
+    @FXML
+    private ImageView profileImageView;
+    @FXML
+    private Label name, username;
+    @FXML
+    private Button changePassword, changeProfile;
 
     public void setResidentAnchorPane(String path) {
         residentAnchorPane.getStylesheets().add(getClass().getResource(path).toExternalForm());
@@ -63,18 +78,23 @@ public class ResidentStageController {
             }
         });
     }
-    /** inboxPane **/
-    public void inboxBtnAction(){
+
+    /**
+     * inboxPane
+     **/
+    public void inboxBtnAction() {
         inboxPane.toFront();
     }
+
     private void showInboxData(ArrayList<Mail> inboxList) {
         inboxObservableList = FXCollections.observableArrayList(inboxList);
         inboxTable.setItems(inboxObservableList);
 
         ArrayList<StringConfiguration> configs = new ArrayList<>();
         configs.add(new StringConfiguration("title:Date", "field:date", "width:0.3"));
-        configs.add(new StringConfiguration("title:from", "field:senderLocation", "width:0.3"));
-        configs.add(new StringConfiguration("title:Worker", "field:workerName", "width:0.4"));
+        configs.add(new StringConfiguration("title:Received Date", "field:receivedTime", "width:0.3"));
+        configs.add(new StringConfiguration("title:From", "field:senderLocation", "width:0.7"));
+        configs.add(new StringConfiguration("title:Worker", "field:workerName", "width:0.2"));
 
         for (StringConfiguration conf : configs) {
             TableColumn col = new TableColumn(conf.get("title"));
@@ -84,6 +104,7 @@ public class ResidentStageController {
             inboxTable.getColumns().add(col);
         }
     }
+
     private void showSelectedMail(Mail mail) {
         selectedMail = mail;
         imageSetter.setImage(inboxImageView, selectedMail.getImagePath());
@@ -92,10 +113,13 @@ public class ResidentStageController {
         size.setText(String.valueOf(selectedMail.getSize()));
     }
 
-    /** profile **/
-    public void profileBtnAction(){
+    /**
+     * profile
+     **/
+    public void profileBtnAction() {
         profilePane.toFront();
     }
+
     public void reSetPasswordBtnAction() {
         CustomDialog customDialog = new CustomDialog();
         customDialog.setTitleAndHeaderDialog("RePassword", "Please enter new password.");
@@ -107,7 +131,8 @@ public class ResidentStageController {
         }
         saveAccountList();
     }
-    public void changeProfile(ActionEvent event){
+
+    public void changeProfile(ActionEvent event) {
         ImageDataSource imageDataSource = new ImageDataSource();
         imagePath = imageDataSource.getPathForFileChooser(event, "person");
         imageSetter.setImage(profileImageView, imagePath);
@@ -116,34 +141,40 @@ public class ResidentStageController {
         saveAccountList();
     }
 
-    /** HOME **/
+    /**
+     * HOME
+     **/
     public void homeBtnAction(ActionEvent event) throws IOException {
         Button b = (Button) event.getSource();
         Stage stage = (Stage) b.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginStage.fxml"));
-        stage.setScene(new Scene(loader.load(),960, 600));
+        stage.setScene(new Scene(loader.load(), 960, 600));
     }
 
-    private void saveAccountList(){
+    private void saveAccountList() {
         AccountFileDataSource accountFileDataSource = null;
         try {
-            accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
+            accountFileDataSource = new AccountFileDataSource("data", "accountList.csv");
             accountFileDataSource.setAccountList(accountList);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    /** PassValueToThisStage */
+    /**
+     * PassValueToThisStage
+     */
     public void setAccount(Account account) {
         this.account = account;
-        name.setText(account.getPersonData().getFirstName());
+        name.setText(account.getPersonData().toString());
         username.setText(account.getUsername());
         imageSetter.setImage(profileImageView, account.getImagePath());
     }
+
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;
     }
+
     public void setInboxList(InboxList inboxList) {
         this.inboxList = inboxList;
         showInboxData(inboxList.toPersonList(account.getPersonData()));

@@ -1,21 +1,25 @@
 package project.neverLand.models;
 
-public class Package extends Mail{
+public class Package extends Mail {
     private String station;
     private String trackingNum;
     private double height;
 
-    public Package(Person sender, String senderLocation, Person receiver, String receiverLocation, String station, String trackingNum ,String imagePath, double width, double length, double height, String date, String workerName) {
+    public Package(Person sender, String senderLocation, Person receiver, String receiverLocation, String station, String trackingNum, String imagePath, double width, double length, double height, String date, String workerName) {
         super(sender, senderLocation, receiver, receiverLocation, imagePath, width, length, date, workerName);
         this.height = height;
         this.station = station;
         this.trackingNum = trackingNum;
     }
 
-    public Package(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, boolean received, String station, String trackingNum, String imagePath, String date, String workerName) {
-        super(sender, senderLocation, receiver, receiverLocation, size, received, imagePath, date, workerName);
+    public Package(Person sender, String senderLocation, Person receiver, String receiverLocation, String size, boolean received, String station, String trackingNum, String imagePath, String date, String workerName, String receivedTime) {
+        super(sender, senderLocation, receiver, receiverLocation, size, received, imagePath, date, workerName, receivedTime);
         this.station = station;
         this.trackingNum = trackingNum;
+    }
+
+    public double getHeight() {
+        return height;
     }
 
     public void setHeight(double height) {
@@ -24,26 +28,20 @@ public class Package extends Mail{
 
     @Override
     public String calSize() {
-        double size =getWidth()*getLength()*height;
-        if(size == 1960){
+        double size = getWidth() * getLength() * height;
+        if (Math.abs(size - 1960) < 0.001) {
             setSize("A");
-        }
-        else if(size == 3360){
+        } else if (Math.abs(size - 3360) < 0.001) {
             setSize("2A");
-        }
-        else if(size == 3825){
+        } else if (Math.abs(size - 3825) < 0.001) {
             setSize("B");
-        }
-        else if(size == 7650){
+        } else if (Math.abs(size - 7200) < 0.001) {
             setSize("2B");
-        }
-        else if(size == 6600){
+        } else if (Math.abs(size - 6600) < 0.001) {
             setSize("C");
-        }
-        else if(size == 13200){
+        } else if (Math.abs(size - 13200) < 0.001){
             setSize("2C");
-        }
-        else{
+        } else {
             setSize("Unknown");
         }
         return getSize();
@@ -51,18 +49,19 @@ public class Package extends Mail{
 
     @Override
     public String getStructure() {
-        return  getSender().getFirstName() + "," +
+        return getSender().getFirstName() + "," +
                 getSender().getLastName() + "," +
                 getSenderLocation() + "," +
                 getReceiver().getFirstName() + "," +
                 getReceiver().getLastName() + "," +
                 getReceiverLocation() + "," +
                 getSize() + "," +
-                getReceiver() + "," +
+                isReceived() + "," +
                 station + "," +
                 trackingNum + "," +
                 getImagePath() + "," +
-                getDate()+ "," +
-                getWorkerName();
+                getDate() + "," +
+                getWorkerName() + "," +
+                getReceivedTime();
     }
 }

@@ -66,7 +66,7 @@
             <Image url="@image/neverLand-logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="help" layoutX="14.0" layoutY="551.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" style="-fx-background-radius: 5em;" styleClass="buttonDefault" text="?" textFill="#e4e5e5">
+      <Button fx:id="help" layoutX="14.0" layoutY="551.0" mnemonicParsing="false" onAction="#helpBtnAction" prefHeight="35.0" prefWidth="35.0" style="-fx-background-radius: 5em;" styleClass="buttonDefault" text="?" textFill="#e4e5e5">
          <font>
             <Font name="Candara" size="18.0" />
          </font>

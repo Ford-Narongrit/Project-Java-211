@@ -19,16 +19,19 @@ public class Person {
     public String getFirstName() {
         return firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
+
     public String getImagePath() {
         return imagePath;
     }
 
-    public boolean isThisPerson(Person person){
+    public boolean isThisPerson(Person person) {
         return this.firstName.equals(person.getFirstName()) && this.lastName.equals(person.getLastName());
     }
+
     @Override
     public String toString() {
         return firstName + " " + lastName;

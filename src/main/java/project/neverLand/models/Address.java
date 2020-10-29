@@ -20,40 +20,43 @@ public class Address {
     public String getRoomNumber() {
         return roomNumber;
     }
+
     public String getRoomType() {
         return roomType;
     }
+
     public ArrayList<Person> getRoomers() {
         return roomers;
     }
-    public boolean isPersonInRoom(Person person){
-        for(Person roomer: roomers){
-            if(roomer.isThisPerson(person)){
+
+    public boolean isPersonInRoom(Person person) {
+        for (Person roomer : roomers) {
+            if (roomer.isThisPerson(person)) {
                 return true;
             }
         }
         return false;
     }
+
     public String getRoomerToString() {
         String roomerString = "";
-        for(Person person: roomers){
+        for (Person person : roomers) {
             roomerString = roomerString + "," + person.getFirstName() + "," + person.getLastName() + "," + person.getImagePath();
         }
         return roomerString;
     }
 
-    public boolean isRoomerMax(){
-        if(roomType.equals("one bedroom") && roomers.size()==1){
+    public boolean isRoomerMax() {
+        if (roomType.equals("one bedroom") && roomers.size() == 1) {
             return true;
-        }
-        else if(roomType.equals("two bedroom") && roomers.size()==2){
+        } else if (roomType.equals("two bedroom") && roomers.size() == 2) {
             return true;
         }
         return false;
     }
 
     public boolean addPersonToRoom(Person person) throws IllegalAccessException {
-        if(!isRoomerMax()){
+        if (!isRoomerMax()) {
             roomers.add(person);
             return true;
         }

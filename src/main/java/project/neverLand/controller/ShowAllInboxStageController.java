@@ -17,22 +17,26 @@ public class ShowAllInboxStageController {
     private ObservableList inboxObservableList;
     private InboxList inboxList;
 
-    @FXML private AnchorPane showAllInboxAnchorPane;
-    @FXML private TableView<Mail> inboxTable;
+    @FXML
+    private AnchorPane showAllInboxAnchorPane;
+    @FXML
+    private TableView<Mail> inboxTable;
 
     public void setShowAllInboxAnchorPane(String path) {
         showAllInboxAnchorPane.getStylesheets().add(getClass().getResource(path).toExternalForm());
     }
 
-    public void initialize(){}
+    public void initialize() {
+    }
 
-    private void showData(){
+    private void showData() {
         inboxObservableList = FXCollections.observableArrayList(inboxList.toList());
         inboxTable.setItems(inboxObservableList);
 
         ArrayList<StringConfiguration> configs = new ArrayList<>();
         configs.add(new StringConfiguration("title:Date", "field:date", "width:0.2"));
         configs.add(new StringConfiguration("title:Room Number", "field:receiverLocation", "width:0.15"));
+        configs.add(new StringConfiguration("title:Receiver Time", "field:receivedTime", "width:0.15"));
         configs.add(new StringConfiguration("title:Receiver", "field:receiver", "width:0.175"));
         configs.add(new StringConfiguration("title:Sender", "field:sender", "width:0.175"));
         configs.add(new StringConfiguration("title:Size", "field:size", "width:0.05"));

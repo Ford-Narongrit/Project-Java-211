@@ -10,14 +10,14 @@ public class AddressList {
         this.addressList = new ArrayList<>();
     }
 
-    public void addAddress(Address address){
+    public void addAddress(Address address) {
         addressList.add(address);
     }
 
-    public boolean linkToAddress(Person person){
+    public boolean linkToAddress(Person person) {
         currentAddress = null;
-        for(Address address : addressList){
-            if(address.isPersonInRoom(person)){
+        for (Address address : addressList) {
+            if (address.isPersonInRoom(person)) {
                 currentAddress = address;
                 return true;
             }
@@ -29,25 +29,26 @@ public class AddressList {
         return currentAddress;
     }
 
-    public ArrayList<Address> toList(){
+    public ArrayList<Address> toList() {
         return addressList;
     }
 
-    public ArrayList<Address> toPersonList(String name){
+    public ArrayList<Address> toPersonList(String name) {
         ArrayList<Address> addresses = new ArrayList<>();
-        for(Address address : addressList){
-            for(Person person: address.getRoomers()){
-                if((person.getFirstName()+person.getLastName()).contains(name.toUpperCase())){
+        for (Address address : addressList) {
+            for (Person person : address.getRoomers()) {
+                if ((person.getFirstName() + person.getLastName()).contains(name.toUpperCase())) {
                     addresses.add(address);
                 }
             }
         }
         return addresses;
     }
-    public String findRoomNumber(String name){
-        for(Address address : addressList){
-            for(Person person: address.getRoomers()){
-                if((person.getFirstName()+person.getLastName()).contains(name.toUpperCase())){
+
+    public String findRoomNumber(String name) {
+        for (Address address : addressList) {
+            for (Person person : address.getRoomers()) {
+                if ((person.getFirstName() + person.getLastName()).contains(name.toUpperCase())) {
                     return address.getRoomNumber();
                 }
             }
@@ -55,17 +56,18 @@ public class AddressList {
         return "";
     }
 
-    public void findAddress(String roomNumber) throws IllegalAccessException {
+    public boolean findAddress(String roomNumber) throws IllegalAccessException {
         currentAddress = null;
         for (Address address : addressList) {
             if (address.isThisRoom(roomNumber)) {
                 currentAddress = address;
-                return;
+                return true;
             }
         }
-        if(currentAddress == null) {
+        if (currentAddress == null) {
             throw new IllegalAccessException("Room not found.");
         }
+        return false;
     }
 }
 

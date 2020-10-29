@@ -24,7 +24,7 @@
                   <Font name="Candara" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="home" layoutY="554.0" mnemonicParsing="false" onAction="#homeBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="HOME" textFill="#e4e5e5">
+            <Button fx:id="home" layoutY="554.0" mnemonicParsing="false" onAction="#homeBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="LOGOUT" textFill="#e4e5e5">
                <font>
                   <Font name="Candara" size="18.0" />
                </font>

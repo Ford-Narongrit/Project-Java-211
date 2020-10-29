@@ -17,7 +17,7 @@
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="100.0" styleClass="anchorPaneMenu">
          <children>
-            <Button fx:id="manageBtn" layoutY="46.0" mnemonicParsing="false" onAction="#manageBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="manage" textFill="#e4e5e5">
+            <Button fx:id="manageBtn" layoutY="46.0" mnemonicParsing="false" onAction="#manageBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="Manage" textFill="#e4e5e5">
                <font>
                   <Font name="Candara" size="18.0" />
                </font>
@@ -32,7 +32,7 @@
                   <Font name="French Script MT" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="homeBtn" layoutY="554.0" mnemonicParsing="false" onAction="#homeBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="HOME" textFill="#e4e5e5">
+            <Button fx:id="homeBtn" layoutY="554.0" mnemonicParsing="false" onAction="#homeBtnAction" prefHeight="46.0" prefWidth="100.0" styleClass="buttonMenu" text="LOGOUT" textFill="#e4e5e5">
                <font>
                   <Font name="Candara" size="18.0" />
                </font>
@@ -71,7 +71,7 @@
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="40.0" layoutY="250.0" prefHeight="34.0" prefWidth="80.0" styleClass="normalLabel" text="floor" textFill="#e4e5e5">
+                  <Label layoutX="40.0" layoutY="250.0" prefHeight="34.0" prefWidth="80.0" styleClass="normalLabel" text="Floor" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
@@ -96,11 +96,8 @@
                         <Font name="Candara" size="18.0" />
                      </font>
                   </TextField>
-                  <ComboBox fx:id="building" layoutX="135.0" layoutY="200.0" prefHeight="34.0" prefWidth="213.0" promptText="Select Building" styleClass="comboBox" />
-                  <ComboBox fx:id="floor" layoutX="135.0" layoutY="250.0" prefHeight="34.0" prefWidth="213.0" promptText="Select floor" styleClass="comboBox" />
-                  <ComboBox fx:id="room" layoutX="135.0" layoutY="300.0" prefHeight="34.0" prefWidth="213.0" promptText="Select Room" styleClass="comboBox" />
                   <ComboBox fx:id="roomType" layoutX="135.0" layoutY="350.0" prefHeight="34.0" prefWidth="213.0" promptText="Select Roomtype" styleClass="comboBox" />
-                  <Button fx:id="registerChooseImage" layoutX="655.0" layoutY="200.0" mnemonicParsing="false" onAction="#registerChooseImage" prefHeight="50.0" prefWidth="150.0" styleClass="buttonDefault" text="choose image">
+                  <Button fx:id="registerChooseImage" layoutX="655.0" layoutY="200.0" mnemonicParsing="false" onAction="#registerChooseImage" prefHeight="50.0" prefWidth="150.0" styleClass="buttonDefault" text="Choose image">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
@@ -110,12 +107,32 @@
                         <Image url="@image/profileDefault.jpg" />
                      </image>
                   </ImageView>
-                  <Button fx:id="create" layoutX="510.0" layoutY="495.0" mnemonicParsing="false" onAction="#createBtnAction" prefHeight="50.0" prefWidth="150.0" styleClass="buttonDefault" text="Create">
+                  <Button fx:id="create" layoutX="510.0" layoutY="495.0" mnemonicParsing="false" onAction="#createBtnAction" prefHeight="50.0" prefWidth="150.0" styleClass="buttonDefault" text="Add Person">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
                   <Button fx:id="registerCancelBtn" layoutX="677.0" layoutY="495.0" mnemonicParsing="false" onAction="#registerCancelBtnAction" prefHeight="50.0" prefWidth="150.0" styleClass="buttonCancel" text="Cancel">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="building" layoutX="135.0" layoutY="200.0" styleClass="boxField">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="floor" layoutX="135.0" layoutY="250.0" styleClass="boxField">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="room" layoutX="135.0" layoutY="300.0" styleClass="boxField">
+                     <font>
+                        <Font name="Candara" size="18.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="createRoom" layoutX="346.0" layoutY="495.0" mnemonicParsing="false" onAction="#createRoomBtnAction" prefHeight="50.0" prefWidth="150.0" styleClass="buttonDefault" text="Create room">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
@@ -169,21 +186,6 @@
                   </Button>
                </children>
             </Pane>
-            <Pane fx:id="infoPane" layoutX="20.0" layoutY="20.0" prefHeight="590.0" prefWidth="850.0" styleClass="pane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-               <children>
-                  <TableView fx:id="addressTable" layoutX="14.0" layoutY="70.0" prefHeight="480.0" prefWidth="300.0" />
-                  <VBox fx:id="personBox" alignment="TOP_CENTER" layoutX="332.0" layoutY="70.0" prefHeight="480.0" prefWidth="250.0" />
-                  <Label prefHeight="63.0" prefWidth="84.0" styleClass="headerLabel" text="Info" textFill="WHITE">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Label>
-                  <TextField fx:id="searchInfoPane" layoutX="600.0" layoutY="30.0" prefHeight="40.0" prefWidth="200.0" promptText="search" styleClass="boxField" />
-               </children>
-            </Pane>
             <Pane fx:id="managePane" layoutX="5.0" layoutY="20.0" prefHeight="590.0" prefWidth="850.0" styleClass="pane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                <children>
                   <Label prefHeight="60.0" prefWidth="150.0" styleClass="headerLabel" text="Manage" textFill="WHITE">
@@ -194,8 +196,8 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Label>
-                  <TableView fx:id="inboxTable" layoutX="10.0" layoutY="90.0" prefHeight="450.0" prefWidth="450.0" />
-                  <TextField fx:id="searchManagePane" layoutX="620.0" layoutY="15.0" prefHeight="40.0" prefWidth="200.0" promptText="search" styleClass="boxField">
+                  <TableView fx:id="inboxTable" layoutX="10.0" layoutY="110.0" prefHeight="450.0" prefWidth="450.0" />
+                  <TextField fx:id="searchManagePane" layoutX="607.0" layoutY="15.0" prefHeight="40.0" prefWidth="213.0" promptText="search by room number" styleClass="boxField">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
@@ -245,11 +247,12 @@
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Label>
-                  <Button fx:id="showAllInboxBtn" layoutX="500.0" layoutY="490.0" mnemonicParsing="false" onAction="#showAllInboxBtnAction" prefHeight="50.0" prefWidth="150.0" styleClass="buttonDefault" text="show all inbox">
+                  <Button fx:id="showAllInboxBtn" layoutX="500.0" layoutY="490.0" mnemonicParsing="false" onAction="#showAllInboxBtnAction" prefHeight="50.0" prefWidth="150.0" styleClass="buttonDefault" text="Show all inbox">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
+                  <ComboBox fx:id="sortBy" layoutX="10.0" layoutY="65.0" prefHeight="34.0" prefWidth="158.0" promptText="Select sort by " styleClass="comboBox" />
                </children>
             </Pane>
             <Pane fx:id="addNewInboxPane" layoutX="20.0" layoutY="20.0" prefHeight="600.0" prefWidth="861.0" styleClass="pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -333,17 +336,17 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="50.0" layoutY="380.0" styleClass="normalLabel" text="Size" textFill="#e4e5e5">
+                  <Label layoutX="37.0" layoutY="380.0" prefHeight="22.0" prefWidth="31.0" styleClass="normalLabel" text="Size" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="20.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="sizeComboBox" layoutX="90.0" layoutY="370.0" prefHeight="40.0" prefWidth="60.0" styleClass="comboBox" />
-                  <TextField fx:id="width" layoutX="170.0" layoutY="370.0" prefHeight="40.0" prefWidth="60.0" promptText="W" styleClass="boxField" />
-                  <Label layoutX="235.0" layoutY="370.0" prefHeight="25.0" prefWidth="20.0" styleClass="normalLabel" text="x" textFill="WHITE" />
-                  <TextField fx:id="length" layoutX="250.0" layoutY="370.0" prefHeight="40.0" prefWidth="60.0" promptText="L" styleClass="boxField" />
-                  <Label layoutX="315.0" layoutY="370.0" prefHeight="25.0" prefWidth="20.0" styleClass="normalLabel" text="x" textFill="WHITE" />
-                  <TextField fx:id="height" layoutX="330.0" layoutY="370.0" prefHeight="40.0" prefWidth="60.0" promptText="H" styleClass="boxField" />
+                  <ComboBox fx:id="sizeComboBox" layoutX="74.0" layoutY="370.0" prefHeight="40.0" prefWidth="100.0" promptText="size" styleClass="comboBox" />
+                  <TextField fx:id="width" layoutX="188.0" layoutY="370.0" prefHeight="40.0" prefWidth="60.0" promptText="W" styleClass="boxField" />
+                  <Label layoutX="253.0" layoutY="370.0" prefHeight="25.0" prefWidth="20.0" styleClass="normalLabel" text="x" textFill="WHITE" />
+                  <TextField fx:id="length" layoutX="268.0" layoutY="370.0" prefHeight="40.0" prefWidth="60.0" promptText="L" styleClass="boxField" />
+                  <Label layoutX="333.0" layoutY="370.0" prefHeight="25.0" prefWidth="20.0" styleClass="normalLabel" text="x" textFill="WHITE" />
+                  <TextField fx:id="height" layoutX="348.0" layoutY="370.0" prefHeight="40.0" prefWidth="60.0" promptText="H" styleClass="boxField" />
                   <Label layoutX="430.0" layoutY="380.0" styleClass="normalLabel" text="Degree" textFill="#e4e5e5">
                      <font>
                         <Font name="Candara" size="20.0" />
@@ -378,7 +381,7 @@
                      <image>
                         <Image url="@image/emptyInbox.png" />
                      </image></ImageView>
-                  <Button fx:id="chooseImageBtn" layoutX="675.0" layoutY="225.0" mnemonicParsing="false" onAction="#addNewInboxChooseImage" prefHeight="50.0" prefWidth="140.0" styleClass="buttonDefault" text="choose image">
+                  <Button fx:id="chooseImageBtn" layoutX="675.0" layoutY="225.0" mnemonicParsing="false" onAction="#addNewInboxChooseImage" prefHeight="50.0" prefWidth="140.0" styleClass="buttonDefault" text="Choose image">
                      <font>
                         <Font name="Candara" size="14.0" />
                      </font>
@@ -388,11 +391,26 @@
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="addNewInboxCancelBtn" layoutX="680.0" layoutY="514.0" mnemonicParsing="false" onAction="#addNewInboxCancelBtnAction" prefHeight="50.0" prefWidth="140.0" styleClass="buttonCancel" text="cancel">
+                  <Button fx:id="addNewInboxCancelBtn" layoutX="680.0" layoutY="514.0" mnemonicParsing="false" onAction="#addNewInboxCancelBtnAction" prefHeight="50.0" prefWidth="140.0" styleClass="buttonCancel" text="Cancel">
                      <font>
                         <Font name="Candara" size="18.0" />
                      </font>
                   </Button>
+               </children>
+            </Pane>
+            <Pane fx:id="infoPane" layoutX="20.0" layoutY="20.0" prefHeight="590.0" prefWidth="850.0" styleClass="pane" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <TableView fx:id="addressTable" layoutX="14.0" layoutY="70.0" prefHeight="480.0" prefWidth="300.0" />
+                  <VBox fx:id="personBox" alignment="TOP_CENTER" layoutX="332.0" layoutY="70.0" prefHeight="480.0" prefWidth="250.0" />
+                  <Label prefHeight="63.0" prefWidth="84.0" styleClass="headerLabel" text="Info" textFill="WHITE">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="searchInfoPane" layoutX="600.0" layoutY="30.0" prefHeight="40.0" prefWidth="200.0" promptText="search" styleClass="boxField" />
                </children>
             </Pane>
          </children>

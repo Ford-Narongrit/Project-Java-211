@@ -15,21 +15,21 @@ public abstract class FileDataSource {
 
     private void checkFileIsExisted() throws IOException {
         File file = new File(fileDirectoryName);
-        if(!file.exists()){
+        if (!file.exists()) {
             file.mkdir();
         }
         String filePath = fileDirectoryName + File.separator + fileName;
         file = new File(filePath);
-        if(!file.exists()){
-            try{
+        if (!file.exists()) {
+            try {
                 file.createNewFile();
-            } catch (IOException e){
-                throw new IOException ("Cannot create" + filePath);
+            } catch (IOException e) {
+                throw new IOException("Cannot create" + filePath);
             }
         }
     }
 
-    public String getFilePath(){
+    public String getFilePath() {
         return fileDirectoryName + File.separator + fileName;
     }
 

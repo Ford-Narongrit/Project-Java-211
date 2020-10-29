@@ -27,11 +27,16 @@ public class RegisterStageController {
     private String imagePath;
     private ImageSetter imageSetter;
 
-    @FXML private AnchorPane registerAnchorPane;
-    @FXML private TextField username, firstname, lastname;
-    @FXML private PasswordField password, confirmPassword;
-    @FXML private Button create, cancel, chooseImage;
-    @FXML private ImageView registerImageView;
+    @FXML
+    private AnchorPane registerAnchorPane;
+    @FXML
+    private TextField username, firstname, lastname;
+    @FXML
+    private PasswordField password, confirmPassword;
+    @FXML
+    private Button create, cancel, chooseImage;
+    @FXML
+    private ImageView registerImageView;
 
     public void setRegisterAnchorPane(String path) {
         registerAnchorPane.getStylesheets().add(getClass().getResource(path).toExternalForm());
@@ -39,27 +44,28 @@ public class RegisterStageController {
 
     public void initialize() {
         imageSetter = new ImageSetter();
-        imagePath = "image"+File.separator+"profileDefault.jpg";
+        imagePath = "image" + File.separator + "profileDefault.jpg";
     }
 
-    public void createBtnAction(ActionEvent event){
+    public void createBtnAction(ActionEvent event) {
         try {
-            accountList.register("resident", firstname.getText(),lastname.getText(),username.getText(),password.getText(),confirmPassword.getText(), imagePath, addressList);
-            AccountFileDataSource accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
+            accountList.register("resident", firstname.getText(), lastname.getText(), username.getText(), password.getText(), confirmPassword.getText(), imagePath, addressList);
+            AccountFileDataSource accountFileDataSource = new AccountFileDataSource("data", "accountList.csv");
             accountFileDataSource.setAccountList(accountList);
             AlertDefined.alertWarning("complete");
             returnHomeAction(event);
 
-        } catch (IllegalAccessException e){
+        } catch (IllegalAccessException e) {
             AlertDefined.alertWarning(e.getMessage());
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void chooseImage(ActionEvent event){
+    public void chooseImage(ActionEvent event) {
         ImageDataSource imageDateSource = new ImageDataSource();
-        imageSetter.setImage(registerImageView, imageDateSource.getPathForFileChooser(event, "person"));
+        imagePath = imageDateSource.getPathForFileChooser(event, "person");
+        imageSetter.setImage(registerImageView, imagePath);
     }
 
     public void returnHomeAction(ActionEvent event) throws IOException {
@@ -68,9 +74,11 @@ public class RegisterStageController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/loginStage.fxml"));
         stage.setScene(new Scene(loader.load(), 960, 600));
     }
+
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;
     }
+
     public void setAddressList(AddressList addressList) {
         this.addressList = addressList;
     }

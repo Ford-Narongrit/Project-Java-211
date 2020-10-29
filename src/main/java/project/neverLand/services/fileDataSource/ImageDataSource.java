@@ -16,6 +16,7 @@ public class ImageDataSource {
     public String getPathForFileChooser(ActionEvent event, String type) {
         return chooseFile((Node) event.getSource(), type);
     }
+
     private String chooseFile(Node b, String type) {
         FileChooser chooser = new FileChooser();
         chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
@@ -35,11 +36,9 @@ public class ImageDataSource {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else if(type.equals("inbox") && file == null){
+        } else if (type.equals("inbox") && file == null) {
             return "image/emptyInbox.png";
-        }
-        else if(type.equals("person") && file == null){
+        } else if (type.equals("person") && file == null) {
             return "image/profileDefault.jpg";
         }
         return "";

@@ -87,7 +87,7 @@
                   <Font name="Candara" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="chooseImage" layoutX="700.0" layoutY="190.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="40.0" prefWidth="140.0" styleClass="buttonDefault" text="choose image" textFill="#e4e5e5">
+            <Button fx:id="chooseImage" layoutX="700.0" layoutY="190.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="40.0" prefWidth="140.0" styleClass="buttonDefault" text="Choose image" textFill="#e4e5e5">
                <font>
                   <Font name="Candara" size="18.0" />
                </font>

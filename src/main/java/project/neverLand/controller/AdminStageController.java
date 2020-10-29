@@ -38,23 +38,37 @@ public class AdminStageController {
     private ImageDataSource imageDateSource;
     private ImageSetter imageSetter;
 
-    @FXML private AnchorPane adminAnchorPane;
+    @FXML
+    private AnchorPane adminAnchorPane;
 
-    @FXML private Pane managePane;
-    @FXML private Button banBtn, unBanBtn;
-    @FXML private TableView<Account> accountTable;
-    @FXML private ImageView manageImageView;
+    @FXML
+    private Pane managePane;
+    @FXML
+    private Button banBtn, unBanBtn;
+    @FXML
+    private TableView<Account> accountTable;
+    @FXML
+    private ImageView manageImageView;
 
-    @FXML private Pane registerPane;
-    @FXML private TextField firstName, lastName, username;
-    @FXML private PasswordField password, confirmPassword;
-    @FXML private ImageView registerImageView;
-    @FXML private Button signUpBtn, cancelBtn, chooseImageBtn;
+    @FXML
+    private Pane registerPane;
+    @FXML
+    private TextField firstName, lastName, username;
+    @FXML
+    private PasswordField password, confirmPassword;
+    @FXML
+    private ImageView registerImageView;
+    @FXML
+    private Button signUpBtn, cancelBtn, chooseImageBtn;
 
-    @FXML private Pane adminPane;
-    @FXML private ImageView adminImage;
-    @FXML private Label name, adminUsername;
-    @FXML private Button changeProfileBtn, changePasswordBtn;
+    @FXML
+    private Pane adminPane;
+    @FXML
+    private ImageView adminImage;
+    @FXML
+    private Label name, adminUsername;
+    @FXML
+    private Button changeProfileBtn, changePasswordBtn;
 
     public void setAdminAnchorPane(String path) {
         adminAnchorPane.getStylesheets().add(getClass().getResource(path).toExternalForm());
@@ -74,22 +88,28 @@ public class AdminStageController {
             }
         });
     }
-    /** managePane Function **/
-    public void manageBtnAction(){
+
+    /**
+     * managePane Function
+     **/
+    public void manageBtnAction() {
         managePane.toFront();
     }
+
     public void unBanBtnAction() {
         selectedAccount.setBan(false);
         clearSelectedAccount();
         accountTable.refresh();
         save();
     }
+
     public void banBtnAction() {
         selectedAccount.setBan(true);
         clearSelectedAccount();
         accountTable.refresh();
         save();
     }
+
     private void showData() {
         accountObservableList = FXCollections.observableArrayList(accountList.toRoleList("worker"));
         accountTable.setItems(accountObservableList);
@@ -108,6 +128,7 @@ public class AdminStageController {
             accountTable.getColumns().add(col);
         }
     }
+
     private void showSelectedAccount(Account account) {
         selectedAccount = account;
         imageSetter.setImage(manageImageView, selectedAccount.getImagePath());
@@ -119,6 +140,7 @@ public class AdminStageController {
             banBtn.setVisible(false);
         }
     }
+
     private void clearSelectedAccount() {
         selectedAccount = null;
         imageSetter.setImage(manageImageView, imagePath);
@@ -127,13 +149,16 @@ public class AdminStageController {
         unBanBtn.setVisible(false);
     }
 
-    /** registerPane Function **/
-    public void registerBtnAction(){
+    /**
+     * registerPane Function
+     **/
+    public void registerBtnAction() {
         registerPane.toFront();
     }
+
     public void signUpBtnAction() {
         try {
-            accountList.register("worker",firstName.getText(),lastName.getText(),username.getText(),password.getText(),confirmPassword.getText(), imagePath, null);
+            accountList.register("worker", firstName.getText(), lastName.getText(), username.getText(), password.getText(), confirmPassword.getText(), imagePath, null);
             save();
             AlertDefined.alertWarning("complete");
             accountTable.getColumns().clear();
@@ -143,7 +168,8 @@ public class AdminStageController {
         }
         clearAllBox();
     }
-    private void clearAllBox(){
+
+    private void clearAllBox() {
         firstName.clear();
         lastName.clear();
         username.clear();
@@ -152,18 +178,23 @@ public class AdminStageController {
         imagePath = "image/profileDefault.jpg";
         imageSetter.setImage(registerImageView, imagePath);
     }
-    public void cancelBtnAction(){
+
+    public void cancelBtnAction() {
         clearAllBox();
     }
-    public void chooseImageBtnAction(ActionEvent event){
+
+    public void chooseImageBtnAction(ActionEvent event) {
         imagePath = imageDateSource.getPathForFileChooser(event, "person");
         imageSetter.setImage(registerImageView, imagePath);
     }
 
-    /** adminPane Function **/
-    public void adminBtnAction(){
+    /**
+     * adminPane Function
+     **/
+    public void adminBtnAction() {
         adminPane.toFront();
     }
+
     public void reSetPasswordBtnAction() {
         CustomDialog customDialog = new CustomDialog();
         customDialog.setTitleAndHeaderDialog("RePassword", "Please enter new password.");
@@ -175,13 +206,16 @@ public class AdminStageController {
         }
         save();
     }
-    public void changeProfile(ActionEvent event){
+
+    public void changeProfile(ActionEvent event) {
         admin.setImagePath(imageDateSource.getPathForFileChooser(event, "person"));
         imageSetter.setImage(adminImage, admin.getImagePath());
         save();
     }
 
-    /** HOME **/
+    /**
+     * HOME
+     **/
     public void homeBtnAction(ActionEvent event) throws IOException {
         Button b = (Button) event.getSource();
         Stage stage = (Stage) b.getScene().getWindow();
@@ -191,24 +225,29 @@ public class AdminStageController {
         loginStageController.setAccountList(accountList);
     }
 
-    /** SaveUpdate **/
-    private void save(){
+    /**
+     * SaveUpdate
+     **/
+    private void save() {
         AccountFileDataSource accountFileDataSource = null;
         try {
-            accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
+            accountFileDataSource = new AccountFileDataSource("data", "accountList.csv");
             accountFileDataSource.setAccountList(accountList);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    /** PassValueToThisStage */
+    /**
+     * PassValueToThisStage
+     */
     public void setAdmin(Account admin) {
         this.admin = admin;
-        name.setText(admin.getPersonData().getFirstName());
+        name.setText(admin.getPersonData().toString());
         adminUsername.setText(admin.getUsername());
         imageSetter.setImage(adminImage, admin.getImagePath());
     }
+
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;
         showData();

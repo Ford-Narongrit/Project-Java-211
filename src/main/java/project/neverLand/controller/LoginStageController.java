@@ -26,12 +26,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LoginStageController {
-    @FXML private AnchorPane loginAnchorPane;
-    @FXML private Label register;
-    @FXML private TextField username;
-    @FXML private PasswordField password;
-    @FXML private Button loginBtn, help;
-    @FXML private JFXToggleButton toggleButton;
+    @FXML
+    private AnchorPane loginAnchorPane;
+    @FXML
+    private Label register;
+    @FXML
+    private TextField username;
+    @FXML
+    private PasswordField password;
+    @FXML
+    private Button loginBtn, help;
+    @FXML
+    private JFXToggleButton toggleButton;
 
     private AccountList accountList;
     private AddressList addressList;
@@ -40,7 +46,8 @@ public class LoginStageController {
 
     AccountFileDataSource accountFileDataSource;
 
-    @FXML public void initialize(){
+    @FXML
+    public void initialize() {
         themeCSSPath = "/css/whiteTheme.css";
         Dotenv dotenv = Dotenv.load();
         String driver = dotenv.get("DRIVER", "file");
@@ -61,8 +68,7 @@ public class LoginStageController {
                 addressList = addressListFileDataSource.getAddressList();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            catch (IllegalAccessException e) {
+            } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
             try {
@@ -79,10 +85,9 @@ public class LoginStageController {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 loginAnchorPane.getStylesheets().clear();
-                if(toggleButton.isSelected() == true){
+                if (toggleButton.isSelected() == true) {
                     themeCSSPath = "/css/darkTheme.css";
-                }
-                else{
+                } else {
                     themeCSSPath = "/css/whiteTheme.css";
                 }
                 loginAnchorPane.getStylesheets().add(getClass().getResource(themeCSSPath).toExternalForm());
@@ -129,33 +134,39 @@ public class LoginStageController {
                 residentStageController.setInboxList(inboxList);
                 residentStageController.setResidentAnchorPane(themeCSSPath);
             }
-        }
-        catch (IllegalAccessException e){
+        } catch (IllegalAccessException e) {
             AlertDefined.alertWarning(e.getMessage());
             accountFileDataSource.setAccountList(accountList);
         }
     }
+
     public void registerResidentAction(MouseEvent event) throws IOException {
         Label b = (Label) event.getSource();
         Stage stage = (Stage) b.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/registerStage.fxml"));
-        stage.setScene(new Scene(loader.load(),960, 600));
+        stage.setScene(new Scene(loader.load(), 960, 600));
         RegisterStageController accountResidentController = loader.getController();
         accountResidentController.setAccountList(accountList);
         accountResidentController.setAddressList(addressList);
         accountResidentController.setRegisterAnchorPane(themeCSSPath);
     }
-    public void helpBtnAction(){
-        //load
+
+    public void helpBtnAction(ActionEvent event) throws IOException {
+        Button b = (Button) event.getSource();
+        Stage stage = (Stage) b.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/helpStage.fxml"));
+        stage.setScene(new Scene(loader.load(), 960, 600));
     }
 
-    public void setAccountList(AccountList accountList){
+    public void setAccountList(AccountList accountList) {
         this.accountList = accountList;
     }
+
     public void setAddressList(AddressList addressList) {
         this.addressList = addressList;
     }
-    public void setInboxList(InboxList inboxList){
+
+    public void setInboxList(InboxList inboxList) {
         this.inboxList = inboxList;
     }
 

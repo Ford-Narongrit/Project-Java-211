@@ -106,3 +106,14 @@
 .buttonBan:pressed {
     -fx-background-color:  #b30000;
 }
+
+
+.table-view{
+    -fx-font: 14px Candara;
+}
+.table-view .column-header{
+    -fx-background-color: #737373;
+}
+.table-view:focused{
+    -fx-border-color: #7289da;
+}

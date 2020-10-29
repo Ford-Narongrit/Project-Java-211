@@ -13,7 +13,7 @@ public class AccountFileDataSource extends FileDataSource {
         super(fileDirectoryName, fileName);
     }
 
-    private void readData() throws IOException{
+    private void readData() throws IOException {
         String filePath = getFilePath();
         File file = new File(filePath);
         FileReader fileReader = new FileReader(file);
@@ -34,7 +34,7 @@ public class AccountFileDataSource extends FileDataSource {
         bufferedReader.close();
     }
 
-    public AccountList getAccountList() throws IOException{
+    public AccountList getAccountList() throws IOException {
         accountList = new AccountList();
         readData();
         return accountList;
@@ -54,7 +54,7 @@ public class AccountFileDataSource extends FileDataSource {
                     account.isBan() + "," +
                     account.getLoginBanCount() + "," +
                     account.getPassword() + "," +
-                    account.getLastLogin()+ "," + account.getImagePath();
+                    account.getLastLogin() + "," + account.getImagePath();
             bufferedWriter.append(line);
             bufferedWriter.newLine();
         }
