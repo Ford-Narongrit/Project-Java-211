@@ -41,7 +41,7 @@ public class InboxList {
 
     public ArrayList<Mail> toRoomNumber(String roomNumber) {
         ArrayList<Mail> inboxList = new ArrayList<>();
-        for (Mail mail : this.inboxList) {
+        for (Mail mail : toNotReceivedList()) {
             if (mail.getReceiverLocation().contains(roomNumber)) {
                 inboxList.add(mail);
             }
@@ -49,7 +49,7 @@ public class InboxList {
         return inboxList;
     }
 
-    public void sortBy(Comparator comparator){
+    public void sortBy(Comparator comparator) {
         inboxList.sort(comparator);
     }
 

@@ -160,7 +160,7 @@ public class AdminStageController {
         try {
             accountList.register("worker", firstName.getText(), lastName.getText(), username.getText(), password.getText(), confirmPassword.getText(), imagePath, null);
             save();
-            AlertDefined.alertWarning("complete");
+            AlertDefined.alertNormal("Register successful.");
             accountTable.getColumns().clear();
             showData();
         } catch (IllegalAccessException e) {

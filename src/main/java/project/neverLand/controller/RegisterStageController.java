@@ -52,7 +52,7 @@ public class RegisterStageController {
             accountList.register("resident", firstname.getText(), lastname.getText(), username.getText(), password.getText(), confirmPassword.getText(), imagePath, addressList);
             AccountFileDataSource accountFileDataSource = new AccountFileDataSource("data", "accountList.csv");
             accountFileDataSource.setAccountList(accountList);
-            AlertDefined.alertWarning("complete");
+            AlertDefined.alertNormal("Register successful.");
             returnHomeAction(event);
 
         } catch (IllegalAccessException e) {

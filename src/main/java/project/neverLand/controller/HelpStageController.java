@@ -22,8 +22,9 @@ public class HelpStageController {
     public void initialize() {
         loadManual();
     }
-    private void loadManual(){
-        for(int i=1; i<=15; i++){
+
+    private void loadManual() {
+        for (int i = 1; i <= 15; i++) {
             ImageView imageView = new ImageView();
             imageView.setImage(new Image("image/help/help" + i + ".jpg", 905, 1265, false, false));
             srcollBoard.getChildren().add(imageView);

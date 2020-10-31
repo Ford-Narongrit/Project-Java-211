@@ -39,7 +39,7 @@ public class Package extends Mail {
             setSize("2B");
         } else if (Math.abs(size - 6600) < 0.001) {
             setSize("C");
-        } else if (Math.abs(size - 13200) < 0.001){
+        } else if (Math.abs(size - 13200) < 0.001) {
             setSize("2C");
         } else {
             setSize("Unknown");

@@ -50,55 +50,95 @@ public class WorkerStageController {
     private String personImagePath;
     private String inboxImagePath;
 
-    @FXML private AnchorPane workerAnchorPane;
+    @FXML
+    private AnchorPane workerAnchorPane;
 
-    /** infoPane **/
-    @FXML private Pane infoPane;
-    @FXML private Button infoBtn, addNewFloor;
-    @FXML private TableView<Address> addressTable;
+    /**
+     * infoPane
+     **/
+    @FXML
+    private Pane infoPane;
+    @FXML
+    private Button infoBtn, addNewFloor;
+    @FXML
+    private TableView<Address> addressTable;
     private ObservableList addressObservableList;
     private Address selectedAddress;
-    @FXML private TextField searchInfoPane;
-    @FXML private VBox personBox;
+    @FXML
+    private TextField searchInfoPane;
+    @FXML
+    private VBox personBox;
 
-    /** managePane **/
-    @FXML private Pane managePane;
-    @FXML private Button manageBtn, receivedBtn, showAllInboxBtn;
-    @FXML private TableView<Mail> inboxTable;
+    /**
+     * managePane
+     **/
+    @FXML
+    private Pane managePane;
+    @FXML
+    private Button manageBtn, receivedBtn, showAllInboxBtn;
+    @FXML
+    private TableView<Mail> inboxTable;
     private ObservableList inboxObservableList;
     private Mail selectedMail;
-    @FXML private Label receiver, sender, size;
-    @FXML private TextField searchManagePane;
-    @FXML private ImageView inboxImageView;
-    @FXML private ComboBox sortBy;
+    @FXML
+    private Label receiver, sender, size;
+    @FXML
+    private TextField searchManagePane;
+    @FXML
+    private ImageView inboxImageView;
+    @FXML
+    private ComboBox sortBy;
 
-    /** addNewInboxPane **/
-    @FXML private Pane addNewInboxPane;
-    @FXML private TextField receiverFirstname, receiverLastname, receiverAddress;
-    @FXML private TextField senderFirstname, senderLastname, senderAddress;
-    @FXML private TextField width, length, height, degree, station, trackingNum;
-    @FXML private ImageView newInboxImageView;
-    @FXML private Button addNewInboxBtn, addNewInboxCancelBtn, chooseImageBtn;
-    @FXML private ComboBox sizeComboBox, typeComboBox;
+    /**
+     * addNewInboxPane
+     **/
+    @FXML
+    private Pane addNewInboxPane;
+    @FXML
+    private TextField receiverFirstname, receiverLastname, receiverAddress;
+    @FXML
+    private TextField senderFirstname, senderLastname, senderAddress;
+    @FXML
+    private TextField width, length, height, degree, station, trackingNum;
+    @FXML
+    private ImageView newInboxImageView;
+    @FXML
+    private Button addNewInboxBtn, addNewInboxCancelBtn, chooseImageBtn;
+    @FXML
+    private ComboBox sizeComboBox, typeComboBox;
 
-    /** registerPane **/
-    @FXML private Pane registerPane;
-    @FXML private TextField firstname, lastname, building, floor, room;
-    @FXML private ComboBox roomType;
-    @FXML private Button registerBtn, createBtn, registerCancelBtn, registerChooseImageBtn, createRoom;
-    @FXML private ImageView registerImageView;
+    /**
+     * registerPane
+     **/
+    @FXML
+    private Pane registerPane;
+    @FXML
+    private TextField firstname, lastname, building, floor, room;
+    @FXML
+    private ComboBox roomType;
+    @FXML
+    private Button registerBtn, createBtn, registerCancelBtn, registerChooseImageBtn, createRoom;
+    @FXML
+    private ImageView registerImageView;
 
-    /** profilePane **/
-    @FXML private Pane profilePane;
-    @FXML private Label name, username;
-    @FXML private Button profileBtn, rePassword, changeProfile;
-    @FXML private ImageView profileImageView;
+    /**
+     * profilePane
+     **/
+    @FXML
+    private Pane profilePane;
+    @FXML
+    private Label name, username;
+    @FXML
+    private Button profileBtn, rePassword, changeProfile;
+    @FXML
+    private ImageView profileImageView;
 
     public void setWorkerAnchorPane(String path) {
         workerAnchorPane.getStylesheets().add(getClass().getResource(path).toExternalForm());
     }
 
-    @FXML public void initialize(){
+    @FXML
+    public void initialize() {
         imageDateSource = new ImageDataSource();
         imageSetter = new ImageSetter();
         personImagePath = "image/profileDefault.jpg";
@@ -116,17 +156,17 @@ public class WorkerStageController {
         });
         searchManagePane.textProperty().addListener((observable, oldValue, newValue) -> {
             inboxTable.getColumns().clear();
-            if(!newValue.equals("")){
+            if (!newValue.equals("")) {
                 showInboxData(inboxList.toRoomNumber(newValue));
-            }else{
+            } else {
                 showInboxData(inboxList.toNotReceivedList());
             }
         });
         searchInfoPane.textProperty().addListener((observable, oldValue, newValue) -> {
             addressTable.getColumns().clear();
-            if(!newValue.equals("")){
+            if (!newValue.equals("")) {
                 showAddressData(addressList.toPersonList(newValue));
-            }else{
+            } else {
                 showAddressData(addressList.toList());
             }
 
@@ -134,14 +174,14 @@ public class WorkerStageController {
 
         receiverFirstname.textProperty().addListener(((observable, oldValue, newValue) -> {
             String location = addressList.findRoomNumber(newValue + receiverLastname.getText());
-            if(location != "")
+            if (location != "")
                 receiverAddress.setText(location);
             else
                 receiverAddress.setText("");
         }));
         receiverLastname.textProperty().addListener((observable, oldValue, newValue) -> {
             String location = addressList.findRoomNumber(receiverFirstname.getText() + newValue);
-            if(location != "")
+            if (location != "")
                 receiverAddress.setText(location);
             else
                 receiverAddress.setText("");
@@ -154,16 +194,14 @@ public class WorkerStageController {
                 sizeComboBox.getItems().clear();
                 resetDisable();
                 clearAddInboxField();
-                if(newValue == "Mail"){
-                    sizeComboBox.getItems().addAll("C6","C5","C4","DL","Other");
+                if (newValue == "Mail") {
+                    sizeComboBox.getItems().addAll("C6", "C5", "C4", "DL", "Other");
                     disableToMail();
-                }
-                else if(newValue == "Document"){
-                    sizeComboBox.getItems().addAll("A4","A5","A8","Other");
+                } else if (newValue == "Document") {
+                    sizeComboBox.getItems().addAll("A4", "A5", "A8", "Other");
                     disableToDocument();
-                }
-                else if(newValue == "Package"){
-                    sizeComboBox.getItems().addAll("A","2A","B","2B","C","2C","Other");
+                } else if (newValue == "Package") {
+                    sizeComboBox.getItems().addAll("A", "2A", "B", "2B", "C", "2C", "Other");
                     disableToPackage();
                 }
             }
@@ -172,7 +210,7 @@ public class WorkerStageController {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 disableSize();
-                if(newValue != null) {
+                if (newValue != null) {
                     switch (newValue) {
                         /** Mail **/
                         case "C6":
@@ -230,8 +268,8 @@ public class WorkerStageController {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 inboxTable.getColumns().clear();
-                if(newValue != null){
-                    switch (newValue){
+                if (newValue != null) {
+                    switch (newValue) {
                         case "Recent item":
                             inboxList.sortBy(new DateSortLast());
                             break;
@@ -275,15 +313,17 @@ public class WorkerStageController {
             }
         });
     }
-    private void setTextComboBox(){
-        roomType.getItems().addAll("one bedroom","two bedrooms");
+
+    private void setTextComboBox() {
+        roomType.getItems().addAll("one bedroom", "two bedrooms");
 
         typeComboBox.getItems().addAll("Mail", "Document", "Package");
         typeComboBox.getSelectionModel().select("Mail");
-        sizeComboBox.getItems().addAll("C6","C5","C4","DL","Other");
+        sizeComboBox.getItems().addAll("C6", "C5", "C4", "DL", "Other");
         disableToMail();
     }
-    private void disableToMail(){
+
+    private void disableToMail() {
         width.setDisable(false);
         length.setDisable(false);
         height.setDisable(true);
@@ -291,51 +331,61 @@ public class WorkerStageController {
         station.setDisable(true);
         trackingNum.setDisable(true);
     }
-    private void disableToPackage(){
+
+    private void disableToPackage() {
         width.setDisable(false);
         length.setDisable(false);
         degree.setDisable(true);
     }
-    private void disableToDocument(){
+
+    private void disableToDocument() {
         width.setDisable(false);
         length.setDisable(false);
         height.setDisable(true);
         station.setDisable(true);
         trackingNum.setDisable(true);
     }
-    private void resetDisable(){
+
+    private void resetDisable() {
         height.setDisable(false);
         station.setDisable(false);
         trackingNum.setDisable(false);
         degree.setDisable(false);
     }
-    private void disableSize(){
+
+    private void disableSize() {
         height.setDisable(true);
         width.setDisable(true);
         length.setDisable(true);
     }
-    private void unDisableSize(String type){
-        if(type == "Package"){
+
+    private void unDisableSize(String type) {
+        if (type == "Package") {
             height.setDisable(false);
         }
         width.setDisable(false);
         length.setDisable(false);
     }
-    private void setWidthLength(String width, String length){
+
+    private void setWidthLength(String width, String length) {
         this.width.setText(width);
         this.length.setText(length);
     }
-    private void setWidthLengthHeight(String width, String length, String height){
+
+    private void setWidthLengthHeight(String width, String length, String height) {
         this.width.setText(width);
         this.length.setText(length);
         this.height.setText(height);
     }
 
-    /** infoPane **/
-    public void infoBtnAction(){
+    /**
+     * infoPane
+     **/
+    public void infoBtnAction() {
         infoPane.toFront();
     }
-    private void showAddressData(ArrayList<Address> addressList){
+
+    private void showAddressData(ArrayList<Address> addressList) {
         addressObservableList = FXCollections.observableArrayList(addressList);
         addressTable.setItems(addressObservableList);
 
@@ -343,7 +393,7 @@ public class WorkerStageController {
         configs.add(new StringConfiguration("title:Room Number", "field:roomNumber", "width:0.5"));
         configs.add(new StringConfiguration("title:Room Type", "field:roomType", "width:0.5"));
 
-        for(StringConfiguration configuration : configs){
+        for (StringConfiguration configuration : configs) {
             TableColumn col = new TableColumn(configuration.get("title"));
             col.prefWidthProperty().bind(addressTable.widthProperty().multiply(Double.parseDouble(configuration.get("width"))));
             col.setCellValueFactory(new PropertyValueFactory<>(configuration.get("field")));
@@ -352,16 +402,17 @@ public class WorkerStageController {
             addressTable.getColumns().add(col);
         }
     }
-    private void showSelectedAddress(Address address){
+
+    private void showSelectedAddress(Address address) {
         personBox.getChildren().clear();
         selectedAddress = address;
-        for(Person person: selectedAddress.getRoomers()){
+        for (Person person : selectedAddress.getRoomers()) {
             //todo remove roomer by selectAddress;
             ImageView imageView = new ImageView();
             imageSetter.setImage(imageView, person.getImagePath());
             personBox.getChildren().add(imageView);
             Label personName = new Label(person.toString());
-            personName.setPadding(new Insets(20,0,20,0));
+            personName.setPadding(new Insets(20, 0, 20, 0));
             personName.getStyleClass().add("bigLabel");
             personBox.getChildren().add(personName);
         }
@@ -369,13 +420,17 @@ public class WorkerStageController {
 
     //todo create method can edit personData
 
-    /** managePane **/
-    public void manageBtnAction(){
+    /**
+     * managePane
+     **/
+    public void manageBtnAction() {
         managePane.toFront();
     }
-    private void setComboBoxSortBy(){
+
+    private void setComboBoxSortBy() {
         sortBy.getItems().addAll("Recent item", "Old item", "Room number(0-9)", "Room number(9-0)");
     }
+
     private void showInboxData(ArrayList<Mail> inboxList) {
         inboxObservableList = FXCollections.observableArrayList(inboxList);
         inboxTable.setItems(inboxObservableList);
@@ -393,24 +448,27 @@ public class WorkerStageController {
             inboxTable.getColumns().add(col);
         }
     }
-    private void showSelectedMail(Mail mail){
+
+    private void showSelectedMail(Mail mail) {
         selectedMail = mail;
         imageSetter.setImage(inboxImageView, selectedMail.getImagePath());
         receiver.setText(selectedMail.getReceiver().getFirstName());
         sender.setText(selectedMail.getSender().getFirstName());
         size.setText(String.valueOf(selectedMail.getSize()));
     }
+
     public void showAllInboxBtnAction(ActionEvent event) throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/showAllInboxStage.fxml"));
-        stage.setScene(new Scene(loader.load(),800,600));
+        stage.setScene(new Scene(loader.load(), 800, 600));
         stage.initModality(Modality.APPLICATION_MODAL);
         ShowAllInboxStageController showAllInboxStageController = loader.getController();
         showAllInboxStageController.setInboxList(inboxList);
 
         stage.show();
     }
-    public void receivedInboxBtnAction(){
+
+    public void receivedInboxBtnAction() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd--HH:mm:ss");
         Date date = new Date();
         selectedMail.setReceived(true);
@@ -420,18 +478,22 @@ public class WorkerStageController {
         updateInboxTable();
     }
 
-    /** addNewInboxPane **/
-    public void addInboxBtnAction(){
+    /**
+     * addNewInboxPane
+     **/
+    public void addInboxBtnAction() {
         addNewInboxPane.toFront();
     }
-    public void addNewInboxChooseImage(ActionEvent event){
+
+    public void addNewInboxChooseImage(ActionEvent event) {
         inboxImagePath = imageDateSource.getPathForFileChooser(event, "inbox");
         imageSetter.setImage(newInboxImageView, inboxImagePath);
     }
-    public void addNewInboxBtnAction(){
+
+    public void addNewInboxBtnAction() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd--HH:mm:ss");
         Date date = new Date();
-        if(!checkAllBoxNull()) {
+        if (!checkAllBoxNull()) {
             try {
                 Mail mail;
                 if (isPackage()) {
@@ -464,16 +526,16 @@ public class WorkerStageController {
                 updateInboxTable();
             } catch (IllegalAccessException e) {
                 AlertDefined.alertWarning(e.getMessage());
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 AlertDefined.alertWarning(e.getMessage());
             }
-        }
-        else{
+        } else {
             AlertDefined.alertWarning("please input all box");
         }
     }
-    private boolean checkAllBoxNull(){
-        return  senderFirstname.getText().equals("") ||
+
+    private boolean checkAllBoxNull() {
+        return senderFirstname.getText().equals("") ||
                 senderLastname.getText().equals("") ||
                 senderAddress.getText().equals("") ||
                 receiverFirstname.getText().equals("") ||
@@ -481,40 +543,46 @@ public class WorkerStageController {
                 receiverAddress.getText().equals("") ||
                 size.getText().equals("");
     }
-    private boolean isPackage(){
+
+    private boolean isPackage() {
         return !station.getText().equals("") && !trackingNum.getText().equals("");
     }
-    private boolean isDocument(){
+
+    private boolean isDocument() {
         return !degree.getText().equals("");
     }
-    public void addNewInboxCancelBtnAction(){
+
+    public void addNewInboxCancelBtnAction() {
         managePane.toFront();
         clearAddInboxField();
     }
 
-    /** registerPane **/
-    public void registerBtnAction(){
+    /**
+     * registerPane
+     **/
+    public void registerBtnAction() {
         registerPane.toFront();
     }
-    public void registerChooseImage(ActionEvent event){
+
+    public void registerChooseImage(ActionEvent event) {
         personImagePath = imageDateSource.getPathForFileChooser(event, "person");
         imageSetter.setImage(registerImageView, personImagePath);
     }
-    public void createBtnAction(){
+
+    public void createBtnAction() {
         try {
-            addressList.findAddress( building.getText() + "-" + floor.getText() + "/" + room.getText());
+            addressList.findAddress(building.getText() + "-" + floor.getText() + "/" + room.getText());
             addressList.getCurrentAddress().addPersonToRoom(new Person(firstname.getText(), lastname.getText(), personImagePath));
             saveAddressList();
             clearRegisterPaneField();
             updateAddressTable();
-        }
-        catch (IllegalAccessException e){
+        } catch (IllegalAccessException e) {
             AlertDefined.alertWarning(e.getMessage());
         }
     }
 
     public void createRoomBtnAction() {
-        if(building.getText().equals("") || floor.getText().equals("") || room.getText().equals("")){
+        if (building.getText().equals("") || floor.getText().equals("") || room.getText().equals("")) {
             AlertDefined.alertWarning("Please enter building, floor and room");
             return;
         }
@@ -523,20 +591,24 @@ public class WorkerStageController {
             addressList.findAddress(roomNumber);
             AlertDefined.alertWarning("This room has already been added.");
         } catch (IllegalAccessException e) {
-            addressList.addAddress(new Address(roomNumber, (String)roomType.getSelectionModel().getSelectedItem()));
-            AlertDefined.alertWarning("complete");
+            addressList.addAddress(new Address(roomNumber, (String) roomType.getSelectionModel().getSelectedItem()));
+            AlertDefined.alertNormal("Create room successful.");
         }
         saveAddressList();
         updateAddressTable();
     }
-    public void registerCancelBtnAction(){
+
+    public void registerCancelBtnAction() {
         clearRegisterPaneField();
     }
 
-    /** profilePane **/
-    public void profileBtnAction(){
+    /**
+     * profilePane
+     **/
+    public void profileBtnAction() {
         profilePane.toFront();
     }
+
     public void reSetPasswordBtnAction() {
         CustomDialog customDialog = new CustomDialog();
         customDialog.setTitleAndHeaderDialog("RePassword", "Please enter new password.");
@@ -548,7 +620,8 @@ public class WorkerStageController {
         }
         saveAccountList();
     }
-    public void changeProfile(ActionEvent event){
+
+    public void changeProfile(ActionEvent event) {
         personImagePath = imageDateSource.getPathForFileChooser(event, "person");
         imageSetter.setImage(profileImageView, personImagePath);
         worker.setImagePath(personImagePath);
@@ -556,7 +629,9 @@ public class WorkerStageController {
         saveAccountList();
     }
 
-    /** home **/
+    /**
+     * home
+     **/
     public void homeBtnAction(ActionEvent event) throws IOException {
         Button b = (Button) event.getSource();
         Stage stage = (Stage) b.getScene().getWindow();
@@ -565,16 +640,21 @@ public class WorkerStageController {
         LoginStageController loginStageController = loader.getController();
         loginStageController.setInboxList(inboxList);
         loginStageController.setAddressList(addressList);
-    };
+    }
 
-    /** clear/save/update **/
-    private void clearSelectMail(){
+    ;
+
+    /**
+     * clear/save/update
+     **/
+    private void clearSelectMail() {
         inboxImagePath = "image/emptyInbox.png";
-        inboxImageView.setImage(new Image(inboxImagePath,150.00,150.00,false,false));
+        inboxImageView.setImage(new Image(inboxImagePath, 150.00, 150.00, false, false));
         selectedMail = null;
         inboxTable.getSelectionModel().clearSelection();
     }
-    private void clearAddInboxField(){
+
+    private void clearAddInboxField() {
         receiverFirstname.clear();
         receiverLastname.clear();
         receiverAddress.clear();
@@ -588,9 +668,10 @@ public class WorkerStageController {
         station.clear();
         trackingNum.clear();
         inboxImagePath = "image/emptyInbox.png";
-        newInboxImageView.setImage(new Image(inboxImagePath,150.00,150.00,false,false));
+        newInboxImageView.setImage(new Image(inboxImagePath, 150.00, 150.00, false, false));
     }
-    private void clearRegisterPaneField(){
+
+    private void clearRegisterPaneField() {
         firstname.clear();
         lastname.clear();
         building.clear();
@@ -601,7 +682,7 @@ public class WorkerStageController {
         imageSetter.setImage(registerImageView, personImagePath);
     }
 
-    private void saveInboxList(){
+    private void saveInboxList() {
         InboxFileDataSource inboxFileDataSource = null;
         try {
             inboxFileDataSource = new InboxFileDataSource("data", "inboxList.csv");
@@ -610,19 +691,21 @@ public class WorkerStageController {
             e.printStackTrace();
         }
     }
-    private void saveAccountList(){
+
+    private void saveAccountList() {
         AccountFileDataSource accountFileDataSource = null;
         try {
-            accountFileDataSource = new AccountFileDataSource("data","accountList.csv");
+            accountFileDataSource = new AccountFileDataSource("data", "accountList.csv");
             accountFileDataSource.setAccountList(accountList);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    private void saveAddressList(){
+
+    private void saveAddressList() {
         AddressListFileDataSource addressListFileDataSource = null;
         try {
-            addressListFileDataSource = new AddressListFileDataSource("data","addressList.csv");
+            addressListFileDataSource = new AddressListFileDataSource("data", "addressList.csv");
             addressListFileDataSource.setAddressList(addressList);
         } catch (IOException e) {
             e.printStackTrace();
@@ -630,31 +713,37 @@ public class WorkerStageController {
 
     }
 
-    private void updateInboxTable(){
+    private void updateInboxTable() {
         inboxTable.getColumns().clear();
         showInboxData(inboxList.toNotReceivedList());
     }
+
     private void updateAddressTable() {
         addressTable.getColumns().clear();
         showAddressData(addressList.toList());
     }
 
-    /** PassValueToThisStage **/
+    /**
+     * PassValueToThisStage
+     **/
     public void setWorker(Account worker) {
         this.worker = worker;
         name.setText(worker.getPersonData().toString());
         username.setText(worker.getUsername());
         imageSetter.setImage(profileImageView, worker.getImagePath());
     }
+
     public void setInboxList(InboxList inboxList) {
         this.inboxList = inboxList;
         inboxList.sortBy(new DateSortLast());
         showInboxData(inboxList.toNotReceivedList());
     }
+
     public void setAddressList(AddressList addressList) {
         this.addressList = addressList;
         showAddressData(addressList.toList());
     }
+
     public void setAccountList(AccountList accountList) {
         this.accountList = accountList;
     }

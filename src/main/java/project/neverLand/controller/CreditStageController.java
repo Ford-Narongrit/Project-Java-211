@@ -13,7 +13,8 @@ public class CreditStageController {
     @FXML
     Button back;
 
-    public void initialize() {}
+    public void initialize() {
+    }
 
     public void backToHelp(ActionEvent event) throws IOException {
         Button b = (Button) event.getSource();
